@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 04 — Bateria Completa | Apostila de Mixagem</title>
+<meta content="Mixagem profissional de bateria: kick, snare, hi-hat, toms, overheads e room. EQ, compressão, transient shaping e compressão paralela com parâmetros detalhados." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-strong: rgba(255,255,255,0.07);
+
+      --accent-purple: #7c3aed;
+      --accent-purple-light: #a78bfa;
+      --accent-cyan: #06b6d4;
+      --accent-cyan-light: #67e8f9;
+      --accent-amber: #f59e0b;
+      --accent-amber-light: #fcd34d;
+      --accent-green: #10b981;
+      --accent-green-light: #6ee7b7;
+      --accent-red: #ef4444;
+      --accent-orange: #f97316;
+      --accent-orange-light: #fdba74;
+
+      /* Módulo 04 — laranja/vermelho quente (energia da bateria) */
+      --gradient-hero: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+      --gradient-card: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(239,68,68,0.08) 100%);
+      --gradient-blue: linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(124,58,237,0.08) 100%);
+      --gradient-green: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(6,182,212,0.08) 100%);
+
+      --text-primary: #f0f0f8;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-medium: rgba(255,255,255,0.10);
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(249,115,22,0.2);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --sidebar-width: 280px;
+      --header-height: 64px;
+      --transition-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --transition-med:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--accent-orange);border-radius:99px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-orange-light)}
+
+    .bg-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .bg-ambient::before{content:'';position:absolute;top:-10%;right:-5%;width:650px;height:650px;background:radial-gradient(circle,rgba(249,115,22,0.1) 0%,transparent 65%);border-radius:50%;animation:f1 22s ease-in-out infinite}
+    .bg-ambient::after{content:'';position:absolute;bottom:-20%;left:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(239,68,68,0.07) 0%,transparent 70%);border-radius:50%;animation:f2 28s ease-in-out infinite}
+    @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,40px) scale(1.08)}}
+    @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(35px,-30px) scale(1.1)}}
+
+    /* HEADER */
+    .top-header{position:fixed;top:0;left:0;right:0;height:var(--header-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+    .header-brand{display:flex;align-items:center;gap:12px}
+    .header-logo{width:36px;height:36px;background:var(--gradient-hero);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .header-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700}
+    .header-subtitle{font-size:.7rem;color:var(--text-muted)}
+    .header-nav{display:flex;align-items:center;gap:8px}
+    .nav-pill{padding:6px 14px;border-radius:99px;font-size:.78rem;font-weight:500;border:1px solid var(--border-medium);background:var(--bg-glass);color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);display:inline-flex;align-items:center;gap:6px}
+    .nav-pill:hover{border-color:var(--accent-orange);color:var(--accent-orange-light);background:rgba(249,115,22,0.1)}
+    .nav-pill.active{background:var(--gradient-hero);border-color:transparent;color:white}
+    .menu-toggle{display:none;background:var(--bg-glass);border:1px solid var(--border-medium);color:var(--text-primary);border-radius:var(--radius-sm);padding:8px;cursor:pointer;font-size:1.1rem;transition:all var(--transition-fast)}
+
+    .app-layout{display:flex;padding-top:var(--header-height);min-height:100vh;position:relative;z-index:1}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-width);background:var(--bg-secondary);border-right:1px solid var(--border-subtle);position:fixed;top:var(--header-height);left:0;bottom:0;overflow-y:auto;padding:24px 16px;transition:transform var(--transition-med);z-index:90}
+    .sidebar-section-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:0 8px;margin-bottom:8px;margin-top:20px}
+    .sidebar-section-label:first-child{margin-top:0}
+    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);border:1px solid transparent;margin-bottom:2px}
+    .sidebar-item:hover{background:var(--bg-glass-strong);color:var(--text-primary);border-color:var(--border-subtle)}
+    .sidebar-item.active{background:rgba(249,115,22,0.12);color:var(--accent-orange-light);border-color:rgba(249,115,22,0.3)}
+    .sidebar-item .item-icon{font-size:1rem;flex-shrink:0}
+    .sidebar-item .item-number{font-size:.65rem;font-weight:700;background:var(--bg-glass-strong);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-left:auto;flex-shrink:0}
+    .sidebar-item.active .item-number{background:rgba(249,115,22,0.25);color:var(--accent-orange-light)}
+    .progress-bar-container{margin:20px 8px 0;background:var(--bg-glass);border-radius:99px;height:4px;overflow:hidden}
+    .progress-bar-fill{height:100%;width:33.3%;background:var(--gradient-hero);border-radius:99px}
+    .progress-label{display:flex;justify-content:space-between;padding:6px 4px 0;font-size:.68rem;color:var(--text-muted)}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:85}
+
+    .main-content{margin-left:var(--sidebar-width);flex:1;padding:0 0 80px}
+
+    /* HERO */
+    .module-hero{background:linear-gradient(135deg,rgba(249,115,22,0.18) 0%,rgba(239,68,68,0.1) 50%,transparent 100%);border-bottom:1px solid var(--border-subtle);padding:56px 48px 48px;position:relative;overflow:hidden}
+    .module-hero::before{content:'';position:absolute;top:-40%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(249,115,22,0.15) 0%,transparent 70%);pointer-events:none}
+    .module-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.4);border-radius:99px;font-size:.75rem;font-weight:600;color:var(--accent-orange-light);letter-spacing:.05em;margin-bottom:20px}
+    .module-title{font-family:'Outfit',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--accent-orange-light) 55%,#f87171 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .module-lead{font-size:1.05rem;color:var(--text-secondary);max-width:680px;line-height:1.8;margin-bottom:32px}
+    .module-meta{display:flex;flex-wrap:wrap;gap:12px}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.78rem;color:var(--text-secondary)}
+
+    /* SECTIONS */
+    .content-section{padding:48px 48px 0}
+    .section-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+    .section-icon{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .icon-orange{background:rgba(249,115,22,0.2);border:1px solid rgba(249,115,22,0.3)}
+    .icon-red   {background:rgba(239,68,68,0.2); border:1px solid rgba(239,68,68,0.3)}
+    .icon-amber {background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.3)}
+    .icon-green {background:rgba(16,185,129,0.2);border:1px solid rgba(16,185,129,0.3)}
+    .icon-cyan  {background:rgba(6,182,212,0.2); border:1px solid rgba(6,182,212,0.3)}
+    .icon-purple{background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.3)}
+    .icon-blue  {background:rgba(59,130,246,0.2);border:1px solid rgba(59,130,246,0.3)}
+    .section-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text-primary)}
+    .section-title small{display:block;font-size:.8rem;font-weight:500;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px}
+    .divider{height:1px;background:var(--border-subtle);margin:48px 0}
+
+    /* ═══ DRUM PIECE CARD (componente central deste módulo) ═══ */
+    .drum-piece{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);overflow:hidden;margin-bottom:40px;transition:box-shadow var(--transition-med)}
+    .drum-piece:hover{box-shadow:var(--shadow-card)}
+    .drum-piece-header{padding:24px 28px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:16px}
+    .drum-piece-icon{width:52px;height:52px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+    .drum-piece-meta{}
+    .drum-piece-name{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text-primary);margin-bottom:4px}
+    .drum-piece-desc{font-size:.82rem;color:var(--text-secondary)}
+    .drum-piece-tags{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+
+    .drum-piece-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+    .drum-col{padding:24px 28px}
+    .drum-col:first-child{border-right:1px solid var(--border-subtle)}
+
+    .drum-col-title{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+    /* EQ strip */
+    .eq-strip{margin-bottom:20px}
+    .eq-band{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border-subtle)}
+    .eq-band:last-child{border-bottom:none}
+    .eq-band-freq{font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;width:72px;flex-shrink:0;color:var(--text-primary)}
+    .eq-band-type{font-size:.68rem;font-weight:600;padding:2px 7px;border-radius:4px;flex-shrink:0;min-width:52px;text-align:center}
+    .eq-band-action{flex:1;font-size:.8rem;color:var(--text-secondary);line-height:1.4}
+    .eq-band-value{font-family:'JetBrains Mono',monospace;font-size:.75rem;font-weight:700;flex-shrink:0;white-space:nowrap}
+    .band-cut    {background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3)}
+    .band-boost  {background:rgba(16,185,129,0.15);color:var(--accent-green-light);border:1px solid rgba(16,185,129,0.3)}
+    .band-hpf    {background:rgba(124,58,237,0.15);color:var(--accent-purple-light);border:1px solid rgba(124,58,237,0.3)}
+    .band-shelf  {background:rgba(6,182,212,0.15);color:var(--accent-cyan-light);border:1px solid rgba(6,182,212,0.3)}
+    .band-notch  {background:rgba(245,158,11,0.15);color:var(--accent-amber-light);border:1px solid rgba(245,158,11,0.3)}
+
+    /* Compressor strip */
+    .comp-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+    .comp-param{}
+    .comp-param-label{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px}
+    .comp-param-value{font-family:'JetBrains Mono',monospace;font-size:.9rem;font-weight:700;color:var(--text-primary)}
+    .comp-param-note{font-size:.68rem;color:var(--text-muted);margin-top:1px}
+
+    /* Tip inside drum card */
+    .drum-tip{background:rgba(249,115,22,0.06);border:1px solid rgba(249,115,22,0.2);border-radius:var(--radius-md);padding:14px 16px;margin-top:16px;font-size:.82rem;color:var(--text-secondary);line-height:1.6}
+    .drum-tip strong{color:var(--accent-orange-light)}
+
+    /* Tags */
+    .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:600}
+    .tag-ok    {background:rgba(16,185,129,0.15);color:var(--accent-green-light);border:1px solid rgba(16,185,129,0.3)}
+    .tag-warn  {background:rgba(245,158,11,0.15);color:var(--accent-amber-light);border:1px solid rgba(245,158,11,0.3)}
+    .tag-danger{background:rgba(239,68,68,0.15); color:#fca5a5;border:1px solid rgba(239,68,68,0.3)}
+    .tag-info  {background:rgba(6,182,212,0.15); color:var(--accent-cyan-light);border:1px solid rgba(6,182,212,0.3)}
+    .tag-purple{background:rgba(124,58,237,0.15);color:var(--accent-purple-light);border:1px solid rgba(124,58,237,0.3)}
+    .tag-orange{background:rgba(249,115,22,0.15);color:var(--accent-orange-light);border:1px solid rgba(249,115,22,0.3)}
+
+    /* CALLOUTS */
+    .callout{border-radius:var(--radius-md);padding:20px 24px;margin-bottom:24px;display:flex;gap:16px;border-left:4px solid}
+    .callout-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+    .callout-title{font-weight:700;font-size:.9rem;margin-bottom:6px}
+    .callout-body{font-size:.85rem;line-height:1.7}
+    .callout.tip    {background:rgba(16,185,129,0.08);border-color:var(--accent-green);color:var(--text-secondary)}
+    .callout.tip .callout-title{color:var(--accent-green-light)}
+    .callout.warning{background:rgba(245,158,11,0.08);border-color:var(--accent-amber);color:var(--text-secondary)}
+    .callout.warning .callout-title{color:var(--accent-amber-light)}
+    .callout.danger {background:rgba(239,68,68,0.08);border-color:var(--accent-red);color:var(--text-secondary)}
+    .callout.danger .callout-title{color:#fca5a5}
+    .callout.info   {background:rgba(6,182,212,0.08);border-color:var(--accent-cyan);color:var(--text-secondary)}
+    .callout.info .callout-title{color:var(--accent-cyan-light)}
+    .callout.orange {background:rgba(249,115,22,0.08);border-color:var(--accent-orange);color:var(--text-secondary)}
+    .callout.orange .callout-title{color:var(--accent-orange-light)}
+    .callout.purple {background:rgba(124,58,237,0.08);border-color:var(--accent-purple);color:var(--text-secondary)}
+    .callout.purple .callout-title{color:var(--accent-purple-light)}
+
+    /* TABLES */
+    .param-table-wrapper{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .param-table-header{background:rgba(249,115,22,0.1);border-bottom:1px solid var(--border-subtle);padding:14px 20px;display:flex;align-items:center;gap:10px;font-size:.8rem;font-weight:600;color:var(--accent-orange-light);letter-spacing:.05em;text-transform:uppercase}
+    .param-table{width:100%;border-collapse:collapse}
+    .param-table th{padding:12px 16px;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);text-align:left;border-bottom:1px solid var(--border-subtle);background:var(--bg-glass)}
+    .param-table td{padding:13px 16px;font-size:.84rem;color:var(--text-secondary);border-bottom:1px solid var(--border-subtle);vertical-align:top}
+    .param-table tr:last-child td{border-bottom:none}
+    .param-table tr:hover td{background:var(--bg-glass)}
+    .param-table td:first-child{font-weight:600;color:var(--text-primary);font-family:'JetBrains Mono',monospace;font-size:.8rem}
+
+    /* STEPS */
+    .step-list{counter-reset:step-counter;list-style:none;margin-bottom:32px}
+    .step-list li{counter-increment:step-counter;display:flex;gap:20px;margin-bottom:20px;position:relative}
+    .step-list li::before{content:counter(step-counter);width:36px;height:36px;background:var(--gradient-hero);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;margin-top:2px}
+    .step-list li::after{content:'';position:absolute;left:17px;top:40px;bottom:-20px;width:2px;background:var(--border-subtle)}
+    .step-list li:last-child::after{display:none}
+    .step-title{font-weight:700;font-size:.95rem;color:var(--text-primary);margin-bottom:6px}
+    .step-desc{font-size:.85rem;color:var(--text-secondary);line-height:1.7}
+    .step-code{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:.78rem;background:var(--bg-secondary);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:10px 14px;color:var(--accent-orange-light);display:block}
+
+    /* PARALLEL COMP DIAGRAM */
+    .parallel-diagram{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:28px;margin-bottom:32px}
+    .pd-title{font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;color:var(--text-primary);margin-bottom:24px;display:flex;align-items:center;gap:8px}
+    .pd-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center}
+    .pd-node{background:var(--bg-secondary);border:1px solid var(--border-medium);border-radius:var(--radius-md);padding:14px 18px;text-align:center;min-width:120px}
+    .pd-node.source{border-color:rgba(249,115,22,0.5);background:rgba(249,115,22,0.08)}
+    .pd-node.dry   {border-color:rgba(6,182,212,0.4);background:rgba(6,182,212,0.06)}
+    .pd-node.wet   {border-color:rgba(239,68,68,0.4);background:rgba(239,68,68,0.06)}
+    .pd-node.sum   {border-color:rgba(16,185,129,0.4);background:rgba(16,185,129,0.06)}
+    .pd-node-label{font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+    .pd-node-sub  {font-size:.7rem;color:var(--text-muted)}
+    .pd-arrow{font-size:1.2rem;color:var(--text-muted);padding:0 8px;flex-shrink:0}
+    .pd-split{display:flex;flex-direction:column;align-items:center;gap:8px;position:relative}
+    .pd-split::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border-subtle)}
+    .pd-branch{display:flex;align-items:center;gap:0}
+
+    /* DRUM BUS section */
+    .bus-card{background:var(--bg-card);border:1px solid rgba(249,115,22,0.3);border-radius:var(--radius-lg);padding:24px;margin-bottom:32px}
+    .bus-card-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--accent-orange-light);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+
+    /* CHECKLIST */
+    .checklist{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .checklist-header{background:rgba(16,185,129,0.1);border-bottom:1px solid var(--border-subtle);padding:16px 24px;font-size:.85rem;font-weight:700;color:var(--accent-green-light);display:flex;align-items:center;gap:10px}
+    .checklist-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background var(--transition-fast);user-select:none}
+    .checklist-item > div{flex:1;min-width:0}
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-item:hover{background:var(--bg-glass)}
+    .checklist-item input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--border-medium);border-radius:5px;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all var(--transition-fast);position:relative}
+    .checklist-item input[type="checkbox"]:checked{background:var(--accent-green);border-color:var(--accent-green)}
+    .checklist-item input[type="checkbox"]:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:white}
+    .check-title{font-size:.85rem;font-weight:600;color:var(--text-primary);display:block;margin-bottom:2px}
+    .check-desc{font-size:.78rem;color:var(--text-muted)}
+
+    /* NEXT/PREV */
+    .next-module{margin:48px 48px 0;background:var(--gradient-card);border:1px solid rgba(249,115,22,0.3);border-radius:var(--radius-xl);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+    .next-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+    .next-title{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .next-desc{font-size:.85rem;color:var(--text-secondary)}
+    .btn-next{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gradient-hero);border:none;border-radius:99px;font-size:.9rem;font-weight:700;color:white;cursor:pointer;text-decoration:none;transition:all var(--transition-fast);white-space:nowrap;font-family:'Inter',sans-serif}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+    .btn-prev{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);font-family:'Inter',sans-serif}
+    .btn-prev:hover{background:var(--bg-glass-strong);color:var(--text-primary)}
+    .nav-buttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+    code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(249,115,22,0.1);border:1px solid rgba(249,115,22,0.2);border-radius:4px;padding:1px 6px;color:var(--accent-orange-light)}
+    strong{color:var(--text-primary);font-weight:700}
+    .section-block{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .section-block.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .animate-in{animation:fadeInUp .6s ease-out forwards}
+    .animate-in-delay-1{animation-delay:.1s;opacity:0}
+    .animate-in-delay-2{animation-delay:.2s;opacity:0}
+    .animate-in-delay-3{animation-delay:.3s;opacity:0}
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.5)}
+      .sidebar-overlay.open{display:block}
+      .main-content{margin-left:0}
+      .module-hero,.content-section{padding-left:24px;padding-right:24px}
+      .next-module{margin:32px 24px 0;flex-direction:column}
+      .btn-next{width:100%;justify-content:center}
+      .menu-toggle{display:flex;align-items:center;justify-content:center}
+      .header-nav{display:none}
+      .drum-piece-body{grid-template-columns:1fr}
+      .drum-col:first-child{border-right:none;border-bottom:1px solid var(--border-subtle)}
+      .comp-strip{grid-template-columns:repeat(3,1fr)}
+      .drum-piece-tags{margin-left:0;margin-top:12px}
+      .drum-piece-header{flex-wrap:wrap}
+    }
+    @media(max-width:600px){
+      .module-hero,.content-section{padding-left:16px;padding-right:16px}
+      .next-module{margin:24px 16px 0;padding:24px}
+      .comp-strip{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+<div aria-hidden="true" class="bg-ambient"></div>
+<header class="top-header" role="banner">
+<div class="header-brand">
+<div aria-hidden="true" class="header-logo">🥁</div>
+<div><div class="header-title">Apostila de Mixagem</div><div class="header-subtitle">Guia Técnico para Produtores</div></div>
+</div>
+<nav class="header-nav">
+<a class="nav-pill" href="#kick">Kick</a>
+<a class="nav-pill" href="#snare">Snare</a>
+<a class="nav-pill" href="#toms">Toms</a>
+<a class="nav-pill active" href="#drum-bus">Drum Bus</a>
+</nav>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<div aria-hidden="true" class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app-layout">
+<aside aria-label="Índice" class="sidebar" id="sidebar" role="navigation">
+<div class="sidebar-section-label">Módulo Atual</div>
+<a class="sidebar-item active" href="#kick" id="nav-kick"><span class="item-icon">💥</span> Kick (Bumbo)<span class="item-number">01</span></a>
+<a class="sidebar-item" href="#snare" id="nav-snare"><span class="item-icon">🥁</span> Snare (Caixa)<span class="item-number">02</span></a>
+<a class="sidebar-item" href="#hihat" id="nav-hihat"><span class="item-icon">🔔</span> Hi-Hat<span class="item-number">03</span></a>
+<a class="sidebar-item" href="#toms" id="nav-toms"><span class="item-icon">🪘</span> Toms<span class="item-number">04</span></a>
+<a class="sidebar-item" href="#overheads" id="nav-oh"><span class="item-icon">🎙️</span> Overheads<span class="item-number">05</span></a>
+<a class="sidebar-item" href="#room" id="nav-room"><span class="item-icon">🏛️</span> Room Mic<span class="item-number">06</span></a>
+<a class="sidebar-item" href="#drum-bus" id="nav-bus"><span class="item-icon">🔀</span> Drum Bus<span class="item-number">07</span></a>
+<a class="sidebar-item" href="#paralelo" id="nav-par"><span class="item-icon">⚡</span> Paralelo (NY)<span class="item-number">08</span></a>
+<a class="sidebar-item" href="#checklist" id="nav-chk"><span class="item-icon">✅</span> Checklist<span class="item-number">09</span></a>
+<div class="sidebar-section-label">Outros Módulos</div>
+<a class="sidebar-item" href="modulo-01-pre-mixagem.html"><span class="item-icon">🏗️</span> Módulo 01 — Pré-Mix</a>
+<a class="sidebar-item" href="modulo-02-escuta-referencias.html"><span class="item-icon">👂</span> Módulo 02 — Escuta</a>
+<a class="sidebar-item" href="modulo-03-limpeza-edicao.html"><span class="item-icon">✂️</span> Módulo 03 — Edição</a>
+<a class="sidebar-item" href="modulo-04-bateria.html"><span class="item-icon">🥁</span> Módulo 04 — Bateria</a>
+<a class="sidebar-item" href="modulo-05-baixo.html"><span class="item-icon">🎸</span> Módulo 05 — Baixo</a>
+<a class="sidebar-item" href="modulo-06-guitarras.html"><span class="item-icon">🎸</span> Módulo 06 — Guitarra</a>
+<a class="sidebar-item" href="modulo-07-violao.html"><span class="item-icon">🪕</span> Módulo 07 — Violão</a>
+<a class="sidebar-item" href="modulo-08-teclados.html"><span class="item-icon">🎹</span> Módulo 08 — Teclados</a>
+<a class="sidebar-item" href="modulo-09-vocais-masculinos.html"><span class="item-icon">🎤</span> Módulo 09 — Vocal Masc.</a>
+<a class="sidebar-item" href="modulo-10-vocais-femininos.html"><span class="item-icon">👩‍🎤</span> Módulo 10 — Vocal Fem.</a>
+<a class="sidebar-item" href="modulo-11-mix-bus.html"><span class="item-icon">🚌</span> Módulo 11 — Mix Bus</a>
+<a class="sidebar-item" href="modulo-12-entrega-final.html"><span class="item-icon">🏁</span> Módulo 12 — Entrega Final</a>
+<div class="progress-bar-container"><div class="progress-bar-fill"></div></div>
+<div class="progress-label"><span>Módulo 4 de 12</span><span>33%</span></div>
+</aside>
+<main class="main-content" role="main">
+<!-- HERO -->
+<section class="module-hero animate-in">
+<div class="module-badge"><span>🥁</span> MÓDULO 04</div>
+<h1 class="module-title animate-in animate-in-delay-1">Bateria Completa</h1>
+<p class="module-lead animate-in animate-in-delay-2">
+        A bateria é a espinha dorsal rítmica de qualquer produção. Mixar bem cada peça — e fazê-las soar como um conjunto coerente — exige entender a função de cada microfone, os parâmetros certos de EQ e compressão, e como integrar tudo no Drum Bus.
+      </p>
+<div class="module-meta animate-in animate-in-delay-3">
+<div class="meta-chip"><span>⏱️</span> 70 min de leitura</div>
+<div class="meta-chip"><span>🎯</span> Nível: Intermediário</div>
+<div class="meta-chip"><span>🥁</span> 6 peças + Bus</div>
+<div class="meta-chip"><span>⚡</span> Compressão paralela incluída</div>
+</div>
+</section>
+<!-- ═══ VISÃO GERAL ═══ -->
+<section class="content-section section-block" id="visao-geral" style="padding-bottom:0">
+<div class="callout orange">
+<div class="callout-icon">🧭</div>
+<div class="callout-content">
+<div class="callout-title">Filosofia da mixagem de bateria</div>
+<div class="callout-body">Cada peça deve soar <strong>ótima isolada</strong>, mas a bateria só está pronta quando soa <strong>coerente como conjunto</strong>. A ordem de trabalho é: (1) Kick → (2) Snare → (3) Hi-Hat → (4) Toms → (5) Overheads → (6) Room → (7) Drum Bus. O Bus une tudo — não comece a trabalhar nele antes de ter as peças individuais ajustadas.</div>
+</div>
+</div>
+</section>
+<!-- ═══ KICK ═══ -->
+<section class="content-section section-block" id="kick">
+<div class="section-header">
+<div class="section-icon icon-red">💥</div>
+<div><h2 class="section-title">Kick — Bumbo<small>Punch, corpo e definição no low end</small></h2></div>
+</div>
+<div class="drum-piece">
+<div class="drum-piece-header">
+<div class="drum-piece-icon" style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3)">💥</div>
+<div class="drum-piece-meta">
+<div class="drum-piece-name">Kick In + Kick Out</div>
+<div class="drum-piece-desc">Mic interno (inside) para ataque e click. Mic externo (outside) para corpo e sub. Blend dos dois para o resultado final.</div>
+</div>
+<div class="drum-piece-tags">
+<span class="tag tag-danger">Região crítica: 40–80 Hz</span>
+<span class="tag tag-orange">Sidechain do baixo</span>
+</div>
+</div>
+<div class="drum-piece-body">
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-cyan-light)">🎚️ EQ — Parâmetros</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">Sub 20–35 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">Cortar tudo abaixo de 20–30 Hz — inaudível e consome headroom</span>
+<span class="eq-band-value" style="color:#fca5a5">HPF 20Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">50–80 Hz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Corpo e profundidade do bumbo — ajuste conforme a afinação</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+3 a +5 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">200–400 Hz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Região "abafada" do bumbo — remove o som de caixa vazia</span>
+<span class="eq-band-value" style="color:#fca5a5">−3 a −6 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">2–5 kHz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Click e ataque do beater — presença no mix, audível em sistemas pequenos</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+2 a +4 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">6–8 kHz</span>
+<span class="eq-band-type band-shelf">SHELF</span>
+<span class="eq-band-action">Brilho do couro — adiciona definição e transiente no hi-end</span>
+<span class="eq-band-value" style="color:var(--accent-cyan-light)">+1 a +3 dB</span>
+</div>
+</div>
+<div class="drum-tip">
+<strong>🎯 Dica:</strong> Faça o blend do Kick In (click) com o Kick Out (corpo) antes de aplicar EQ. Ajuste o blend até ter a relação attack/body desejada — isso economiza EQ depois.
+            </div>
+</div>
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-orange-light)">⚙️ Compressor</div>
+<div class="comp-strip">
+<div class="comp-param"><div class="comp-param-label">Threshold</div><div class="comp-param-value">−20 a −15 dB</div><div class="comp-param-note">GR alvo: 4–6 dB</div></div>
+<div class="comp-param"><div class="comp-param-label">Attack</div><div class="comp-param-value">25–40 ms</div><div class="comp-param-note">Deixa o transiente passar</div></div>
+<div class="comp-param"><div class="comp-param-label">Release</div><div class="comp-param-value">50–100 ms</div><div class="comp-param-note">Rítmico ao BPM</div></div>
+<div class="comp-param"><div class="comp-param-label">Ratio</div><div class="comp-param-value">4:1 a 6:1</div><div class="comp-param-note">Controle de dinâmica</div></div>
+<div class="comp-param"><div class="comp-param-label">Knee</div><div class="comp-param-value">Hard</div><div class="comp-param-note">Resposta precisa</div></div>
+<div class="comp-param"><div class="comp-param-label">Makeup</div><div class="comp-param-value">+4 a +6 dB</div><div class="comp-param-note">Compensar GR</div></div>
+</div>
+<div class="drum-col-title" style="color:var(--accent-purple-light);margin-top:16px">⚡ Transient Shaper</div>
+<div class="comp-strip">
+<div class="comp-param"><div class="comp-param-label">Attack (Transient)</div><div class="comp-param-value">+3 a +5 dB</div><div class="comp-param-note">Enfatiza o click do beater</div></div>
+<div class="comp-param"><div class="comp-param-label">Sustain</div><div class="comp-param-value">−2 a −4 dB</div><div class="comp-param-note">Controla o decaimento</div></div>
+</div>
+<div class="drum-tip">
+<strong>⚡ Sidechain:</strong> Configure o compressor do baixo para usar o kick como sidechain trigger. Isso cria o "duck" clássico — quando o bumbo toca, o baixo cede espaço. Resultado: kick e baixo convivem sem disputar o mesmo espaço no low end.
+            </div>
+</div>
+</div>
+</div>
+<div class="callout tip">
+<div class="callout-icon">💡</div>
+<div class="callout-content">
+<div class="callout-title">Kick sub vs. kick mid — defina o tipo antes de EQar</div>
+<div class="callout-body">Existem basicamente dois "sabores" de kick: <strong>Sub Kick</strong> (peso em 50–60 Hz, pouco click — estilo hip-hop/R&amp;B) e <strong>Mid Kick</strong> (punch em 80–100 Hz, click forte em 3–5 kHz — estilo rock/metal). Definir qual tipo você quer antes de EQar economiza tempo e evita decisões contraditórias.</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ SNARE ═══ -->
+<section class="content-section section-block" id="snare">
+<div class="section-header">
+<div class="section-icon icon-amber">🥁</div>
+<div><h2 class="section-title">Snare — Caixa<small>O pulso e a identidade da bateria</small></h2></div>
+</div>
+<div class="drum-piece">
+<div class="drum-piece-header">
+<div class="drum-piece-icon" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3)">🥁</div>
+<div class="drum-piece-meta">
+<div class="drum-piece-name">Snare Top + Snare Bottom</div>
+<div class="drum-piece-desc">Mic superior capta o ataque e o crack. Mic inferior capta o snare wire (molas) — invertido em fase. Blend dos dois define o caráter.</div>
+</div>
+<div class="drum-piece-tags">
+<span class="tag tag-danger">⌀ Bottom sempre invertido!</span>
+<span class="tag tag-warn">Crack em 200 Hz + 5 kHz</span>
+</div>
+</div>
+<div class="drum-piece-body">
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-cyan-light)">🎚️ EQ — Parâmetros</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">80–100 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">High-pass para remover rumble do bumbo que vaza no snare mic</span>
+<span class="eq-band-value" style="color:#fca5a5">HPF 80 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">150–250 Hz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Corpo e "madeira" do snare — a região que define se soa gordo ou fino</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+2 a +4 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">300–500 Hz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Remove o nasal e o som "de papelão" — muito comum em gravações caseiras</span>
+<span class="eq-band-value" style="color:#fca5a5">−3 a −5 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">5–7 kHz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Crack e ataque do snare — a região que "corta" no mix</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+3 a +5 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">10–12 kHz</span>
+<span class="eq-band-type band-shelf">SHELF</span>
+<span class="eq-band-action">Air do snare wire (molas) — brilho e shimmer nas molas</span>
+<span class="eq-band-value" style="color:var(--accent-cyan-light)">+2 a +3 dB</span>
+</div>
+</div>
+</div>
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-orange-light)">⚙️ Compressor</div>
+<div class="comp-strip">
+<div class="comp-param"><div class="comp-param-label">Threshold</div><div class="comp-param-value">−18 a −12 dB</div><div class="comp-param-note">GR alvo: 4–8 dB</div></div>
+<div class="comp-param"><div class="comp-param-label">Attack</div><div class="comp-param-value">5–15 ms</div><div class="comp-param-note">Mais rápido que kick</div></div>
+<div class="comp-param"><div class="comp-param-label">Release</div><div class="comp-param-value">40–80 ms</div><div class="comp-param-note">Musical ao groove</div></div>
+<div class="comp-param"><div class="comp-param-label">Ratio</div><div class="comp-param-value">4:1 a 8:1</div><div class="comp-param-note">Controle agressivo</div></div>
+<div class="comp-param"><div class="comp-param-label">Knee</div><div class="comp-param-value">Soft/Medium</div><div class="comp-param-note">Mais natural</div></div>
+<div class="comp-param"><div class="comp-param-label">Makeup</div><div class="comp-param-value">+5 a +8 dB</div><div class="comp-param-note">Compensar GR</div></div>
+</div>
+<div class="drum-col-title" style="color:var(--accent-purple-light);margin-top:16px">⚡ Transient Shaper</div>
+<div class="comp-strip">
+<div class="comp-param"><div class="comp-param-label">Attack</div><div class="comp-param-value">+4 a +6 dB</div><div class="comp-param-note">Crack no ataque</div></div>
+<div class="comp-param"><div class="comp-param-label">Sustain</div><div class="comp-param-value">0 a −3 dB</div><div class="comp-param-note">Controla ring</div></div>
+</div>
+<div class="drum-tip">
+<strong>🔔 Ring do snare:</strong> Se o snare "ringa" demais (ressonância metálica após o hit), use um EQ dinâmico ou uma redução pontual em uma frequência entre 200–400 Hz — exatamente onde a ressonância peak. Alternativa: um gate com hold de 40–60 ms corta o decaimento indesejado.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ HI-HAT ═══ -->
+<section class="content-section section-block" id="hihat">
+<div class="section-header">
+<div class="section-icon icon-cyan">🔔</div>
+<div><h2 class="section-title">Hi-Hat<small>Definição rítmica sem estridence</small></h2></div>
+</div>
+<div class="drum-piece">
+<div class="drum-piece-header">
+<div class="drum-piece-icon" style="background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.3)">🔔</div>
+<div class="drum-piece-meta">
+<div class="drum-piece-name">Hi-Hat (Chimbal)</div>
+<div class="drum-piece-desc">Mic condensador posicionado acima e levemente inclinado. Captura fechado, meio-aberto e aberto. Principal contribuição: air, definição rítmica e shimmer do prato.</div>
+</div>
+<div class="drum-piece-tags">
+<span class="tag tag-info">HPF agressivo &gt; 400 Hz</span>
+<span class="tag tag-warn">Cuidado com sibilância 8–10 kHz</span>
+</div>
+</div>
+<div class="drum-piece-body">
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-cyan-light)">🎚️ EQ — Parâmetros</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">Abaixo de 400 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">Corte agressivo — remove bumbo e snare que vazam no hi-hat mic</span>
+<span class="eq-band-value" style="color:#fca5a5">HPF 400 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">600–800 Hz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Remove o som "metálico barato" — frequências feias do prato</span>
+<span class="eq-band-value" style="color:#fca5a5">−2 a −4 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">8–10 kHz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Controla a estridence — se houver sibilância excessiva do metal</span>
+<span class="eq-band-value" style="color:#fca5a5">−1 a −3 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">12–16 kHz</span>
+<span class="eq-band-type band-shelf">SHELF</span>
+<span class="eq-band-action">Air e shimmer do hi-hat — abertura e brilho natural do prato</span>
+<span class="eq-band-value" style="color:var(--accent-cyan-light)">+2 a +3 dB</span>
+</div>
+</div>
+</div>
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-orange-light)">⚙️ Compressor</div>
+<div class="comp-strip">
+<div class="comp-param"><div class="comp-param-label">Threshold</div><div class="comp-param-value">−20 a −15 dB</div><div class="comp-param-note">Suave no hi-hat</div></div>
+<div class="comp-param"><div class="comp-param-label">Attack</div><div class="comp-param-value">20–50 ms</div><div class="comp-param-note">Deixa o click passar</div></div>
+<div class="comp-param"><div class="comp-param-label">Release</div><div class="comp-param-value">80–150 ms</div><div class="comp-param-note">Natural, não rítmico</div></div>
+<div class="comp-param"><div class="comp-param-label">Ratio</div><div class="comp-param-value">2:1 a 3:1</div><div class="comp-param-note">Controle leve</div></div>
+<div class="comp-param"><div class="comp-param-label">GR alvo</div><div class="comp-param-value">2–4 dB</div><div class="comp-param-note">Apenas uniformidade</div></div>
+<div class="comp-param"><div class="comp-param-label">Nota</div><div class="comp-param-value" style="font-size:.78rem">Opcional</div><div class="comp-param-note">Overheads cobrem bem</div></div>
+</div>
+<div class="drum-tip">
+<strong>💡 Hi-hat vs. Overheads:</strong> Em muitos casos o hi-hat já está coberto pelos Overheads com qualidade suficiente. Use o mic dedicado de hi-hat <em>apenas</em> se os overheads não capturam a articulação rítmica com clareza suficiente. Às vezes menos microfone = menos problema de fase.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ TOMS ═══ -->
+<section class="content-section section-block" id="toms">
+<div class="section-header">
+<div class="section-icon icon-purple">🪘</div>
+<div><h2 class="section-title">Toms<small>Punch, corpo e decaimento natural</small></h2></div>
+</div>
+<div class="drum-piece">
+<div class="drum-piece-header">
+<div class="drum-piece-icon" style="background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3)">🪘</div>
+<div class="drum-piece-meta">
+<div class="drum-piece-name">Toms (Floor Tom + Rack Toms)</div>
+<div class="drum-piece-desc">Cada tom tem uma afinação diferente. O floor tom (grave) exige EQ bem diferente do rack tom (agudo). Gate é essencial — os toms "abrem" muito do bleed de bumbo e overheads.</div>
+</div>
+<div class="drum-piece-tags">
+<span class="tag tag-purple">Gate obrigatório</span>
+<span class="tag tag-warn">Afinação define o EQ</span>
+</div>
+</div>
+<div class="drum-piece-body">
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-cyan-light)">🎚️ EQ — Floor Tom (grave)</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">50–80 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">High-pass suave — remove sub desnecessário sem perder corpo</span>
+<span class="eq-band-value" style="color:#fca5a5">HPF 50 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">80–120 Hz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Corpo e profundidade do floor tom — sua "nota fundamental"</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+3 a +5 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">300–500 Hz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Remove o som "oco" e "de balde" — muito característico em toms baratos</span>
+<span class="eq-band-value" style="color:#fca5a5">−4 a −6 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">3–5 kHz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Attack e definição do stick — para o tom "cortar" no mix</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+2 a +4 dB</span>
+</div>
+</div>
+<div class="drum-col-title" style="color:var(--accent-cyan-light);margin-top:16px">🎚️ EQ — Rack Tom (agudo)</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">80–100 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">Corte mais agressivo — rack tom não precisa de graves como o floor</span>
+<span class="eq-band-value" style="color:#fca5a5">HPF 100 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">150–250 Hz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Corpo e "meatiness" do rack tom — sua nota fundamental mais alta</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+2 a +4 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">400–600 Hz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Remove o nasal e o som artificial de rack tom</span>
+<span class="eq-band-value" style="color:#fca5a5">−3 a −5 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">4–6 kHz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Ataque e click do bastão — definição e presença no mix</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+3 a +5 dB</span>
+</div>
+</div>
+</div>
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-orange-light)">⚙️ Compressor + Gate</div>
+<div class="comp-strip">
+<div class="comp-param"><div class="comp-param-label">Gate Threshold</div><div class="comp-param-value">−35 a −25 dB</div><div class="comp-param-note">Fecha nos silêncios</div></div>
+<div class="comp-param"><div class="comp-param-label">Gate Hold</div><div class="comp-param-value">100–250 ms</div><div class="comp-param-note">Sustenta o decaimento</div></div>
+<div class="comp-param"><div class="comp-param-label">Comp Threshold</div><div class="comp-param-value">−20 a −15 dB</div><div class="comp-param-note">GR 3–6 dB</div></div>
+<div class="comp-param"><div class="comp-param-label">Attack</div><div class="comp-param-value">10–30 ms</div><div class="comp-param-note">Deixa o stick passar</div></div>
+<div class="comp-param"><div class="comp-param-label">Release</div><div class="comp-param-value">100–300 ms</div><div class="comp-param-note">Segue o decaimento</div></div>
+<div class="comp-param"><div class="comp-param-label">Ratio</div><div class="comp-param-value">3:1 a 5:1</div><div class="comp-param-note">Controle moderado</div></div>
+</div>
+<div class="drum-tip">
+<strong>🎵 Afinação importa:</strong> Antes de qualquer EQ, afine os toms com um afinador de tensão de pele (ou app como Tonal Energy). Um tom bem afinado precisa de muito menos EQ — o boost de 80 Hz no floor tom só funciona se a pele estiver afinada nessa região. Toms desafinados soam artificiais com qualquer EQ.
+            </div>
+<div class="drum-tip" style="margin-top:12px">
+<strong>⚡ Transient Shaper nos toms:</strong> Para toms com muito sustain (peles novas, estúdio com muita reflexão), use um transient shaper com Sustain em −3 a −6 dB. Isso "encurta" o decaimento sem usar gate — o resultado soa mais natural que o gate em decaimentos lontos.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ OVERHEADS ═══ -->
+<section class="content-section section-block" id="overheads">
+<div class="section-header">
+<div class="section-icon icon-blue">🎙️</div>
+<div><h2 class="section-title">Overheads<small>A imagem estéreo da bateria completa</small></h2></div>
+</div>
+<div class="drum-piece">
+<div class="drum-piece-header">
+<div class="drum-piece-icon" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3)">🎙️</div>
+<div class="drum-piece-meta">
+<div class="drum-piece-name">Overheads L + R (par estéreo)</div>
+<div class="drum-piece-desc">Os overheads são os "olhos" da bateria — capturam a imagem estéreo completa do kit, os pratos e cymbals, e uma versão natural de todas as peças. Muitas vezes são a base do som da bateria, com os close mics como suplemento.</div>
+</div>
+<div class="drum-piece-tags">
+<span class="tag tag-info">Spaced Pair ou ORTF</span>
+<span class="tag tag-ok">Base do estéreo</span>
+</div>
+</div>
+<div class="drum-piece-body">
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-cyan-light)">🎚️ EQ — Parâmetros</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">60–80 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">Remove o sub do bumbo que cansa o par de condensadores</span>
+<span class="eq-band-value" style="color:#fca5a5">HPF 60–80 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">200–400 Hz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Reduz acúmulo de "boxy" — frequências que deixam os OH embolados</span>
+<span class="eq-band-value" style="color:#fca5a5">−2 a −4 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">3–5 kHz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Definição e ataque dos pratos — shimmer e articulação</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+2 a +3 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">10–16 kHz</span>
+<span class="eq-band-type band-shelf">SHELF</span>
+<span class="eq-band-action">Air e abertura dos cymbals — a região que "respira" no mix</span>
+<span class="eq-band-value" style="color:var(--accent-cyan-light)">+2 a +4 dB</span>
+</div>
+</div>
+</div>
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-orange-light)">⚙️ Compressor</div>
+<div class="comp-strip">
+<div class="comp-param"><div class="comp-param-label">Threshold</div><div class="comp-param-value">−25 a −18 dB</div><div class="comp-param-note">GR 2–5 dB</div></div>
+<div class="comp-param"><div class="comp-param-label">Attack</div><div class="comp-param-value">30–80 ms</div><div class="comp-param-note">Lento — preserva transiente</div></div>
+<div class="comp-param"><div class="comp-param-label">Release</div><div class="comp-param-value">150–300 ms</div><div class="comp-param-note">Musical, respira</div></div>
+<div class="comp-param"><div class="comp-param-label">Ratio</div><div class="comp-param-value">2:1 a 3:1</div><div class="comp-param-note">Muito suave</div></div>
+<div class="comp-param"><div class="comp-param-label">Estilo</div><div class="comp-param-value">Opto / FET</div><div class="comp-param-note">LA-2A, 1176</div></div>
+<div class="comp-param"><div class="comp-param-label">Nota</div><div class="comp-param-value" style="font-size:.78rem">Opcional</div><div class="comp-param-note">Geralmente suave</div></div>
+</div>
+<div class="drum-tip">
+<strong>📍 Filosofia:</strong> Existem duas escolas — <em>Close mics como base, OH como suplemento de pratos</em> (rock moderno/metal) ou <em>OH como base da bateria completa, close mics para reforço específico</em> (jazz, folk, estilo vintage). Escolha antes de começar a mixar.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ ROOM ═══ -->
+<section class="content-section section-block" id="room">
+<div class="section-header">
+<div class="section-icon icon-green">🏛️</div>
+<div><h2 class="section-title">Room Mic<small>A ambiência e o "tamanho" da bateria</small></h2></div>
+</div>
+<div class="drum-piece">
+<div class="drum-piece-header">
+<div class="drum-piece-icon" style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3)">🏛️</div>
+<div class="drum-piece-meta">
+<div class="drum-piece-name">Room (Mic de Ambiente)</div>
+<div class="drum-piece-desc">Posicionado a 2–5 metros da bateria, captura a reflexão natural do ambiente. Define o "tamanho" da bateria no mix — de uma sala íntima a uma arena. Pode ser comprimido agressivamente para criar o clássico "Bonham Room Sound".</div>
+</div>
+<div class="drum-piece-tags">
+<span class="tag tag-ok">Compressão agressiva bem-vinda</span>
+<span class="tag tag-purple">Processamento criativo</span>
+</div>
+</div>
+<div class="drum-piece-body">
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-cyan-light)">🎚️ EQ — Parâmetros</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">100–150 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">Remove baixo desnecessário — o room já tem baixo dos close mics</span>
+<span class="eq-band-value" style="color:#fca5a5">HPF 100 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">200–500 Hz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Reduz o "boxy" da sala — frequências de reflexão indesejáveis</span>
+<span class="eq-band-value" style="color:#fca5a5">−3 a −6 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">3–6 kHz</span>
+<span class="eq-band-type band-boost">BOOST</span>
+<span class="eq-band-action">Ataque e presença — traz a sala para "frente" no mix</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+2 a +4 dB</span>
+</div>
+</div>
+<div class="drum-tip" style="margin-top:16px">
+<strong>🎚️ Blend consciente:</strong> O room mic é tempero — nunca deve dominar. Comece com o fader em silêncio e suba lentamente até sentir que a bateria "ganhou um espaço". O ponto certo é quando você abaixa e a bateria parece menor, mas quando está ativo não chama atenção para si.
+            </div>
+</div>
+<div class="drum-col">
+<div class="drum-col-title" style="color:var(--accent-orange-light)">⚙️ Compressor (Agressivo)</div>
+<div class="comp-strip">
+<div class="comp-param"><div class="comp-param-label">Threshold</div><div class="comp-param-value">−30 a −20 dB</div><div class="comp-param-note">GR 10–20 dB!</div></div>
+<div class="comp-param"><div class="comp-param-label">Attack</div><div class="comp-param-value">Lento: 50+ ms</div><div class="comp-param-note">Deixa o slam passar</div></div>
+<div class="comp-param"><div class="comp-param-label">Release</div><div class="comp-param-value">200–500 ms</div><div class="comp-param-note">Sustenta a sala</div></div>
+<div class="comp-param"><div class="comp-param-label">Ratio</div><div class="comp-param-value">10:1 a ∞:1</div><div class="comp-param-note">Limitação total</div></div>
+<div class="comp-param"><div class="comp-param-label">Estilo</div><div class="comp-param-value">FET 1176</div><div class="comp-param-note">Modo All-Buttons-In</div></div>
+<div class="comp-param"><div class="comp-param-label">Makeup</div><div class="comp-param-value">+15 a +25 dB</div><div class="comp-param-note">Recupera o volume</div></div>
+</div>
+<div class="drum-tip">
+<strong>🏛️ "Bonham Sound":</strong> John Bonham (Led Zeppelin) usava salas enormes com mics de ambiente fortemente comprimidos. Para replicar: compressão extrema (ratio ∞:1, GR 20+ dB), EQ com boost em 3–5 kHz e shelf em 10 kHz, então blend no Drum Bus em volume baixo. O resultado é uma bateria que "respira" com a sala.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ DRUM BUS ═══ -->
+<section class="content-section section-block" id="drum-bus">
+<div class="section-header">
+<div class="section-icon icon-orange">🔀</div>
+<div><h2 class="section-title">Drum Bus<small>A cola que une todas as peças em um instrumento</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        O Drum Bus recebe todas as faixas de bateria e as processa como conjunto. O objetivo não é corrigir peças individuais (isso já foi feito) — é adicionar coerência, "cola" e caráter ao conjunto. A regra de ouro: <strong>processamento leve no bus, decisões importantes nas faixas individuais</strong>.
+      </p>
+<div class="bus-card">
+<div class="bus-card-title">🔀 Cadeia de Processamento — Drum Bus</div>
+<div class="param-table-wrapper" style="margin-bottom:0;border:none">
+<table class="param-table">
+<thead>
+<tr><th>#</th><th>Plugin / Tipo</th><th>Ajuste</th><th>Objetivo</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>EQ (Linear Phase)</td>
+<td>HPF 30 Hz, −2 dB em 300–500 Hz, +2 dB shelf 10 kHz</td>
+<td>Limpar low end, abrir o air do conjunto</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Glue Compressor</td>
+<td>Ratio 2:1, Attack 30 ms, Release Auto, GR 2–4 dB</td>
+<td>"Cola" as peças — fazem parte do mesmo kit</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Saturation (Tape)</td>
+<td>Leve — 10–20% drive</td>
+<td>Harmônicos que adicionam calor e coesão analógica</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Transient Shaper</td>
+<td>Attack +2 dB, Sustain −2 dB (opcional)</td>
+<td>Ajuste fino do punch global da bateria</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Limitador (Safety)</td>
+<td>Threshold: −3 dBFS, apenas proteção</td>
+<td>Evitar clipping no bus — não deve trabalhar ativamente</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="callout warning">
+<div class="callout-icon">⚠️</div>
+<div class="callout-content">
+<div class="callout-title">Não conserte no Bus o que deveria ser corrigido na faixa</div>
+<div class="callout-body">Se você está aumentando muito o EQ no Drum Bus (ex: +6 dB em 5 kHz), é sinal que o problema está em alguma faixa individual. Identifique qual faixa está faltando essa frequência e corrija nela — não no bus. O bus deve trabalhar em ajustes de 1–3 dB máximo em qualquer banda.</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ PARALELO ═══ -->
+<section class="content-section section-block" id="paralelo">
+<div class="section-header">
+<div class="section-icon icon-purple">⚡</div>
+<div><h2 class="section-title">Compressão Paralela (New York)<small>Punch extremo sem perder a dinâmica</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        A compressão paralela (também chamada de "New York Compression") é a técnica de misturar o sinal original (sem compressão) com uma versão altamente comprimida do mesmo sinal. O resultado: a dinâmica e os transientes naturais são preservados (pelo canal seco), enquanto o punch, o sustain e a densidade vêm do canal comprimido.
+      </p>
+<!-- Diagrama -->
+<div class="parallel-diagram">
+<div class="pd-title">⚡ Fluxo de Sinal — Compressão Paralela</div>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center">
+<div class="pd-node source">
+<div class="pd-node-label">🥁 Drum Bus</div>
+<div class="pd-node-sub">Sinal original</div>
+</div>
+<div class="pd-arrow">→</div>
+<div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+<div style="display:flex;align-items:center;gap:8px">
+<div class="pd-node dry">
+<div class="pd-node-label">Canal Seco</div>
+<div class="pd-node-sub">Sem compressão<br/>100% dinâmica</div>
+</div>
+<div class="pd-arrow">→</div>
+</div>
+<div style="font-size:.7rem;color:var(--text-muted);text-align:center">SPLIT</div>
+<div style="display:flex;align-items:center;gap:8px">
+<div class="pd-node wet">
+<div class="pd-node-label">Canal Comprimido</div>
+<div class="pd-node-sub">Ratio 8:1 a ∞:1<br/>GR 20–30 dB</div>
+</div>
+<div class="pd-arrow">→</div>
+</div>
+</div>
+<div class="pd-node sum">
+<div class="pd-node-label">✅ Blend Final</div>
+<div class="pd-node-sub">Dry 70% + Wet 30%<br/>Punch + Dinâmica</div>
+</div>
+</div>
+</div>
+<div class="param-table-wrapper">
+<div class="param-table-header">⚙️ Configuração do Compressor Paralelo — Bateria</div>
+<table class="param-table">
+<thead>
+<tr><th>Parâmetro</th><th>Valor</th><th>Razão</th></tr>
+</thead>
+<tbody>
+<tr><td>Threshold</td><td>−30 a −20 dBFS</td><td>O compressor deve estar sempre em GR agressivo</td></tr>
+<tr><td>Attack</td><td>Lento: 40–80 ms</td><td>Deixa o transiente natural do kit passar sem compressão</td></tr>
+<tr><td>Release</td><td>Automático ou 200–400 ms</td><td>Respira com o groove da música</td></tr>
+<tr><td>Ratio</td><td>8:1 a ∞:1 (limitação)</td><td>Queremos o sinal comprimido de forma muito densa</td></tr>
+<tr><td>GR resultante</td><td>15–30 dB</td><td>O canal paralelo deve soar "destruído" isolado</td></tr>
+<tr><td>Makeup Gain</td><td>Suficiente para igualar nível</td><td>Então o blend é volumetricamente justo</td></tr>
+<tr><td>Blend (Wet/Dry)</td><td>20–40% do canal comprimido</td><td>Comece em 20% e aumente até sentir o punch aparecer</td></tr>
+</tbody>
+</table>
+</div>
+<ol class="step-list">
+<li>
+<div class="step-content">
+<div class="step-title">Crie um Aux Send do Drum Bus para um canal paralelo</div>
+<div class="step-desc">Na sua DAW, crie um send do Drum Bus para um novo canal Aux. Configure o send como pré-fader para que o nível seja independente do fader do bus.</div>
+</div>
+</li>
+<li>
+<div class="step-content">
+<div class="step-title">Aplique compressão extrema no canal paralelo</div>
+<div class="step-desc">Insira um compressor no canal paralelo — clássicos: SSL G-Bus, API 2500, 1176, ou qualquer compressor que você conheça bem. Configure para máxima compressão (ratio alto, threshold baixo). Isolado, esse canal deve soar exageradamente "esmagado".</div>
+<code class="step-code">Ratio: 8:1 mínimo | GR: 20–30 dB | Attack: lento (40–80 ms)</code>
+</div>
+</li>
+<li>
+<div class="step-content">
+<div class="step-title">Ajuste o Makeup Gain para igualar o nível ao canal seco</div>
+<div class="step-desc">Com o canal comprimido ativo, ajuste o makeup gain até que o nível de output seja aproximadamente igual ao do canal seco. Isso garante que o blend seja baseado em intenção criativa, não em ilusão de volume.</div>
+</div>
+</li>
+<li>
+<div class="step-content">
+<div class="step-title">Faça o blend: comece em 20%, ajuste ao gosto</div>
+<div class="step-desc">Suba o fader do canal paralelo de 0 até sentir que a bateria "ganhou punch e sustain" sem perder a sensação dinâmica. O ponto ideal é quando você abaixa o paralelo e a bateria parece "vazia" — mas quando está ativo não soa artificialmente comprimida.</div>
+</div>
+</li>
+</ol>
+</section>
+<div class="divider"></div>
+<!-- ═══ CHECKLIST ═══ -->
+<section class="content-section section-block" id="checklist">
+<div class="section-header">
+<div class="section-icon icon-green">✅</div>
+<div><h2 class="section-title">Checklist de Bateria<small>Confirme antes de passar para o próximo instrumento</small></h2></div>
+</div>
+<div class="checklist" id="drumChecklist">
+<div class="checklist-header">
+<span>🥁</span> CHECKLIST DE MIXAGEM — BATERIA
+          <span id="drumProgress" style="margin-left:auto;font-weight:500;color:var(--text-muted);">0 / 16</span>
+</div>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Fase verificada: Snare Bottom com polaridade invertida (⌀)</span><span class="check-desc">Obrigatório — o snare bottom é naturalmente fora de fase com o top.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Fase verificada: Kick In + Kick Out alinhados em mono</span><span class="check-desc">Somar em mono e alinhar transientes para máximo punch.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Fase verificada: Overheads + Close Mics (mono check)</span><span class="check-desc">Bateria em mono sem cancelamentos perceptíveis nos pratos ou caixas.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Gate configurado nos toms (sem bleed de bumbo/snare)</span><span class="check-desc">Hold de 100–250 ms para não cortar o decaimento natural dos toms.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Kick com click audível em sistemas pequenos (fone, celular)</span><span class="check-desc">Boost em 2–5 kHz garante o bumbo ser ouvido em qualquer sistema.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Snare com crack presente sem estridence</span><span class="check-desc">Boost em 5–7 kHz deve soar excitante, não fatigante.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Hi-hat sem sibilância agressiva acima de 8 kHz</span><span class="check-desc">Verificar em volume alto e em fone — a região 8–10 kHz cansa os ouvidos.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Toms com decaimento natural sem ring excessivo</span><span class="check-desc">Transient shaper ou gate hold ajustados para cada tom individualmente.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Overheads com imagem estéreo estável e simétrica</span><span class="check-desc">Verificar no medidor de correlação de fase — deve ficar perto de +1.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Room mic blended sutilmente (não domina o mix)</span><span class="check-desc">Abaixar o room: bateria parece menor. Subir: bateria ganha espaço. Ponto certo = imperceptível mas sentido.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Sidechain: Kick triggando o compressor do baixo</span><span class="check-desc">Kick e baixo devem coexistir no low end sem disputar espaço.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Drum Bus: Glue compressor com GR de 2–4 dB</span><span class="check-desc">O bus deve "colar" a bateria — desligar o glue deve soar menos coeso.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Compressão paralela configurada e blended (se usar)</span><span class="check-desc">Canal paralelo ativo: mais punch e sustain. Desligado: bateria soa mais dinâmica e menos densa.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Bateria ouvida em mono — sem colapso de graves ou pratos</span><span class="check-desc">Mono check final de toda a bateria processada.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Drum Bus abaixo de −6 dBFS de pico (headroom para o mix)</span><span class="check-desc">Deixar espaço para os demais instrumentos no master bus.</span></div></label>
+<label class="checklist-item"><input onchange="updateProgress()" type="checkbox"/><div><span class="check-title">Bateria comparada com a faixa de referência</span><span class="check-desc">Kick, snare e overheads no nível proporcional ao da referência do mesmo gênero.</span></div></label>
+</div>
+<div class="callout tip" id="drumDoneMsg" style="display:none;">
+<div class="callout-icon">🎉</div>
+<div class="callout-content">
+<div class="callout-title">Bateria Mixada! Avance para o Baixo</div>
+<div class="callout-body">A fundação rítmica está pronta. Agora é hora de trabalhar o baixo em relação ao kick que você acabou de mixar — o duo kick+baixo é o alicerce de qualquer produção.</div>
+</div>
+</div>
+</section>
+<!-- NEXT / PREV -->
+<div class="next-module section-block">
+<div>
+<div class="next-label">Próximo Módulo</div>
+<div class="next-title">🎸 Módulo 05 — Baixo</div>
+<div class="next-desc">Blend DI + Amp, controle de low end, sidechain com o kick, harmônicos e saturação para o baixo "funcionar" em qualquer sistema de reprodução.</div>
+</div>
+<div class="nav-buttons">
+<a class="btn-prev" href="modulo-03-limpeza-edicao.html">← Módulo 03</a>
+<a class="btn-next" href="modulo-05-baixo.html">Módulo 05 →</a>
+</div>
+</div>
+</main>
+</div>
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar    = document.getElementById('sidebar');
+  const overlay    = document.getElementById('sidebarOverlay');
+  function openSidebar()  { sidebar.classList.add('open'); overlay.classList.add('open'); menuToggle.setAttribute('aria-expanded','true');  menuToggle.textContent='✕'; }
+  function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); menuToggle.setAttribute('aria-expanded','false'); menuToggle.textContent='☰'; }
+  menuToggle.addEventListener('click', () => sidebar.classList.contains('open') ? closeSidebar() : openSidebar());
+  overlay.addEventListener('click', closeSidebar);
+  sidebar.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { if(window.innerWidth<=900) closeSidebar(); }));
+
+  const navMap = {
+    'kick': document.getElementById('nav-kick'), 'snare': document.getElementById('nav-snare'),
+    'hihat': document.getElementById('nav-hihat'), 'toms': document.getElementById('nav-toms'),
+    'overheads': document.getElementById('nav-oh'), 'room': document.getElementById('nav-room'),
+    'drum-bus': document.getElementById('nav-bus'), 'paralelo': document.getElementById('nav-par'),
+    'checklist': document.getElementById('nav-chk'),
+  };
+  const sectionObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        Object.values(navMap).forEach(el => el && el.classList.remove('active'));
+        const id = e.target.getAttribute('id');
+        if(navMap[id]) navMap[id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => sectionObs.observe(s));
+
+  const blockObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); blockObs.unobserve(e.target); } });
+  }, { threshold: 0.04 });
+  document.querySelectorAll('.section-block').forEach(b => blockObs.observe(b));
+
+  function updateProgress() {
+    const all = document.querySelectorAll('#drumChecklist input[type="checkbox"]');
+    const checked = document.querySelectorAll('#drumChecklist input[type="checkbox"]:checked');
+    document.getElementById('drumProgress').textContent = `${checked.length} / ${all.length}`;
+    document.getElementById('drumDoneMsg').style.display = checked.length === all.length ? 'flex' : 'none';
+  }
+</script>
+</body>
+</html>

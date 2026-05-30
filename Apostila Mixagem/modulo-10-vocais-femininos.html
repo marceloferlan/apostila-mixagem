@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 10 — Vocais Femininos | Apostila de Mixagem</title>
+<meta content="Mixagem profissional de vocais femininos: Domando o harshness, EQ dinâmico de presença, brilho supremo (air) e reverbs imersivos." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-strong: rgba(255,255,255,0.07);
+
+      --accent-purple: #7c3aed;
+      --accent-purple-light: #a78bfa;
+      --accent-cyan: #06b6d4;
+      --accent-cyan-light: #22d3ee;
+      --accent-red: #ef4444;
+      
+      /* Módulo 10 — Rose, Pink, Lavender: Sensibilidade, Agudos Celestiais e Presença Brilhante */
+      --accent-pink: #f43f5e;
+      --accent-pink-light: #fb7185;
+      --accent-rose: #e11d48;
+      --accent-lavender: #c084fc;
+      --accent-magenta: #d946ef;
+
+      --gradient-hero: linear-gradient(135deg, #f43f5e 0%, #c084fc 100%);
+      --gradient-card: linear-gradient(135deg, rgba(244,63,94,0.15) 0%, rgba(192,132,252,0.08) 100%);
+      --gradient-warm: linear-gradient(135deg, rgba(217,70,239,0.15) 0%, rgba(244,63,94,0.08) 100%);
+
+      --text-primary: #f0f0f8;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-medium: rgba(255,255,255,0.10);
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(244,63,94,0.25);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --sidebar-width: 280px;
+      --header-height: 64px;
+      --transition-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --transition-med:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--accent-pink);border-radius:99px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-pink-light)}
+
+    .bg-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .bg-ambient::before{content:'';position:absolute;bottom:-10%;left:-5%;width:700px;height:700px;background:radial-gradient(circle,rgba(244,63,94,0.1) 0%,transparent 65%);border-radius:50%;animation:f1 24s ease-in-out infinite}
+    .bg-ambient::after{content:'';position:absolute;top:-15%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(192,132,252,0.07) 0%,transparent 70%);border-radius:50%;animation:f2 30s ease-in-out infinite}
+    @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
+    @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-35px,40px) scale(1.1)}}
+
+    /* HEADER */
+    .top-header{position:fixed;top:0;left:0;right:0;height:var(--header-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+    .header-brand{display:flex;align-items:center;gap:12px}
+    .header-logo{width:36px;height:36px;background:var(--gradient-hero);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .header-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700}
+    .header-subtitle{font-size:.7rem;color:var(--text-muted)}
+    .header-nav{display:flex;align-items:center;gap:8px}
+    .nav-pill{padding:6px 14px;border-radius:99px;font-size:.78rem;font-weight:500;border:1px solid var(--border-medium);background:var(--bg-glass);color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);display:inline-flex;align-items:center;gap:6px}
+    .nav-pill:hover{border-color:var(--accent-pink);color:var(--accent-pink-light);background:rgba(244,63,94,0.1)}
+    .nav-pill.active{background:var(--gradient-hero);border-color:transparent;color:white}
+    .menu-toggle{display:none;background:var(--bg-glass);border:1px solid var(--border-medium);color:var(--text-primary);border-radius:var(--radius-sm);padding:8px;cursor:pointer;font-size:1.1rem;transition:all var(--transition-fast)}
+
+    .app-layout{display:flex;padding-top:var(--header-height);min-height:100vh;position:relative;z-index:1}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-width);background:var(--bg-secondary);border-right:1px solid var(--border-subtle);position:fixed;top:var(--header-height);left:0;bottom:0;overflow-y:auto;padding:24px 16px;transition:transform var(--transition-med);z-index:90}
+    .sidebar-section-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:0 8px;margin-bottom:8px;margin-top:20px}
+    .sidebar-section-label:first-child{margin-top:0}
+    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);border:1px solid transparent;margin-bottom:2px}
+    .sidebar-item:hover{background:var(--bg-glass-strong);color:var(--text-primary);border-color:var(--border-subtle)}
+    .sidebar-item.active{background:rgba(244,63,94,0.12);color:var(--accent-pink-light);border-color:rgba(244,63,94,0.3)}
+    .sidebar-item .item-icon{font-size:1rem;flex-shrink:0}
+    .sidebar-item .item-number{font-size:.65rem;font-weight:700;background:var(--bg-glass-strong);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-left:auto;flex-shrink:0}
+    .sidebar-item.active .item-number{background:rgba(244,63,94,0.25);color:var(--accent-pink-light)}
+    .progress-bar-container{margin:20px 8px 0;background:var(--bg-glass);border-radius:99px;height:4px;overflow:hidden}
+    .progress-bar-fill{height:100%;width:83%;background:var(--gradient-hero);border-radius:99px}
+    .progress-label{display:flex;justify-content:space-between;padding:6px 4px 0;font-size:.68rem;color:var(--text-muted)}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:85}
+
+    .main-content{margin-left:var(--sidebar-width);flex:1;padding:0 0 80px}
+
+    /* HERO */
+    .module-hero{background:linear-gradient(135deg,rgba(244,63,94,0.18) 0%,rgba(192,132,252,0.1) 50%,transparent 100%);border-bottom:1px solid var(--border-subtle);padding:56px 48px 48px;position:relative;overflow:hidden}
+    .module-hero::before{content:'';position:absolute;bottom:-30%;left:-5%;width:450px;height:450px;background:radial-gradient(circle,rgba(244,63,94,0.15) 0%,transparent 70%);pointer-events:none}
+    .module-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(244,63,94,0.12);border:1px solid rgba(244,63,94,0.4);border-radius:99px;font-size:.75rem;font-weight:600;color:var(--accent-pink-light);letter-spacing:.05em;margin-bottom:20px}
+    .module-title{font-family:'Outfit',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--accent-pink-light) 55%,#c084fc 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .module-lead{font-size:1.05rem;color:var(--text-secondary);max-width:680px;line-height:1.8;margin-bottom:32px}
+    .module-meta{display:flex;flex-wrap:wrap;gap:12px}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.78rem;color:var(--text-secondary)}
+
+    /* SECTIONS */
+    .content-section{padding:48px 48px 0}
+    .section-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+    .section-icon{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .icon-pink    {background:rgba(244,63,94,0.2); border:1px solid rgba(244,63,94,0.3)}
+    .icon-lavender{background:rgba(192,132,252,0.2); border:1px solid rgba(192,132,252,0.3)}
+    .icon-cyan    {background:rgba(6,182,212,0.2);  border:1px solid rgba(6,182,212,0.3)}
+    .icon-magenta {background:rgba(217,70,239,0.2); border:1px solid rgba(217,70,239,0.3)}
+    .icon-red     {background:rgba(239,68,68,0.2);  border:1px solid rgba(239,68,68,0.3)}
+
+    .section-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text-primary)}
+    .section-title small{display:block;font-size:.8rem;font-weight:500;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px}
+    .divider{height:1px;background:var(--border-subtle);margin:48px 0}
+
+    /* CALLOUTS */
+    .callout{border-radius:var(--radius-md);padding:20px 24px;margin-bottom:24px;display:flex;gap:16px;border-left:4px solid}
+    .callout-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+    .callout-title{font-weight:700;font-size:.9rem;margin-bottom:6px}
+    .callout-body{font-size:.85rem;line-height:1.7}
+    .callout.tip      {background:rgba(34,211,238,0.08);border-color:var(--accent-cyan);color:var(--text-secondary)}
+    .callout.tip .callout-title{color:var(--accent-cyan-light)}
+    .callout.pink     {background:rgba(244,63,94,0.08);border-color:var(--accent-pink);color:var(--text-secondary)}
+    .callout.pink .callout-title{color:var(--accent-pink-light)}
+    .callout.danger   {background:rgba(239,68,68,0.08);border-color:var(--accent-red);color:var(--text-secondary)}
+    .callout.danger .callout-title{color:#fca5a5}
+    .callout.lavender {background:rgba(192,132,252,0.08);border-color:var(--accent-lavender);color:var(--text-secondary)}
+    .callout.lavender .callout-title{color:var(--accent-lavender)}
+
+    /* DYNAMIC EQ VISUALIZER */
+    .dyn-eq-viz{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:28px;margin-bottom:32px;display:flex;flex-direction:column;gap:16px;text-align:center}
+    .dev-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--text-primary)}
+    .dev-desc{font-size:.85rem;color:var(--text-secondary)}
+    .dev-stage{position:relative;height:140px;width:100%;max-width:500px;margin:0 auto;background:var(--bg-secondary);border:1px solid var(--border-medium);border-radius:var(--radius-md);overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+    
+    /* Frequency Backgrounds */
+    .dev-freq-bg{position:absolute;inset:0;display:flex}
+    .dev-zone{height:100%;border-right:1px solid rgba(255,255,255,0.05)}
+    .dev-zone-1{flex:1}
+    .dev-zone-2{flex:1.5; background:rgba(244,63,94,0.1)} /* Harshness zone 2-4k */
+    .dev-zone-3{flex:1}
+    
+    /* The harshness curve/band */
+    .dev-band{position:absolute;bottom:0;width:30%;left:35%;height:70px;background:rgba(244,63,94,0.8);border-radius:10px 10px 0 0;transition:all 0.1s cubic-bezier(0.4,0,0.2,1);box-shadow:0 0 20px rgba(244,63,94,0.5)}
+    .dev-band::after{content:'Harshness (3kHz)';position:absolute;top:-25px;left:50%;transform:translateX(-50%);font-size:.65rem;font-weight:800;color:var(--accent-pink-light);white-space:nowrap}
+    
+    /* Dynamic EQ Gain Reduction visual */
+    .dev-gr-arrow{position:absolute;top:10px;left:50%;transform:translateX(-50%);color:#fff;font-size:1.5rem;opacity:0;transition:all 0.1s;text-shadow:0 0 10px #000}
+    
+    .dev-controls{margin-top:20px}
+    .dev-btn{background:var(--gradient-hero);border:none;color:white;padding:12px 24px;border-radius:99px;cursor:pointer;font-size:.85rem;font-weight:700;transition:all var(--transition-fast);box-shadow:var(--shadow-glow)}
+    .dev-btn:active{transform:scale(0.95)}
+    .dev-btn-sec{background:var(--bg-secondary);border:1px solid var(--border-subtle);color:var(--text-primary);padding:12px 24px;border-radius:99px;cursor:pointer;font-size:.85rem;font-weight:600;margin-left:10px}
+
+    /* EQ STRIP */
+    .eq-strip{margin-bottom:20px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px 24px}
+    .eq-band{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-subtle)}
+    .eq-band:last-child{border-bottom:none}
+    .eq-band-freq{font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;width:95px;flex-shrink:0;color:var(--text-primary)}
+    .eq-band-type{font-size:.68rem;font-weight:700;padding:4px 8px;border-radius:4px;flex-shrink:0;min-width:65px;text-align:center;letter-spacing:.05em}
+    .eq-band-action{flex:1;font-size:.85rem;color:var(--text-secondary);line-height:1.5}
+    .eq-band-value{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;flex-shrink:0;white-space:nowrap}
+    .band-cut  {background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3)}
+    .band-boost{background:rgba(16,185,129,0.15);color:var(--accent-green-light);border:1px solid rgba(16,185,129,0.3)}
+    .band-dyn  {background:rgba(244,63,94,0.15);color:var(--accent-pink-light);border:1px solid rgba(244,63,94,0.3)}
+    .band-air  {background:rgba(192,132,252,0.15);color:var(--accent-lavender);border:1px solid rgba(192,132,252,0.3)}
+
+    /* PROBLEM / SOLUTION */
+    .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .ps-panel{padding:24px}
+    .ps-panel.problem{background:rgba(239,68,68,0.06);border-right:1px solid var(--border-subtle)}
+    .ps-panel.solution{background:rgba(244,63,94,0.06)}
+    .ps-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .ps-header.problem-header{color:#fca5a5}
+    .ps-header.solution-header{color:var(--accent-pink-light)}
+    .ps-list{list-style:none;padding:0}
+    .ps-list li{font-size:.85rem;color:var(--text-secondary);padding:8px 0;display:flex;gap:10px;border-bottom:1px solid var(--border-subtle);line-height:1.6}
+    .ps-list li:last-child{border-bottom:none}
+    .ps-list li::before{flex-shrink:0;margin-top:2px;font-size:.9rem}
+    .ps-panel.problem .ps-list li::before{content:'✕';color:#f87171}
+    .ps-panel.solution .ps-list li::before{content:'✓';color:var(--accent-pink-light)}
+
+    /* CHECKLIST */
+    .checklist{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .checklist-header{background:rgba(244,63,94,0.1);border-bottom:1px solid var(--border-subtle);padding:16px 24px;font-size:.85rem;font-weight:700;color:var(--accent-pink-light);display:flex;align-items:center;gap:10px}
+    .checklist-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background var(--transition-fast);user-select:none}
+    .checklist-item > div{flex:1;min-width:0}
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-item:hover{background:var(--bg-glass)}
+    .checklist-item input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--border-medium);border-radius:5px;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all var(--transition-fast);position:relative}
+    .checklist-item input[type="checkbox"]:checked{background:var(--accent-pink);border-color:var(--accent-pink)}
+    .checklist-item input[type="checkbox"]:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:white}
+    .check-title{font-size:.85rem;font-weight:600;color:var(--text-primary);display:block;margin-bottom:2px}
+    .check-desc{font-size:.78rem;color:var(--text-muted)}
+
+    /* NEXT/PREV */
+    .next-module{margin:48px 48px 0;background:var(--gradient-card);border:1px solid rgba(244,63,94,0.3);border-radius:var(--radius-xl);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+    .next-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+    .next-title{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .next-desc{font-size:.85rem;color:var(--text-secondary)}
+    .btn-next{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gradient-hero);border:none;border-radius:99px;font-size:.9rem;font-weight:700;color:white;cursor:pointer;text-decoration:none;transition:all var(--transition-fast);white-space:nowrap;font-family:'Inter',sans-serif}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+    .btn-prev{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);font-family:'Inter',sans-serif}
+    .btn-prev:hover{background:var(--bg-glass-strong);color:var(--text-primary)}
+    .nav-buttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+    code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.2);border-radius:4px;padding:1px 6px;color:var(--accent-pink-light)}
+    strong{color:var(--text-primary);font-weight:700}
+    .section-block{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .section-block.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .animate-in{animation:fadeInUp .6s ease-out forwards}
+    .animate-in-delay-1{animation-delay:.1s;opacity:0}
+    .animate-in-delay-2{animation-delay:.2s;opacity:0}
+    .animate-in-delay-3{animation-delay:.3s;opacity:0}
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.5)}
+      .sidebar-overlay.open{display:block}
+      .main-content{margin-left:0}
+      .module-hero,.content-section{padding-left:24px;padding-right:24px}
+      .next-module{margin:32px 24px 0;flex-direction:column}
+      .btn-next{width:100%;justify-content:center}
+      .menu-toggle{display:flex;align-items:center;justify-content:center}
+      .header-nav{display:none}
+      .ps-grid{grid-template-columns:1fr}
+      .ps-panel.problem{border-right:none;border-bottom:1px solid var(--border-subtle)}
+    }
+    @media(max-width:600px){
+      .module-hero,.content-section{padding-left:16px;padding-right:16px}
+      .next-module{margin:24px 16px 0;padding:24px}
+    }
+  </style>
+</head>
+<body>
+<div aria-hidden="true" class="bg-ambient"></div>
+<header class="top-header" role="banner">
+<div class="header-brand">
+<div aria-hidden="true" class="header-logo">👩‍🎤</div>
+<div><div class="header-title">Apostila de Mixagem</div><div class="header-subtitle">Guia Técnico para Produtores</div></div>
+</div>
+<nav class="header-nav">
+<a class="nav-pill" href="#anatomia">Anatomia Vocal</a>
+<a class="nav-pill active" href="#harshness">Domando o Harshness</a>
+<a class="nav-pill" href="#eq-air">The "Air" Band</a>
+<a class="nav-pill" href="#espaco">Reverbs e Shimmer</a>
+</nav>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<div aria-hidden="true" class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app-layout">
+<aside aria-label="Índice" class="sidebar" id="sidebar" role="navigation">
+<div class="sidebar-section-label">Módulo Atual</div>
+<a class="sidebar-item active" href="#anatomia" id="nav-anat"><span class="item-icon">🧬</span> Anatomia Feminina<span class="item-number">01</span></a>
+<a class="sidebar-item" href="#harshness" id="nav-har"><span class="item-icon">⚡</span> Harshness (2.5k - 4k)<span class="item-number">02</span></a>
+<a class="sidebar-item" href="#eq-air" id="nav-air"><span class="item-icon">✨</span> Air e Brilho Supremo<span class="item-number">03</span></a>
+<a class="sidebar-item" href="#sibilancia" id="nav-sib"><span class="item-icon">🐍</span> De-Esser Agressivo<span class="item-number">04</span></a>
+<a class="sidebar-item" href="#espaco" id="nav-spc"><span class="item-icon">🌌</span> Reverbs Lush &amp; Shimmer<span class="item-number">05</span></a>
+<a class="sidebar-item" href="#problemas" id="nav-prob"><span class="item-icon">🔧</span> Problemas Comuns<span class="item-number">06</span></a>
+<a class="sidebar-item" href="#checklist" id="nav-chk"><span class="item-icon">✅</span> Checklist<span class="item-number">07</span></a>
+<div class="sidebar-section-label">Outros Módulos</div>
+<a class="sidebar-item" href="modulo-01-pre-mixagem.html"><span class="item-icon">🏗️</span> Módulo 01 — Pré-Mix</a>
+<a class="sidebar-item" href="modulo-02-escuta-referencias.html"><span class="item-icon">👂</span> Módulo 02 — Escuta</a>
+<a class="sidebar-item" href="modulo-03-limpeza-edicao.html"><span class="item-icon">✂️</span> Módulo 03 — Edição</a>
+<a class="sidebar-item" href="modulo-04-bateria.html"><span class="item-icon">🥁</span> Módulo 04 — Bateria</a>
+<a class="sidebar-item" href="modulo-05-baixo.html"><span class="item-icon">🎸</span> Módulo 05 — Baixo</a>
+<a class="sidebar-item" href="modulo-06-guitarras.html"><span class="item-icon">🎸</span> Módulo 06 — Guitarra</a>
+<a class="sidebar-item" href="modulo-07-violao.html"><span class="item-icon">🪕</span> Módulo 07 — Violão</a>
+<a class="sidebar-item" href="modulo-08-teclados.html"><span class="item-icon">🎹</span> Módulo 08 — Teclados</a>
+<a class="sidebar-item" href="modulo-09-vocais-masculinos.html"><span class="item-icon">🎤</span> Módulo 09 — Vocal Masc.</a>
+<a class="sidebar-item" href="modulo-10-vocais-femininos.html"><span class="item-icon">👩‍🎤</span> Módulo 10 — Vocal Fem.</a>
+<a class="sidebar-item" href="modulo-11-mix-bus.html"><span class="item-icon">🚌</span> Módulo 11 — Mix Bus</a>
+<a class="sidebar-item" href="modulo-12-entrega-final.html"><span class="item-icon">🏁</span> Módulo 12 — Entrega Final</a>
+<div class="progress-bar-container"><div class="progress-bar-fill"></div></div>
+<div class="progress-label"><span>Módulo 10 de 12</span><span>83%</span></div>
+</aside>
+<main class="main-content" role="main">
+<!-- HERO -->
+<section class="module-hero animate-in">
+<div class="module-badge"><span>👩‍🎤</span> MÓDULO 10 (AVANÇADO)</div>
+<h1 class="module-title animate-in animate-in-delay-1">Vocais Femininos</h1>
+<p class="module-lead animate-in animate-in-delay-2">
+        A voz feminina (mezzo-soprano, soprano) difere radicalmente do barítono. Ela possui pouco grave, médios-agudos que penetram violentamente na mix, e sibilâncias mais estridentes. O segredo da mix moderna é domar a agressividade (Harshness) dos refrões enquanto injetamos um brilho de seda celestial no ar.
+      </p>
+<div class="module-meta animate-in animate-in-delay-3">
+<div class="meta-chip"><span>⏱️</span> 60 min de leitura</div>
+<div class="meta-chip"><span>🎯</span> Nível: Avançado</div>
+<div class="meta-chip"><span>⚡</span> Domando o Belting (Harshness)</div>
+<div class="meta-chip"><span>✨</span> Foco em Frequências "Air"</div>
+</div>
+</section>
+<!-- ═══ 1. ANATOMIA VOCAL ═══ -->
+<section class="content-section section-block" id="anatomia">
+<div class="section-header">
+<div class="section-icon icon-lavender">🧬</div>
+<div><h2 class="section-title">A Anatomia Vocal Feminina<small>Menos "Chest", mais "Head Voice"</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        As frequências fundamentais de uma mulher cantando geralmente partem de 200Hz. Isso significa que, diferentemente da voz masculina, o "boomy" ou "chestiness" não é o inimigo número um. O HPF pode ser mais seguro, em torno de 100Hz a 130Hz, pois raramente você cortará informação musical importante.
+      </p>
+<div class="callout lavender">
+<div class="callout-icon">🎙️</div>
+<div class="callout-content">
+<div class="callout-title">O Cuidado com o Corpo (Body)</div>
+<div class="callout-body">
+            Vozes femininas podem soar finas (tinny) muito rápido se você abusar de cortes entre 200Hz e 400Hz. Essa é a região do "corpo" da cantora. Ao contrário do homem, onde lutamos contra a lama, aqui nós frequentemente <strong>protegemos</strong> essa área.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 2. HARSHNESS E EQ DINÂMICO ═══ -->
+<section class="content-section section-block" id="harshness">
+<div class="section-header">
+<div class="section-icon icon-pink">⚡</div>
+<div><h2 class="section-title">Domando o "Harshness"<small>A zona de dor: 2.5kHz a 4kHz</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Quando uma cantora atinge notas altas a plenos pulmões (técnica de Belting), a energia entre <strong>2.5kHz e 4kHz</strong> explode. Nossos ouvidos são biologicamente programados para ter sensibilidade máxima nessa exata frequência (o choro de um bebê). Se não tratada, a cantora parecerá estar "gritando nos seus ouvidos", causando fadiga auditiva em 30 segundos.
+      </p>
+<div class="dyn-eq-viz">
+<div class="dev-title">Amortecedor de Agudos: O EQ Dinâmico</div>
+<div class="dev-desc">O EQ estático cortaria o brilho da voz na música toda. O EQ Dinâmico só corta no instante do grito.</div>
+<div class="dev-stage">
+<div class="dev-freq-bg">
+<div class="dev-zone dev-zone-1"></div>
+<div class="dev-zone dev-zone-2"></div>
+<div class="dev-zone dev-zone-3"></div>
+</div>
+<div class="dev-band" id="dev-harsh"></div>
+<div class="dev-gr-arrow" id="dev-arrow">↓ -6dB ↓</div>
+</div>
+<div class="dev-controls">
+<button class="dev-btn" onmousedown="simularBelting(true)" onmouseleave="simularBelting(false)" onmouseup="simularBelting(false)">Simular Nota Alta (Belting)</button>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 3. EQ E BRILHO ═══ -->
+<section class="content-section section-block" id="eq-air">
+<div class="section-header">
+<div class="section-icon icon-cyan">✨</div>
+<div><h2 class="section-title">The "Air" Band<small>O segredo do Pop moderno</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        A textura aveludada e "cara" das cantoras de Pop e R&amp;B vem do extremo superior do espectro. Como nós usamos o EQ dinâmico (no passo anterior) para amansar o aspecto cortante de 3kHz, podemos agora empurrar os agudos extremos sem ferir os ouvidos do ouvinte.
+      </p>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">Abaixo 120 Hz</span>
+<span class="eq-band-type band-hpf">HPF Rígido</span>
+<span class="eq-band-action">Limpando frequências sub-graves desnecessárias e pop-filters.</span>
+<span class="eq-band-value" style="color:var(--accent-cyan-light)">HPF 100-130 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">2.5kHz - 4kHz</span>
+<span class="eq-band-type band-dyn">EQ DINÂMICO</span>
+<span class="eq-band-action">Atenuação do "Harshness" (O amortecedor contra os gritos e o belting excessivo).</span>
+<span class="eq-band-value" style="color:var(--accent-pink-light)">Dyn −4 a −6 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">10kHz - 15kHz</span>
+<span class="eq-band-type band-air">AIR SHELF</span>
+<span class="eq-band-action">O brilho supremo de rádio. Adiciona a sensação de fôlego, sussurro e intimidade na performance vocal.</span>
+<span class="eq-band-value" style="color:var(--accent-lavender)">+4 a +6 dB</span>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 4. ESPAÇO E REVERBS ═══ -->
+<section class="content-section section-block" id="espaco">
+<div class="section-header">
+<div class="section-icon icon-magenta">🌌</div>
+<div><h2 class="section-title">Reverbs "Lush" &amp; Shimmer<small>Expandindo o horizonte celestial</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Vozes femininas agudas lidam incrivelmente bem com longas caudas de reverberação, especialmente em baladas. Enquanto a voz masculina embola os graves do reverb, a feminina flutua por cima da música.
+      </p>
+<div class="callout tip">
+<div class="callout-icon">✨</div>
+<div class="callout-content">
+<div class="callout-title">O Efeito "Shimmer" (Reverb de Oitava)</div>
+<div class="callout-body">
+            Um truque poderoso de produção moderna é mandar o canal do vocal feminino para um Auxiliar com Reverb e adicionar um <strong>Pitch Shifter de +12 semitons (+1 oitava)</strong> antes do reverb. Isso cria uma textura brilhante e quase angelical no fundo, suportando a voz principal.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 5. PROBLEMAS E SOLUÇÕES ═══ -->
+<section class="content-section section-block" id="problemas">
+<div class="section-header">
+<div class="section-icon icon-red">🔧</div>
+<div><h2 class="section-title">Problemas &amp; Soluções<small>Troubleshooting avançado para vocais femininos</small></h2></div>
+</div>
+<div class="ps-grid">
+<div class="ps-panel problem">
+<div class="ps-header problem-header">❌ O que evitar</div>
+<ul class="ps-list">
+<li><strong>Magreza Extrema (Thinness):</strong> Cortar a área de 200Hz a 400Hz brutalmente fará a cantora parecer um rádio quebrado AM.</li>
+<li><strong>Boost em 3kHz:</strong> Adicionar brilho entre 3kHz e 5kHz no EQ principal de uma soprano vai causar dores de cabeça no ouvinte. Evite essa área.</li>
+<li><strong>Sibilância Sangrenta:</strong> Aplicar o "Air Shelf" violento sem colocar um <strong>De-Esser forte (entre 6k e 9kHz) antes dele</strong>. Os "esses" vão arrancar sangue dos ouvidos.</li>
+</ul>
+</div>
+<div class="ps-panel solution">
+<div class="ps-header solution-header">✅ Soluções Diretas</div>
+<ul class="ps-list">
+<li><strong>O Brilho Seguro:</strong> Para dar destaque e inteligibilidade, foque em boosts sedosos bem altos (Acima de 8kHz a 12kHz).</li>
+<li><strong>Soften the Transients:</strong> Se o microfone que gravou a cantora foi um condensador chinês muito brilhante, use plugins simuladores de Fita Analógica ou Tubos (Tubes) para "amolecer" o pico do agudo agressivo.</li>
+</ul>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ CHECKLIST ═══ -->
+<section class="content-section section-block" id="checklist">
+<div class="section-header">
+<div class="section-icon icon-pink">✅</div>
+<div><h2 class="section-title">Checklist de Mixagem<small>Validação final do Vocal Feminino</small></h2></div>
+</div>
+<div class="checklist">
+<div class="checklist-header"><span>📋</span> Auditoria Final</div>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Harshness Zone Amortecida</span>
+<span class="check-desc">EQ Dinâmico ou Ressonador (Soothe2) inserido na região de 2.5k a 4kHz para domar gritos estridentes sem perder inteligibilidade.</span>
+</div>
+</label>
+<label class="checklist-item" id="sibilancia">
+<input type="checkbox"/>
+<div>
+<span class="check-title">De-Esser Cirúrgico (Alta Frequência)</span>
+<span class="check-desc">Sibilâncias agressivas entre 6kHz e 9kHz completamente atenuadas por um De-Esser rápido.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Brilho Extremo Seguro (Air Band)</span>
+<span class="check-desc">Boost generoso nas frequências de "ar" e "sussurro" (10kHz a 15kHz) garantindo a estética cristalina do Pop moderno.</span>
+</div>
+</label>
+</div>
+</section>
+<div class="next-module">
+<div>
+<div class="next-label">Próximo Passo</div>
+<div class="next-title">Módulo 11: O Mix Bus (Master Bus)</div>
+<div class="next-desc">Como colar todos os instrumentos usando o Bus Compressor e EQ de Buss, preparando a mix para a masterização comercial.</div>
+</div>
+<div class="nav-buttons">
+<a class="btn-prev" href="modulo-09-vocais-masculinos.html">⬅ Anterior</a>
+<a class="btn-next" href="modulo-11-mix-bus.html">Ir para Módulo 11 ➡</a>
+</div>
+</div>
+</main>
+</div>
+<script>
+  // Dynamic EQ Visualizer
+  function simularBelting(isActive) {
+    const band = document.getElementById('dev-harsh');
+    const arrow = document.getElementById('dev-arrow');
+    
+    if(isActive) {
+      // Simula o EQ Dinâmico comprimindo a faixa de 3kHz
+      band.style.height = '30px';
+      band.style.background = 'rgba(239, 68, 68, 0.9)'; // Fica bem vermelho (agindo forte)
+      arrow.style.opacity = '1';
+    } else {
+      // Volta ao normal
+      band.style.height = '70px';
+      band.style.background = 'rgba(244, 63, 94, 0.8)';
+      arrow.style.opacity = '0';
+    }
+  }
+
+  // Intersection Observer for Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.section-block').forEach(s => observer.observe(s));
+
+  // Sidebar Menu Mobile Toggle
+  const menuBtn = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function toggleMenu() {
+    const isOpen = sidebar.classList.contains('open');
+    if(isOpen) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if(window.innerWidth <= 900) toggleMenu();
+    });
+  });
+
+  // Active Link Tracking on Scroll
+  const sections = document.querySelectorAll('.content-section');
+  const navLinks = document.querySelectorAll('.sidebar-item');
+  const topNavLinks = document.querySelectorAll('.nav-pill');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollY = window.pageYOffset;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= (sectionTop - 150)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+    topNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>

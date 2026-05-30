@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 02 — Treinamento de Escuta &amp; Referências | Apostila de Mixagem</title>
+<meta content="Aprenda a usar faixas de referência profissionalmente, treinar o ouvido para identificar problemas espectrais e configurar seu ambiente de monitoração." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    /* ═══════════════════════════════════════════
+       DESIGN TOKENS & RESET
+    ═══════════════════════════════════════════ */
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-card-hover: #1c1c28;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-strong: rgba(255,255,255,0.07);
+
+      --accent-purple: #7c3aed;
+      --accent-purple-light: #a78bfa;
+      --accent-cyan: #06b6d4;
+      --accent-cyan-light: #67e8f9;
+      --accent-amber: #f59e0b;
+      --accent-amber-light: #fcd34d;
+      --accent-green: #10b981;
+      --accent-green-light: #6ee7b7;
+      --accent-red: #ef4444;
+      --accent-pink: #ec4899;
+
+      --gradient-hero: linear-gradient(135deg, #06b6d4 0%, #7c3aed 100%);
+      --gradient-card: linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(124,58,237,0.08) 100%);
+      --gradient-amber: linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(236,72,153,0.08) 100%);
+      --gradient-green: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(6,182,212,0.08) 100%);
+
+      --text-primary: #f0f0f8;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+      --text-accent: #67e8f9;
+
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-medium: rgba(255,255,255,0.10);
+      --border-accent: rgba(6,182,212,0.4);
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow-cyan: 0 0 40px rgba(6,182,212,0.25);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+
+      --sidebar-width: 280px;
+      --header-height: 64px;
+
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-med: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan-light); }
+
+    /* ═══ AMBIENT BG ═══ */
+    .bg-ambient {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .bg-ambient::before {
+      content: ''; position: absolute; top: -20%; right: -10%; width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 65%);
+      border-radius: 50%; animation: float1 22s ease-in-out infinite;
+    }
+    .bg-ambient::after {
+      content: ''; position: absolute; bottom: -20%; left: -5%; width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%);
+      border-radius: 50%; animation: float2 28s ease-in-out infinite;
+    }
+    @keyframes float1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-40px,30px) scale(1.1)} }
+    @keyframes float2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-40px) scale(1.08)} }
+
+    /* ═══ HEADER ═══ */
+    .top-header {
+      position: fixed; top: 0; left: 0; right: 0; height: var(--header-height);
+      background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; z-index: 100;
+    }
+    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .header-logo {
+      width: 36px; height: 36px; background: var(--gradient-hero);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .header-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; }
+    .header-subtitle { font-size: 0.7rem; color: var(--text-muted); }
+    .header-nav { display: flex; align-items: center; gap: 8px; }
+    .nav-pill {
+      padding: 6px 14px; border-radius: 99px; font-size: 0.78rem; font-weight: 500;
+      border: 1px solid var(--border-medium); background: var(--bg-glass); color: var(--text-secondary);
+      cursor: pointer; text-decoration: none; transition: all var(--transition-fast);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .nav-pill:hover { border-color: var(--accent-cyan); color: var(--accent-cyan-light); background: rgba(6,182,212,0.1); }
+    .nav-pill.active { background: var(--gradient-hero); border-color: transparent; color: white; }
+    .menu-toggle {
+      display: none; background: var(--bg-glass); border: 1px solid var(--border-medium);
+      color: var(--text-primary); border-radius: var(--radius-sm); padding: 8px;
+      cursor: pointer; font-size: 1.1rem; transition: all var(--transition-fast);
+    }
+    .menu-toggle:hover { background: var(--bg-glass-strong); }
+
+    /* ═══ LAYOUT ═══ */
+    .app-layout { display: flex; padding-top: var(--header-height); min-height: 100vh; position: relative; z-index: 1; }
+
+    /* ═══ SIDEBAR ═══ */
+    .sidebar {
+      width: var(--sidebar-width); background: var(--bg-secondary);
+      border-right: 1px solid var(--border-subtle);
+      position: fixed; top: var(--header-height); left: 0; bottom: 0;
+      overflow-y: auto; padding: 24px 16px;
+      transition: transform var(--transition-med); z-index: 90;
+    }
+    .sidebar-section-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted); padding: 0 8px; margin-bottom: 8px; margin-top: 20px;
+    }
+    .sidebar-section-label:first-child { margin-top: 0; }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+      border-radius: var(--radius-md); font-size: 0.82rem; color: var(--text-secondary);
+      cursor: pointer; text-decoration: none; transition: all var(--transition-fast);
+      border: 1px solid transparent; margin-bottom: 2px;
+    }
+    .sidebar-item:hover { background: var(--bg-glass-strong); color: var(--text-primary); border-color: var(--border-subtle); }
+    .sidebar-item.active { background: rgba(6,182,212,0.12); color: var(--accent-cyan-light); border-color: rgba(6,182,212,0.3); }
+    .sidebar-item .item-icon { font-size: 1rem; flex-shrink: 0; }
+    .sidebar-item .item-number {
+      font-size: 0.65rem; font-weight: 700; background: var(--bg-glass-strong);
+      border-radius: 4px; padding: 1px 5px; color: var(--text-muted); margin-left: auto; flex-shrink: 0;
+    }
+    .sidebar-item.active .item-number { background: rgba(6,182,212,0.25); color: var(--accent-cyan-light); }
+    .progress-bar-container { margin: 20px 8px 0; background: var(--bg-glass); border-radius: 99px; height: 4px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 16.6%; background: var(--gradient-hero); border-radius: 99px; }
+    .progress-label { display: flex; justify-content: space-between; padding: 6px 4px 0; font-size: 0.68rem; color: var(--text-muted); }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 85; }
+
+    /* ═══ MAIN ═══ */
+    .main-content { margin-left: var(--sidebar-width); flex: 1; padding: 0 0 80px; }
+
+    /* ═══ HERO ═══ */
+    .module-hero {
+      background: linear-gradient(135deg, rgba(6,182,212,0.18) 0%, rgba(124,58,237,0.1) 50%, transparent 100%);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 56px 48px 48px; position: relative; overflow: hidden;
+    }
+    .module-hero::before {
+      content: ''; position: absolute; top: -50%; left: -10%; width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%); pointer-events: none;
+    }
+    .module-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+      background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.4);
+      border-radius: 99px; font-size: 0.75rem; font-weight: 600;
+      color: var(--accent-cyan-light); letter-spacing: 0.05em; margin-bottom: 20px;
+    }
+    .module-title {
+      font-family: 'Outfit', sans-serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; line-height: 1.15; margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent-cyan-light) 60%, var(--accent-purple-light) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .module-lead { font-size: 1.05rem; color: var(--text-secondary); max-width: 680px; line-height: 1.8; margin-bottom: 32px; }
+    .module-meta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+      background: var(--bg-glass); border: 1px solid var(--border-medium);
+      border-radius: 99px; font-size: 0.78rem; color: var(--text-secondary);
+    }
+
+    /* ═══ CONTENT ═══ */
+    .content-section { padding: 48px 48px 0; }
+    .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .section-icon {
+      width: 48px; height: 48px; border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;
+    }
+    .icon-purple { background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.3); }
+    .icon-cyan   { background: rgba(6,182,212,0.2);  border: 1px solid rgba(6,182,212,0.3); }
+    .icon-amber  { background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.3); }
+    .icon-green  { background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.3); }
+    .icon-red    { background: rgba(239,68,68,0.2);  border: 1px solid rgba(239,68,68,0.3); }
+    .icon-pink   { background: rgba(236,72,153,0.2); border: 1px solid rgba(236,72,153,0.3); }
+
+    .section-title { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text-primary); }
+    .section-title small { display: block; font-size: 0.8rem; font-weight: 500; color: var(--text-muted); font-family: 'Inter', sans-serif; margin-top: 2px; }
+
+    .divider { height: 1px; background: var(--border-subtle); margin: 48px 0; }
+
+    /* ═══ CARDS ═══ */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); padding: 24px;
+      transition: all var(--transition-med); position: relative; overflow: hidden;
+    }
+    .card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity var(--transition-med); }
+    .card:hover { border-color: var(--border-medium); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+    .card:hover::before { opacity: 1; }
+    .card.cyan-glow::before   { background: var(--gradient-card); }
+    .card.amber-glow::before  { background: var(--gradient-amber); }
+    .card.green-glow::before  { background: var(--gradient-green); }
+    .card.purple-glow::before { background: linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(6,182,212,0.08) 100%); }
+    .card-icon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
+    .card-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; position: relative; }
+    .card-body { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; position: relative; }
+
+    /* ═══ CALLOUTS ═══ */
+    .callout {
+      border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 24px;
+      display: flex; gap: 16px; border-left: 4px solid;
+    }
+    .callout-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .callout-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; }
+    .callout-body { font-size: 0.85rem; line-height: 1.7; }
+    .callout.tip    { background: rgba(16,185,129,0.08); border-color: var(--accent-green); color: var(--text-secondary); }
+    .callout.tip .callout-title { color: var(--accent-green-light); }
+    .callout.warning { background: rgba(245,158,11,0.08); border-color: var(--accent-amber); color: var(--text-secondary); }
+    .callout.warning .callout-title { color: var(--accent-amber-light); }
+    .callout.danger { background: rgba(239,68,68,0.08); border-color: var(--accent-red); color: var(--text-secondary); }
+    .callout.danger .callout-title { color: #fca5a5; }
+    .callout.info   { background: rgba(6,182,212,0.08); border-color: var(--accent-cyan); color: var(--text-secondary); }
+    .callout.info .callout-title { color: var(--accent-cyan-light); }
+    .callout.purple { background: rgba(124,58,237,0.08); border-color: var(--accent-purple); color: var(--text-secondary); }
+    .callout.purple .callout-title { color: var(--accent-purple-light); }
+
+    /* ═══ TABLES ═══ */
+    .param-table-wrapper {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 32px;
+    }
+    .param-table-header {
+      background: rgba(6,182,212,0.1); border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+      font-size: 0.8rem; font-weight: 600; color: var(--accent-cyan-light);
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .param-table { width: 100%; border-collapse: collapse; }
+    .param-table th {
+      padding: 12px 16px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); text-align: left;
+      border-bottom: 1px solid var(--border-subtle); background: var(--bg-glass);
+    }
+    .param-table td {
+      padding: 14px 16px; font-size: 0.85rem; color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle); vertical-align: top;
+    }
+    .param-table tr:last-child td { border-bottom: none; }
+    .param-table tr:hover td { background: var(--bg-glass); }
+    .param-table td:first-child { font-weight: 600; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; }
+    .tag-ok     { background: rgba(16,185,129,0.15); color: var(--accent-green-light); border: 1px solid rgba(16,185,129,0.3); }
+    .tag-warn   { background: rgba(245,158,11,0.15); color: var(--accent-amber-light); border: 1px solid rgba(245,158,11,0.3); }
+    .tag-danger { background: rgba(239,68,68,0.15);  color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+    .tag-info   { background: rgba(6,182,212,0.15);  color: var(--accent-cyan-light); border: 1px solid rgba(6,182,212,0.3); }
+    .tag-purple { background: rgba(124,58,237,0.15); color: var(--accent-purple-light); border: 1px solid rgba(124,58,237,0.3); }
+
+    /* ═══ STEP LIST ═══ */
+    .step-list { counter-reset: step-counter; list-style: none; margin-bottom: 32px; }
+    .step-list li { counter-increment: step-counter; display: flex; gap: 20px; margin-bottom: 20px; position: relative; }
+    .step-list li::before {
+      content: counter(step-counter); width: 36px; height: 36px;
+      background: var(--gradient-hero); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.85rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .step-list li::after {
+      content: ''; position: absolute; left: 17px; top: 40px; bottom: -20px;
+      width: 2px; background: var(--border-subtle);
+    }
+    .step-list li:last-child::after { display: none; }
+    .step-title { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 6px; }
+    .step-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+    .step-code {
+      margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      background: var(--bg-secondary); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm); padding: 10px 14px; color: var(--accent-cyan-light); display: block;
+    }
+
+    /* ═══ EQ SPECTRUM VISUALIZER ═══ */
+    .eq-visualizer {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); padding: 28px; margin-bottom: 32px; overflow-x: auto;
+    }
+    .eq-title {
+      font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+    }
+    .eq-canvas-wrapper {
+      position: relative; height: 160px; min-width: 480px; border-radius: var(--radius-md);
+      background: linear-gradient(to bottom, rgba(6,182,212,0.03) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--border-subtle); overflow: hidden;
+    }
+    .eq-grid-lines {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .eq-hz-label {
+      position: absolute; bottom: 6px; font-size: 0.6rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted); transform: translateX(-50%);
+    }
+    .eq-db-label {
+      position: absolute; left: 6px; font-size: 0.6rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted); transform: translateY(50%);
+    }
+    .eq-region {
+      position: absolute; top: 0; bottom: 20px; border-radius: 4px;
+      cursor: default; transition: background-color var(--transition-fast);
+    }
+    .eq-region-label {
+      position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase;
+      white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+    }
+    /* Background com rgba: a cor da faixa é visível mas o texto permanece opaco */
+    .region-sub    { background: rgba(124,58,237,0.22); border-right: 1px solid rgba(124,58,237,0.35); }
+    .region-bass   { background: rgba(6,182,212,0.22);  border-right: 1px solid rgba(6,182,212,0.35); }
+    .region-low-mid { background: rgba(16,185,129,0.22); border-right: 1px solid rgba(16,185,129,0.35); }
+    .region-mid    { background: rgba(245,158,11,0.22); border-right: 1px solid rgba(245,158,11,0.35); }
+    .region-hi-mid { background: rgba(249,115,22,0.22); border-right: 1px solid rgba(249,115,22,0.35); }
+    .region-pres   { background: rgba(236,72,153,0.22); border-right: 1px solid rgba(236,72,153,0.35); }
+    .region-air    { background: rgba(167,139,250,0.22); }
+    /* Hover: mais opaco */
+    .region-sub:hover    { background: rgba(124,58,237,0.42); }
+    .region-bass:hover   { background: rgba(6,182,212,0.42); }
+    .region-low-mid:hover { background: rgba(16,185,129,0.42); }
+    .region-mid:hover    { background: rgba(245,158,11,0.42); }
+    .region-hi-mid:hover { background: rgba(249,115,22,0.42); }
+    .region-pres:hover   { background: rgba(236,72,153,0.42); }
+    .region-air:hover    { background: rgba(167,139,250,0.42); }
+    /* Labels com cores nítidas e legíveis */
+    .region-sub    .eq-region-label { color: #c4b5fd; }
+    .region-bass   .eq-region-label { color: #67e8f9; }
+    .region-low-mid .eq-region-label { color: #6ee7b7; }
+    .region-mid    .eq-region-label { color: #fde68a; }
+    .region-hi-mid .eq-region-label { color: #fed7aa; }
+    .region-pres   .eq-region-label { color: #fbcfe8; }
+    .region-air    .eq-region-label { color: #ddd6fe; }
+
+    /* ═══ FREQUENCY CARDS ═══ */
+    .freq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
+    .freq-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md); padding: 18px; transition: all var(--transition-fast);
+      border-top: 3px solid transparent;
+    }
+    .freq-card:hover { transform: translateY(-2px); border-color: var(--border-medium); }
+    .freq-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .freq-badge {
+      padding: 3px 10px; border-radius: 99px; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .freq-range { font-size: 0.75rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+    .freq-name { font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+    .freq-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 10px; }
+    .freq-problems { font-size: 0.75rem; }
+    .freq-problems strong { color: var(--accent-amber-light); display: block; margin-bottom: 4px; font-size: 0.72rem; }
+    .freq-problems ul { list-style: none; padding: 0; }
+    .freq-problems li { color: var(--text-muted); padding: 2px 0; padding-left: 14px; position: relative; }
+    .freq-problems li::before { content: '→'; position: absolute; left: 0; color: var(--text-muted); font-size: 0.7rem; }
+
+    /* ═══ MONITORING TABLE ═══ */
+    .monitor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .monitor-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); padding: 20px; text-align: center; transition: all var(--transition-fast);
+    }
+    .monitor-card:hover { border-color: var(--border-medium); transform: translateY(-2px); }
+    .monitor-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .monitor-name { font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+    .monitor-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+    .monitor-best { font-size: 0.72rem; font-weight: 600; }
+    .monitor-best span { display: inline-block; padding: 2px 8px; border-radius: 4px; }
+
+    /* ═══ REFERENCE WORKOUT ═══ */
+    .workout-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 32px;
+    }
+    .workout-header {
+      background: rgba(236,72,153,0.1); border-bottom: 1px solid var(--border-subtle);
+      padding: 16px 24px; display: flex; align-items: center; gap: 12px;
+    }
+    .workout-header-icon { font-size: 1.4rem; }
+    .workout-header-text { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+    .workout-header-sub { font-size: 0.78rem; color: var(--text-muted); }
+    .workout-body { padding: 24px; }
+    .workout-exercise {
+      display: flex; gap: 16px; padding: 16px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .workout-exercise:last-child { border-bottom: none; padding-bottom: 0; }
+    .exercise-num {
+      width: 32px; height: 32px; background: rgba(236,72,153,0.15);
+      border: 1px solid rgba(236,72,153,0.3); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800; color: #f9a8d4; flex-shrink: 0;
+    }
+    .exercise-content {}
+    .exercise-name { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 4px; }
+    .exercise-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+    .exercise-tip { margin-top: 8px; font-size: 0.78rem; color: var(--accent-cyan-light); font-style: italic; }
+
+    /* ═══ CHECKLIST ═══ */
+    .checklist { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 32px; }
+    .checklist-header {
+      background: rgba(16,185,129,0.1); border-bottom: 1px solid var(--border-subtle);
+      padding: 16px 24px; font-size: 0.85rem; font-weight: 700;
+      color: var(--accent-green-light); display: flex; align-items: center; gap: 10px;
+    }
+    .checklist-item {
+      display: flex; align-items: flex-start; gap: 14px; padding: 14px 24px;
+      border-bottom: 1px solid var(--border-subtle); cursor: pointer;
+      transition: background var(--transition-fast); user-select: none;
+    }
+    .checklist-item > div { flex: 1; min-width: 0; }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-item:hover { background: var(--bg-glass); }
+    .checklist-item input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none; width: 18px; height: 18px;
+      border: 2px solid var(--border-medium); border-radius: 5px; cursor: pointer;
+      flex-shrink: 0; margin-top: 2px; transition: all var(--transition-fast); position: relative;
+    }
+    .checklist-item input[type="checkbox"]:checked { background: var(--accent-green); border-color: var(--accent-green); }
+    .checklist-item input[type="checkbox"]:checked::after {
+      content: '✓'; position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 900; color: white;
+    }
+    .check-title { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 2px; }
+    .check-desc { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ═══ NEXT MODULE ═══ */
+    .next-module {
+      margin: 48px 48px 0;
+      background: linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(6,182,212,0.08) 100%);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: var(--radius-xl); padding: 32px;
+      display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+    }
+    .next-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+    .next-title { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+    .next-desc { font-size: 0.85rem; color: var(--text-secondary); }
+    .btn-next {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+      background: var(--gradient-hero); border: none; border-radius: 99px;
+      font-size: 0.9rem; font-weight: 700; color: white; cursor: pointer;
+      text-decoration: none; transition: all var(--transition-fast); white-space: nowrap; font-family: 'Inter', sans-serif;
+    }
+    .btn-next:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow-cyan); }
+    .btn-prev {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px;
+      background: var(--bg-glass); border: 1px solid var(--border-medium); border-radius: 99px;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
+      cursor: pointer; text-decoration: none; transition: all var(--transition-fast); font-family: 'Inter', sans-serif;
+    }
+    .btn-prev:hover { background: var(--bg-glass-strong); color: var(--text-primary); }
+    .nav-buttons { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    code {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.82em;
+      background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.2);
+      border-radius: 4px; padding: 1px 6px; color: var(--accent-cyan-light);
+    }
+    strong { color: var(--text-primary); font-weight: 700; }
+
+    /* ═══ SECTION ENTRANCE ═══ */
+    .section-block { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .section-block.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .animate-in { animation: fadeInUp 0.6s ease-out forwards; }
+    .animate-in-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .animate-in-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .animate-in-delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,0.5); }
+      .sidebar-overlay.open { display: block; }
+      .main-content { margin-left: 0; }
+      .module-hero, .content-section { padding-left: 24px; padding-right: 24px; }
+      .next-module { margin: 32px 24px 0; flex-direction: column; }
+      .btn-next { width: 100%; justify-content: center; }
+      .menu-toggle { display: flex; align-items: center; justify-content: center; }
+      .header-nav { display: none; }
+    }
+    @media (max-width: 600px) {
+      .module-hero, .content-section { padding-left: 16px; padding-right: 16px; }
+      .next-module { margin: 24px 16px 0; padding: 24px; }
+      .freq-grid { grid-template-columns: 1fr; }
+      .monitor-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div aria-hidden="true" class="bg-ambient"></div>
+<!-- HEADER -->
+<header class="top-header" role="banner">
+<div class="header-brand">
+<div aria-hidden="true" class="header-logo">👂</div>
+<div>
+<div class="header-title">Apostila de Mixagem</div>
+<div class="header-subtitle">Guia Técnico para Produtores</div>
+</div>
+</div>
+<nav aria-label="Navegação de seções" class="header-nav">
+<a class="nav-pill" href="#espectro">Espectro</a>
+<a class="nav-pill" href="#monitoracao">Monitoração</a>
+<a class="nav-pill" href="#referencias">Referências</a>
+<a class="nav-pill active" href="#treino">Treino</a>
+</nav>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<div aria-hidden="true" class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app-layout">
+<!-- SIDEBAR -->
+<aside aria-label="Índice" class="sidebar" id="sidebar" role="navigation">
+<div class="sidebar-section-label">Módulo Atual</div>
+<a class="sidebar-item active" href="#espectro" id="nav-esp"><span class="item-icon">🌈</span> O Espectro Sonoro<span class="item-number">01</span></a>
+<a class="sidebar-item" href="#monitoracao" id="nav-mon"><span class="item-icon">🔊</span> Monitoração<span class="item-number">02</span></a>
+<a class="sidebar-item" href="#mono-check" id="nav-mono"><span class="item-icon">🔘</span> Mono Check<span class="item-number">03</span></a>
+<a class="sidebar-item" href="#referencias" id="nav-ref"><span class="item-icon">🎯</span> Faixas de Referência<span class="item-number">04</span></a>
+<a class="sidebar-item" href="#treino" id="nav-tre"><span class="item-icon">🏋️</span> Treino de Ouvido<span class="item-number">05</span></a>
+<a class="sidebar-item" href="#checklist" id="nav-chk"><span class="item-icon">✅</span> Checklist<span class="item-number">06</span></a>
+<div class="sidebar-section-label">Outros Módulos</div>
+<a class="sidebar-item" href="modulo-01-pre-mixagem.html"><span class="item-icon">🏗️</span> Módulo 01 — Pré-Mix</a>
+<a class="sidebar-item" href="modulo-02-escuta-referencias.html"><span class="item-icon">👂</span> Módulo 02 — Escuta</a>
+<a class="sidebar-item" href="modulo-03-limpeza-edicao.html"><span class="item-icon">✂️</span> Módulo 03 — Edição</a>
+<a class="sidebar-item" href="modulo-04-bateria.html"><span class="item-icon">🥁</span> Módulo 04 — Bateria</a>
+<a class="sidebar-item" href="modulo-05-baixo.html"><span class="item-icon">🎸</span> Módulo 05 — Baixo</a>
+<a class="sidebar-item" href="modulo-06-guitarras.html"><span class="item-icon">🎸</span> Módulo 06 — Guitarra</a>
+<a class="sidebar-item" href="modulo-07-violao.html"><span class="item-icon">🪕</span> Módulo 07 — Violão</a>
+<a class="sidebar-item" href="modulo-08-teclados.html"><span class="item-icon">🎹</span> Módulo 08 — Teclados</a>
+<a class="sidebar-item" href="modulo-09-vocais-masculinos.html"><span class="item-icon">🎤</span> Módulo 09 — Vocal Masc.</a>
+<a class="sidebar-item" href="modulo-10-vocais-femininos.html"><span class="item-icon">👩‍🎤</span> Módulo 10 — Vocal Fem.</a>
+<a class="sidebar-item" href="modulo-11-mix-bus.html"><span class="item-icon">🚌</span> Módulo 11 — Mix Bus</a>
+<a class="sidebar-item" href="modulo-12-entrega-final.html"><span class="item-icon">🏁</span> Módulo 12 — Entrega Final</a>
+<div class="progress-bar-container">
+<div class="progress-bar-fill"></div>
+</div>
+<div class="progress-label"><span>Módulo 2 de 12</span><span>16%</span></div>
+</aside>
+<!-- MAIN -->
+<main class="main-content" role="main">
+<!-- HERO -->
+<section class="module-hero animate-in">
+<div class="module-badge"><span>👂</span> MÓDULO 02</div>
+<h1 class="module-title animate-in animate-in-delay-1">Treinamento de Escuta<br/>&amp; Referências</h1>
+<p class="module-lead animate-in animate-in-delay-2">
+        O melhor plugin do mundo não compensa um ouvido não treinado. Aprender a escutar analiticamente — identificar frequências problemáticas, comparar com referências e checar em mono — é a habilidade mais valiosa de um mixer profissional.
+      </p>
+<div class="module-meta animate-in animate-in-delay-3">
+<div class="meta-chip"><span>⏱️</span> 50 min de leitura</div>
+<div class="meta-chip"><span>🎯</span> Nível: Fundamental</div>
+<div class="meta-chip"><span>🔁</span> Prática contínua</div>
+<div class="meta-chip"><span>🧠</span> Treino permanente</div>
+</div>
+</section>
+<!-- ═══ 1. ESPECTRO ═══ -->
+<section class="content-section section-block" id="espectro">
+<div class="section-header">
+<div class="section-icon icon-cyan">🌈</div>
+<div>
+<h2 class="section-title">O Espectro Sonoro
+            <small>Cada região tem uma função no mix</small>
+</h2>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        O espectro audível vai de <strong>20 Hz a 20 kHz</strong>. Para mixar bem, você precisa reconhecer instantaneamente o que cada região faz, quais problemas ela causa quando excessiva, e o que perde quando cortada demais. Isso não é teoria — é leitura de mapa antes de sair em campo.
+      </p>
+<!-- Visualizador de regiões -->
+<div class="eq-visualizer">
+<div class="eq-title">🎛️ Mapa do Espectro — Regiões e Funções</div>
+<div class="eq-canvas-wrapper" id="spectrumMap">
+<!-- Sub Bass -->
+<div class="eq-region region-sub" style="left:0%;width:9%;">
+<div class="eq-region-label">SUB</div>
+</div>
+<!-- Bass -->
+<div class="eq-region region-bass" style="left:9%;width:14%;">
+<div class="eq-region-label">BASS</div>
+</div>
+<!-- Low Mid -->
+<div class="eq-region region-low-mid" style="left:23%;width:18%;">
+<div class="eq-region-label">LOW MID</div>
+</div>
+<!-- Mid -->
+<div class="eq-region region-mid" style="left:41%;width:18%;">
+<div class="eq-region-label">MID</div>
+</div>
+<!-- Hi Mid -->
+<div class="eq-region region-hi-mid" style="left:59%;width:16%;">
+<div class="eq-region-label">HI MID</div>
+</div>
+<!-- Presence -->
+<div class="eq-region region-pres" style="left:75%;width:13%;">
+<div class="eq-region-label">PRESENCE</div>
+</div>
+<!-- Air -->
+<div class="eq-region region-air" style="left:88%;width:12%;">
+<div class="eq-region-label">AIR</div>
+</div>
+<!-- Hz labels -->
+<span class="eq-hz-label" style="left:4.5%">20Hz</span>
+<span class="eq-hz-label" style="left:9%">80Hz</span>
+<span class="eq-hz-label" style="left:23%">200Hz</span>
+<span class="eq-hz-label" style="left:41%">500Hz</span>
+<span class="eq-hz-label" style="left:59%">2kHz</span>
+<span class="eq-hz-label" style="left:75%">5kHz</span>
+<span class="eq-hz-label" style="left:88%">10kHz</span>
+<span class="eq-hz-label" style="left:97%">20kHz</span>
+</div>
+<p style="font-size:.75rem;color:var(--text-muted);margin-top:12px;text-align:center;">
+          Passe o mouse sobre cada região para ver seu papel no mix (visualização interativa)
+        </p>
+</div>
+<!-- Freq Cards -->
+<div class="freq-grid">
+<div class="freq-card" style="border-top-color:#7c3aed;">
+<div class="freq-header">
+<span class="freq-badge" style="background:rgba(124,58,237,0.15);color:#a78bfa;border:1px solid rgba(124,58,237,0.3);">SUB BASS</span>
+</div>
+<div class="freq-range">20 Hz — 80 Hz</div>
+<div class="freq-name">Fundação física</div>
+<div class="freq-desc">Frequências sentidas mais do que ouvidas. São o peso do bumbo, a profundidade do baixo. Essenciais para música eletrônica e hip-hop, moderadas em rock/pop.</div>
+<div class="freq-problems">
+<strong>⚠️ Problemas comuns</strong>
+<ul>
+<li>Mix "gordo" e sem definição em fones</li>
+<li>Clipping no master antes dos mids</li>
+<li>Conflito entre kick e baixo abaixo de 60 Hz</li>
+</ul>
+</div>
+</div>
+<div class="freq-card" style="border-top-color:#06b6d4;">
+<div class="freq-header">
+<span class="freq-badge" style="background:rgba(6,182,212,0.15);color:#67e8f9;border:1px solid rgba(6,182,212,0.3);">BASS</span>
+</div>
+<div class="freq-range">80 Hz — 200 Hz</div>
+<div class="freq-name">Corpo e peso</div>
+<div class="freq-desc">O corpo do baixo, o punch do bumbo, a quentura do vocal masculino. Região que "enche" o mix. Excesso deixa o mix abafado.</div>
+<div class="freq-problems">
+<strong>⚠️ Problemas comuns</strong>
+<ul>
+<li>Mix "lamacento" e sem clareza</li>
+<li>Vocal masculino encorpado demais</li>
+<li>Ressonâncias do violão em ~120–180 Hz</li>
+</ul>
+</div>
+</div>
+<div class="freq-card" style="border-top-color:#10b981;">
+<div class="freq-header">
+<span class="freq-badge" style="background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3);">LOW MID</span>
+</div>
+<div class="freq-range">200 Hz — 500 Hz</div>
+<div class="freq-name">A "lama" do mix</div>
+<div class="freq-desc">A região mais traiçoeira. Acumulo de energia aqui deixa qualquer mix "embolado". É onde guitarras, piano e vocal lutam pelo mesmo espaço.</div>
+<div class="freq-problems">
+<strong>⚠️ Problemas comuns</strong>
+<ul>
+<li>Mix sem transparência ("boxy")</li>
+<li>Vocal encoberto por instrumentos</li>
+<li>Piano "sujo" e sem clareza</li>
+</ul>
+</div>
+</div>
+<div class="freq-card" style="border-top-color:#f59e0b;">
+<div class="freq-header">
+<span class="freq-badge" style="background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.3);">MID</span>
+</div>
+<div class="freq-range">500 Hz — 2 kHz</div>
+<div class="freq-name">Inteligibilidade</div>
+<div class="freq-desc">Onde a voz humana vive. A inteligibilidade das consoantes e vogais depende desta região. O nasal do vocal, o ataque do snare, a definição da guitarra.</div>
+<div class="freq-problems">
+<strong>⚠️ Problemas comuns</strong>
+<ul>
+<li>Vocal "nasal" (800 Hz–1.2 kHz)</li>
+<li>Guitarra "telefone" (1–2 kHz excessivo)</li>
+<li>Mix "hollow" se cortado demais</li>
+</ul>
+</div>
+</div>
+<div class="freq-card" style="border-top-color:#f97316;">
+<div class="freq-header">
+<span class="freq-badge" style="background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.3);">HI MID</span>
+</div>
+<div class="freq-range">2 kHz — 5 kHz</div>
+<div class="freq-name">Ataque e presença</div>
+<div class="freq-desc">O click do bumbo, o crack do snare, a presença vocal, o brilho das guitarras. É a região que faz os instrumentos "cortarem" no mix e chegarem ao ouvido do ouvinte.</div>
+<div class="freq-problems">
+<strong>⚠️ Problemas comuns</strong>
+<ul>
+<li>Harshness / aspereza em 3–4 kHz</li>
+<li>Sibilância precoce do vocal</li>
+<li>Fadiga auditiva com excesso</li>
+</ul>
+</div>
+</div>
+<div class="freq-card" style="border-top-color:#ec4899;">
+<div class="freq-header">
+<span class="freq-badge" style="background:rgba(236,72,153,0.15);color:#f9a8d4;border:1px solid rgba(236,72,153,0.3);">PRESENCE</span>
+</div>
+<div class="freq-range">5 kHz — 10 kHz</div>
+<div class="freq-name">Definição e brilho</div>
+<div class="freq-desc">A sibilância do vocal (S, T, CH), o shimmer dos pratos, o brilho do violão. Região crítica para naturalidade. Excesso produz sibilância, falta produz opacidade.</div>
+<div class="freq-problems">
+<strong>⚠️ Problemas comuns</strong>
+<ul>
+<li>Sibilância agressiva ("esse" do vocal)</li>
+<li>Pratos estridentes e cansativos</li>
+<li>Violão "cortante" demais</li>
+</ul>
+</div>
+</div>
+<div class="freq-card" style="border-top-color:#a78bfa;">
+<div class="freq-header">
+<span class="freq-badge" style="background:rgba(167,139,250,0.15);color:#c4b5fd;border:1px solid rgba(167,139,250,0.3);">AIR</span>
+</div>
+<div class="freq-range">10 kHz — 20 kHz</div>
+<div class="freq-name">Ar e abertura</div>
+<div class="freq-desc">O "respiro" do mix. Shimmer dos overheads, o ar do vocal, a sensação de espaço aberto. Um boost suave de shelf em 16 kHz abre qualquer mix sem adicionar frequências problemáticas.</div>
+<div class="freq-problems">
+<strong>⚠️ Problemas comuns</strong>
+<ul>
+<li>Mix "morto" ou abafado sem air</li>
+<li>Ruído de fundo amplificado com boost</li>
+<li>Artefatos de compressão expostos</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout info">
+<div class="callout-icon">🎓</div>
+<div class="callout-content">
+<div class="callout-title">Como usar esse mapa na prática</div>
+<div class="callout-body">Ao ouvir um problema no mix, identifique a <strong>região primeiro</strong>, depois procure a frequência exata com um EQ paramétrico em modo boost estreito (Q alto). Varra a faixa até o problema ficar exagerado — então você encontrou o culpado. Depois, corte ali de forma cirúrgica.</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 2. MONITORAÇÃO ═══ -->
+<section class="content-section section-block" id="monitoracao">
+<div class="section-header">
+<div class="section-icon icon-amber">🔊</div>
+<div>
+<h2 class="section-title">Monitoração
+            <small>Você só mistura o que consegue ouvir com precisão</small>
+</h2>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Nenhum mix é feito em um único sistema de monitoração. Profissionais alternam constantemente entre diferentes fontes de escuta para garantir que a decisão funcione em <em>todos os contextos</em> — não só no seu estúdio favorito.
+      </p>
+<div class="monitor-grid">
+<div class="monitor-card">
+<div class="monitor-icon">🔊</div>
+<div class="monitor-name">Monitores de Campo Próximo</div>
+<div class="monitor-desc">A referência principal. Precisão espectral, menor influência da sala. Posicionar em triângulo equilátero com a cabeça, tweeters na altura dos ouvidos.</div>
+<div class="monitor-best"><span class="tag tag-ok">✓ Decisões de EQ e dinâmica</span></div>
+</div>
+<div class="monitor-card">
+<div class="monitor-icon">🎧</div>
+<div class="monitor-name">Fones Fechados</div>
+<div class="monitor-desc">Bons para edição e verificação de detalhes de fase. Perigosos para decisões de graves — o baixo parece sempre mais presente em fones.</div>
+<div class="monitor-best"><span class="tag tag-warn">⚠️ Verificação, não decisão</span></div>
+</div>
+<div class="monitor-card">
+<div class="monitor-icon">🎧</div>
+<div class="monitor-name">Fones Abertos</div>
+<div class="monitor-desc">Imagem estéreo mais natural que fechados. Sensação de espaço mais realista. Evite para graves — o isolamento é menor e o ambiente interfere.</div>
+<div class="monitor-best"><span class="tag tag-info">ℹ️ Espaço e stereo</span></div>
+</div>
+<div class="monitor-card">
+<div class="monitor-icon">📻</div>
+<div class="monitor-name">Pequeno Alto-Falante</div>
+<div class="monitor-desc">Simula caixinhas de som baratas, computadores e TVs. Se soar bem aqui, soa bem em qualquer lugar. Referência obrigatória de tradução.</div>
+<div class="monitor-best"><span class="tag tag-ok">✓ Teste de tradução</span></div>
+</div>
+<div class="monitor-card">
+<div class="monitor-icon">🚗</div>
+<div class="monitor-name">Som do Carro</div>
+<div class="monitor-desc">O teste definitivo de tradução. Exporte o mix e ouça no carro. É onde a maioria das pessoas ouve música — e onde problemas de graves aparecem claramente.</div>
+<div class="monitor-best"><span class="tag tag-ok">✓ Validação final</span></div>
+</div>
+<div class="monitor-card">
+<div class="monitor-icon">📱</div>
+<div class="monitor-name">Alto-Falante de Celular</div>
+<div class="monitor-desc">A maioria dos streams acontece aqui. Se o vocal está audível, o snare está presente e os graves não destorcem — você tem um bom mix de tradução.</div>
+<div class="monitor-best"><span class="tag tag-warn">⚠️ Teste de streaming</span></div>
+</div>
+</div>
+<div class="param-table-wrapper">
+<div class="param-table-header">📐 Volume de Monitoração — Referências Profissionais</div>
+<table class="param-table">
+<thead>
+<tr><th>Situação</th><th>SPL recomendado</th><th>Duração máx.</th><th>Objetivo</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Mix principal</td>
+<td>79–85 dB SPL</td>
+<td>20–30 min</td>
+<td>Decisões de EQ, dinâmica e espaço</td>
+</tr>
+<tr>
+<td>Verificação de balanço</td>
+<td>70–75 dB SPL</td>
+<td>Ilimitado</td>
+<td>O volume Fletcher-Munson baixo expõe balanços reais</td>
+</tr>
+<tr>
+<td>Teste de graves</td>
+<td>85–90 dB SPL</td>
+<td>5 min máx.</td>
+<td>Verificar sub bass e punch do kick</td>
+</tr>
+<tr>
+<td>Referência externa</td>
+<td>Mesmo nível do mix</td>
+<td>—</td>
+<td>Comparação justa requer mesmo volume</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="callout warning">
+<div class="callout-icon">⚠️</div>
+<div class="callout-content">
+<div class="callout-title">A Ilusão do Volume Alto</div>
+<div class="callout-body">Em volumes altos, o ouvido humano percebe graves e agudos como mais presentes (curva de Fletcher-Munson). Um mix que soa "perfeito" em alto volume pode soar magro e sem graves em volume baixo. <strong>Sempre valide decisões de mix em 70–75 dB SPL</strong> — é o volume de escuta doméstica casual.</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 3. MONO CHECK ═══ -->
+<section class="content-section section-block" id="mono-check">
+<div class="section-header">
+<div class="section-icon icon-purple">🔘</div>
+<div>
+<h2 class="section-title">Mono Check
+            <small>O teste que revela tudo que o estéreo esconde</small>
+</h2>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Resumir o mix para mono é um dos testes mais reveladores que existe. Problemas de fase, instrumentos que desaparecem, graves que engrossam ou somem — tudo isso aparece imediatamente no mono. E lembre-se: <strong>Bluetooth, alto-falantes de computador e muitos sistemas de som são mono por natureza.</strong>
+</p>
+<div class="cards-grid">
+<div class="card cyan-glow">
+<span class="card-icon">🎚️</span>
+<div class="card-title">Cancelamento de Fase</div>
+<div class="card-body">Quando dois sinais com a mesma frequência estão fora de fase entre canais L e R, ao somar em mono eles se <strong>cancelam</strong>. O instrumento some ou fica oco. Cause: mics mal posicionados, delays de estéreo artificiais, ou doubled tracks não alinhadas.</div>
+</div>
+<div class="card amber-glow">
+<span class="card-icon">🔉</span>
+<div class="card-title">Graves em Mono</div>
+<div class="card-body">Frequências abaixo de 80–100 Hz são <strong>omnidirecionais</strong> — não têm direção. Sempre devem ser centralizadas (mono) no mix. Se o kick ou baixo está espalhado em estéreo, mono check vai revelar perda de energia considerável.</div>
+</div>
+<div class="card green-glow">
+<span class="card-icon">🎙️</span>
+<div class="card-title">Vocal no Centro</div>
+<div class="card-body">O vocal principal <strong>sempre deve estar no centro absoluto</strong>. Se houver delay de estéreo excessivo nos backing vocals, o mono check pode revelar que o lead vocal está sendo cancelado parcialmente pelos backing vocals em certas frequências.</div>
+</div>
+</div>
+<h3 style="font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:16px;">Como fazer o Mono Check na sua DAW</h3>
+<ol class="step-list">
+<li>
+<div class="step-content">
+<div class="step-title">Coloque um plugin de utilidade no Master Bus</div>
+<div class="step-desc">Use o Utility (Ableton), Gain (Pro Tools), ou qualquer plugin com opção de "Mono". Não use o botão mono do seu interface — ele afeta o monitoramento mas não o signal path e não acusa cancelamentos reais.</div>
+</div>
+</li>
+<li>
+<div class="step-content">
+<div class="step-title">Ative o modo Mono e compare imediatamente</div>
+<div class="step-desc">Ao sumarizar para mono, o volume vai cair levemente (normal). Mas se algum instrumento específico sumir ou mudar drasticamente de caráter, você tem problema de fase nele.</div>
+<code class="step-code">Regra: em mono, o mix deve soar semelhante ao estéreo — menos "largo", mas não menos "cheio"</code>
+</div>
+</li>
+<li>
+<div class="step-content">
+<div class="step-title">Identifique o instrumento problemático</div>
+<div class="step-desc">Mute as faixas uma por uma enquanto o mix está em mono para isolar qual está causando o problema. Geralmente são: bateria com mics fora de fase, guitarras dobradas com timing diferente, ou reverb com early reflections muito curtos.</div>
+</div>
+</li>
+<li>
+<div class="step-content">
+<div class="step-title">Corrija com flip de fase ou alinhamento de transientes</div>
+<div class="step-desc">Use o botão de Phase Flip (⌀) no canal problemático. Se não resolver completamente, alinhe os transientes manualmente no editor de áudio ou use um plugin de Phase Alignment (ex: Little Labs IBP, Sound Radix Auto-Align).</div>
+</div>
+</li>
+</ol>
+</section>
+<div class="divider"></div>
+<!-- ═══ 4. REFERÊNCIAS ═══ -->
+<section class="content-section section-block" id="referencias">
+<div class="section-header">
+<div class="section-icon icon-green">🎯</div>
+<div>
+<h2 class="section-title">Faixas de Referência
+            <small>O padrão ouro contra o qual seu mix é medido</small>
+</h2>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Uma faixa de referência é uma música comercial, masterizada profissionalmente, do mesmo gênero e com sonoridade similar ao que você quer atingir. Usá-la corretamente transforma julgamentos subjetivos ("acho que falta brilho") em dados objetivos ("a referência tem 4 dB a mais em 12 kHz").
+      </p>
+<div class="callout tip">
+<div class="callout-icon">💡</div>
+<div class="callout-content">
+<div class="callout-title">Como importar a referência corretamente</div>
+<div class="callout-body">Importe o arquivo WAV/AIFF da referência diretamente na sessão (nunca streaming — a compressão do MP3 afeta o espectro). Coloque numa faixa separada, mute quando não usar, e certifique-se de que está no mesmo nível de volume de reprodução que seu mix. <strong>Diferença de volume engana o julgamento</strong>.</div>
+</div>
+</div>
+<div class="param-table-wrapper">
+<div class="param-table-header">🎵 Como escolher a referência certa</div>
+<table class="param-table">
+<thead>
+<tr><th>Critério</th><th>Ideal</th><th>❌ Evitar</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Gênero</td>
+<td>Mesmo gênero ou subgênero</td>
+<td>Comparar pop com jazz acústico</td>
+</tr>
+<tr>
+<td>Era</td>
+<td>Últimos 5 anos (masterização moderna)</td>
+<td>Discos dos anos 80–90 (outra curva de loudness)</td>
+</tr>
+<tr>
+<td>Formato</td>
+<td>WAV 44.1kHz/16bit ou maior</td>
+<td>MP3 128kbps ou streaming</td>
+</tr>
+<tr>
+<td>Sonoridade</td>
+<td>Similar ao seu objetivo tonal</td>
+<td>Faixa que você "acha bonita" mas não tem relação</td>
+</tr>
+<tr>
+<td>Produção</td>
+<td>Mix profissional reconhecido</td>
+<td>Demo de bandas independentes sem masterização</td>
+</tr>
+<tr>
+<td>Quantidade</td>
+<td>2 a 3 referências</td>
+<td>10+ referências (confusão de direção)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 style="font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:20px;">O que analisar na referência</h3>
+<div class="cards-grid">
+<div class="card cyan-glow">
+<span class="card-icon">📊</span>
+<div class="card-title">Balanço Espectral</div>
+<div class="card-body">Use um analisador de espectro (SPAN, Voxengo, etc.) e compare as curvas. Onde a referência tem mais energia? Onde tem menos? Não tente memorizar — olhe enquanto ouve.</div>
+</div>
+<div class="card amber-glow">
+<span class="card-icon">🥁</span>
+<div class="card-title">Relação Drums vs. Vocal</div>
+<div class="card-body">Baixe o volume do seu mix e da referência ao mesmo nível. Qual instrumento está "na frente"? Quanto o vocal se destaca em relação aos instrumentos? Essa relação define o gênero.</div>
+</div>
+<div class="card green-glow">
+<span class="card-icon">🌊</span>
+<div class="card-title">Dinâmica e Compressão</div>
+<div class="card-body">O mix soa "comprimido e denso" ou "dinâmico e aberto"? Use um medidor de dinâmica (DR Meter) para quantificar. Saber a dinâmica do target define quanto você vai comprimir no master.</div>
+</div>
+<div class="card purple-glow">
+<span class="card-icon">🌍</span>
+<div class="card-title">Espaço e Profundidade</div>
+<div class="card-body">O mix é "seco" (próximo, sem muito reverb) ou "espaçoso"? Os instrumentos têm profundidade (alguns parecem "mais longe")? Isso guia suas decisões de reverb e delay.</div>
+</div>
+</div>
+<div class="callout warning">
+<div class="callout-icon">🚫</div>
+<div class="callout-content">
+<div class="callout-title">Erro fatal: igualar volume antes de comparar</div>
+<div class="callout-body">Se sua referência está <strong>mais alta</strong> que seu mix quando você alterna, ela vai sempre soar "melhor" — não porque é melhor, mas porque volume alto soa melhor para o cérebro humano. Use um plugin de gain na referência ou no master para igualar os volumes antes de qualquer comparação.</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 5. TREINO ═══ -->
+<section class="content-section section-block" id="treino">
+<div class="section-header">
+<div class="section-icon icon-pink">🏋️</div>
+<div>
+<h2 class="section-title">Treino de Ouvido
+            <small>Exercícios práticos para identificar frequências</small>
+</h2>
+</div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Reconhecer frequências de ouvido é uma habilidade aprendida, não um dom. Com prática sistemática, em 3 a 6 meses você será capaz de identificar um problema em 250 Hz ou 3 kHz com precisão de uma oitava — e em 12 meses, com precisão de um terço de oitava.
+      </p>
+<div class="workout-card">
+<div class="workout-header">
+<div class="workout-header-icon">🏋️</div>
+<div>
+<div class="workout-header-text">Rotina de Treino — 15 minutos por dia</div>
+<div class="workout-header-sub">Faça isso antes de começar qualquer sessão de mixagem</div>
+</div>
+</div>
+<div class="workout-body">
+<div class="workout-exercise">
+<div class="exercise-num">1</div>
+<div class="exercise-content">
+<div class="exercise-name">Ear Training com Pink Noise + EQ</div>
+<div class="exercise-desc">Gere ruído rosa na DAW. Insira um EQ paramétrico com Q de 2.0 e boost de +12 dB. Sem olhar, varre o espectro e tente "adivinhar" em qual frequência está o boost escutando a textura do som. Use a tabela de regiões como guia mental.</div>
+<div class="exercise-tip">→ App gratuito recomendado: "Ear Trainer" (iOS/Android) ou "Golden Ears" (web)</div>
+</div>
+</div>
+<div class="workout-exercise">
+<div class="exercise-num">2</div>
+<div class="exercise-content">
+<div class="exercise-name">Identificação de Problemas em Mix Pronto</div>
+<div class="exercise-desc">Pegue um mix seu antigo ou uma mix ruim de referência. Ouça 30 segundos e escreva no papel os 3 maiores problemas que identifica espectralmente. Depois verifique com analisador. Compare sua intuição com os dados.</div>
+<div class="exercise-tip">→ Objetivo: afinar a intuição para chegar perto do analisador sem olhar para ele</div>
+</div>
+</div>
+<div class="workout-exercise">
+<div class="exercise-num">3</div>
+<div class="exercise-content">
+<div class="exercise-name">Comparação Referência vs. Seu Mix (A/B cego)</div>
+<div class="exercise-desc">Configure um botão de A/B entre a referência e seu mix no mesmo nível de volume. Alterne entre eles 3 vezes por dia, 30 segundos cada. Anote a diferença percebida: "mais grave", "mais brilho", "mais espaço". Quantifique progressivamente.</div>
+<div class="exercise-tip">→ Em 30 dias você vai ouvir diferenças que antes passavam desapercebidas</div>
+</div>
+</div>
+<div class="workout-exercise">
+<div class="exercise-num">4</div>
+<div class="exercise-content">
+<div class="exercise-name">Escuta Analítica de Músicas do Cotidiano</div>
+<div class="exercise-desc">Ouça rádio ou streaming com "ouvido técnico": onde está o vocal no estéreo? O bumbo é "snap" ou "thump"? Os pratos são brilhantes ou opacas? O baixo tem sustain ou é staccato? Transforme cada escuta casual em exercício de análise.</div>
+<div class="exercise-tip">→ A escuta analítica se torna automática em 6 meses de prática constante</div>
+</div>
+</div>
+<div class="workout-exercise">
+<div class="exercise-num">5</div>
+<div class="exercise-content">
+<div class="exercise-name">Descanse os ouvidos</div>
+<div class="exercise-desc">Após 45–60 minutos de escuta ativa, faça 10–15 minutos de pausa completa (sem música). A fadiga auditiva é real e distorce a percepção — especialmente na região de 2–5 kHz. Profissionais sérios monitoram o tempo de escuta.</div>
+<div class="exercise-tip">→ Ouça sempre em volumes moderados. Tinnitus (zumbido) é permanente e irreversível.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout purple">
+<div class="callout-icon">🎓</div>
+<div class="callout-content">
+<div class="callout-title">Frequências que todo mixer deve reconhecer de ouvido</div>
+<div class="callout-body">
+<strong>Memorize essas frequências e suas características sonoras:</strong><br/><br/>
+<code>60 Hz</code> — Corpo do bumbo, peso do baixo<br/>
+<code>120 Hz</code> — Quentura do vocal masc., ressonância do violão<br/>
+<code>250 Hz</code> — "Lama" do mix, excesso deixa tudo abafado<br/>
+<code>500 Hz</code> — Som "nasal" e "caixa" (boxiness)<br/>
+<code>1 kHz</code> — Presença do coral, inteligibilidade das consoantes<br/>
+<code>2 kHz</code> — Corte das guitarras, "telephone effect"<br/>
+<code>3–4 kHz</code> — Harshness, onde o ouvido é mais sensível<br/>
+<code>8 kHz</code> — Sibilância ("S" do vocal), shimmer dos pratos<br/>
+<code>12–16 kHz</code> — Air, brilho, "respiro" do mix
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 6. CHECKLIST ═══ -->
+<section class="content-section section-block" id="checklist">
+<div class="section-header">
+<div class="section-icon icon-green">✅</div>
+<div>
+<h2 class="section-title">Checklist de Escuta
+            <small>Confirme seu ambiente e hábitos antes de mixar</small>
+</h2>
+</div>
+</div>
+<div class="checklist" id="escutaChecklist">
+<div class="checklist-header">
+<span>👂</span> CHECKLIST DE ESCUTA &amp; REFERÊNCIAS
+          <span id="escutaProgress" style="margin-left:auto;font-weight:500;color:var(--text-muted);">0 / 10</span>
+</div>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Monitores posicionados em triângulo equilátero</div>
+<div class="check-desc">Distância entre monitores = distância ao ouvinte. Tweeters na altura dos ouvidos.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Volume de monitoração calibrado (75–85 dB SPL)</div>
+<div class="check-desc">Use um app de medição SPL (ex: NIOSH SLM) para calibrar o volume de referência.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Faixa de referência importada na sessão (WAV/AIFF)</div>
+<div class="check-desc">Não use MP3 ou streaming como referência. Arquivo de alta qualidade obrigatório.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Volume da referência igualado ao mix</div>
+<div class="check-desc">Use um gain plugin para igualar os volumes antes de qualquer comparação A/B.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Analisador de espectro no Master Bus</div>
+<div class="check-desc">SPAN (gratuito) ou similar, sempre visível durante a sessão.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Mono check configurado no Master Bus</div>
+<div class="check-desc">Plugin de utilidade pronto para alternar mono/stereo com um clique.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Mix ouve bem em mono sem cancelamentos graves</div>
+<div class="check-desc">Nenhum instrumento some ou perde mais de 50% do volume ao sumarizar para mono.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Testado em pelo menos 2 sistemas de monitoração</div>
+<div class="check-desc">Monitores + fones, ou monitores + speaker pequeno.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Pausas de descanso programadas (a cada 45–60 min)</div>
+<div class="check-desc">Configure alarme para pausas de 10–15 min de silêncio completo.</div>
+</div>
+</label>
+<label class="checklist-item">
+<input onchange="updateEscutaProgress()" type="checkbox"/>
+<div>
+<div class="check-title">Mixagem ouvida "fresca" no dia seguinte</div>
+<div class="check-desc">Sempre ouça o mix após uma noite de sono antes de entregar — o ouvido reseta e revela novos problemas.</div>
+</div>
+</label>
+</div>
+<div class="callout tip" id="escutaDoneMsg" style="display:none;">
+<div class="callout-icon">🎉</div>
+<div class="callout-content">
+<div class="callout-title">Ambiente de escuta configurado!</div>
+<div class="callout-body">Agora você está pronto para mixar com referência profissional. Avance para o Módulo 03 — Limpeza e Edição Antes de Mixar.</div>
+</div>
+</div>
+</section>
+<!-- Next / Prev -->
+<div class="next-module section-block">
+<div>
+<div class="next-label">Próximo Módulo</div>
+<div class="next-title">✂️ Módulo 03 — Limpeza &amp; Edição Antes de Mixar</div>
+<div class="next-desc">Noise floor, silenciamento de vazamentos, alinhamento de fase entre mics, corte de transientes indesejados e como preparar o áudio antes de tocar em um plugin sequer.</div>
+</div>
+<div class="nav-buttons">
+<a class="btn-prev" href="modulo-01-pre-mixagem.html">← Módulo 01</a>
+<a class="btn-next" href="modulo-03-limpeza-edicao.html">Módulo 03 →</a>
+</div>
+</div>
+</main>
+</div>
+<script>
+  // Menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar    = document.getElementById('sidebar');
+  const overlay    = document.getElementById('sidebarOverlay');
+
+  function openSidebar()  { sidebar.classList.add('open'); overlay.classList.add('open'); menuToggle.setAttribute('aria-expanded','true');  menuToggle.textContent='✕'; }
+  function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); menuToggle.setAttribute('aria-expanded','false'); menuToggle.textContent='☰'; }
+
+  menuToggle.addEventListener('click', () => sidebar.classList.contains('open') ? closeSidebar() : openSidebar());
+  overlay.addEventListener('click', closeSidebar);
+  sidebar.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { if(window.innerWidth<=900) closeSidebar(); }));
+
+  // Active sidebar on scroll
+  const navMap = {
+    'espectro':    document.getElementById('nav-esp'),
+    'monitoracao': document.getElementById('nav-mon'),
+    'mono-check':  document.getElementById('nav-mono'),
+    'referencias': document.getElementById('nav-ref'),
+    'treino':      document.getElementById('nav-tre'),
+    'checklist':   document.getElementById('nav-chk'),
+  };
+  const sectionObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        Object.values(navMap).forEach(el => el && el.classList.remove('active'));
+        const id = e.target.getAttribute('id');
+        if (navMap[id]) navMap[id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => sectionObs.observe(s));
+
+  // Entrance animations
+  const blockObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); blockObs.unobserve(e.target); } });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.section-block').forEach(b => blockObs.observe(b));
+
+  // Checklist progress
+  function updateEscutaProgress() {
+    const all     = document.querySelectorAll('#escutaChecklist input[type="checkbox"]');
+    const checked = document.querySelectorAll('#escutaChecklist input[type="checkbox"]:checked');
+    document.getElementById('escutaProgress').textContent = `${checked.length} / ${all.length}`;
+    document.getElementById('escutaDoneMsg').style.display = checked.length === all.length ? 'flex' : 'none';
+  }
+
+  // Spectrum region: hover is now handled purely by CSS (background-color transition)
+</script>
+</body>
+</html>

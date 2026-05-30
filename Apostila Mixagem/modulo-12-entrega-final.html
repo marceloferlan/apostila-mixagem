@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 12 — Entrega e Formatos | Apostila de Mixagem</title>
+<meta content="A etapa final da mixagem: Bounce, Sample Rates, Dithering, exportação de Stems e preparação para masterização." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-strong: rgba(255,255,255,0.07);
+
+      --accent-purple: #7c3aed;
+      --accent-cyan: #06b6d4;
+      --accent-red: #ef4444;
+      --accent-gold: #f59e0b;
+      
+      /* Módulo 12 — Emerald, Teal, Platinum: Conclusão, Sucesso, Limpeza Digital Máxima */
+      --accent-green: #10b981;
+      --accent-green-light: #34d399;
+      --accent-emerald: #059669;
+      --accent-teal: #14b8a6;
+      --accent-white: #ffffff;
+
+      --gradient-hero: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+      --gradient-card: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(20,184,166,0.08) 100%);
+      --gradient-warm: linear-gradient(135deg, rgba(20,184,166,0.15) 0%, rgba(16,185,129,0.08) 100%);
+      --gradient-success: linear-gradient(135deg, #059669 0%, #10b981 100%);
+
+      --text-primary: #f0f0f8;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-medium: rgba(255,255,255,0.10);
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(16,185,129,0.25);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --sidebar-width: 280px;
+      --header-height: 64px;
+      --transition-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --transition-med:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--accent-green);border-radius:99px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-green-light)}
+
+    .bg-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .bg-ambient::before{content:'';position:absolute;bottom:-10%;left:-5%;width:700px;height:700px;background:radial-gradient(circle,rgba(16,185,129,0.08) 0%,transparent 65%);border-radius:50%;animation:f1 24s ease-in-out infinite}
+    .bg-ambient::after{content:'';position:absolute;top:-15%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(20,184,166,0.06) 0%,transparent 70%);border-radius:50%;animation:f2 30s ease-in-out infinite}
+    @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
+    @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-35px,40px) scale(1.1)}}
+
+    /* HEADER */
+    .top-header{position:fixed;top:0;left:0;right:0;height:var(--header-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+    .header-brand{display:flex;align-items:center;gap:12px}
+    .header-logo{width:36px;height:36px;background:var(--gradient-hero);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .header-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700}
+    .header-subtitle{font-size:.7rem;color:var(--text-muted)}
+    .header-nav{display:flex;align-items:center;gap:8px}
+    .nav-pill{padding:6px 14px;border-radius:99px;font-size:.78rem;font-weight:500;border:1px solid var(--border-medium);background:var(--bg-glass);color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);display:inline-flex;align-items:center;gap:6px}
+    .nav-pill:hover{border-color:var(--accent-green);color:var(--accent-green-light);background:rgba(16,185,129,0.1)}
+    .nav-pill.active{background:var(--gradient-hero);border-color:transparent;color:white}
+    .menu-toggle{display:none;background:var(--bg-glass);border:1px solid var(--border-medium);color:var(--text-primary);border-radius:var(--radius-sm);padding:8px;cursor:pointer;font-size:1.1rem;transition:all var(--transition-fast)}
+
+    .app-layout{display:flex;padding-top:var(--header-height);min-height:100vh;position:relative;z-index:1}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-width);background:var(--bg-secondary);border-right:1px solid var(--border-subtle);position:fixed;top:var(--header-height);left:0;bottom:0;overflow-y:auto;padding:24px 16px;transition:transform var(--transition-med);z-index:90}
+    .sidebar-section-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:0 8px;margin-bottom:8px;margin-top:20px}
+    .sidebar-section-label:first-child{margin-top:0}
+    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);border:1px solid transparent;margin-bottom:2px}
+    .sidebar-item:hover{background:var(--bg-glass-strong);color:var(--text-primary);border-color:var(--border-subtle)}
+    .sidebar-item.active{background:rgba(16,185,129,0.12);color:var(--accent-green-light);border-color:rgba(16,185,129,0.3)}
+    .sidebar-item .item-icon{font-size:1rem;flex-shrink:0}
+    .sidebar-item .item-number{font-size:.65rem;font-weight:700;background:var(--bg-glass-strong);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-left:auto;flex-shrink:0}
+    .sidebar-item.active .item-number{background:rgba(16,185,129,0.25);color:var(--accent-green-light)}
+    .progress-bar-container{margin:20px 8px 0;background:var(--bg-glass);border-radius:99px;height:4px;overflow:hidden}
+    .progress-bar-fill{height:100%;width:100%;background:var(--gradient-hero);border-radius:99px}
+    .progress-label{display:flex;justify-content:space-between;padding:6px 4px 0;font-size:.68rem;color:var(--text-muted)}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:85}
+
+    .main-content{margin-left:var(--sidebar-width);flex:1;padding:0 0 80px}
+
+    /* HERO */
+    .module-hero{background:linear-gradient(135deg,rgba(16,185,129,0.18) 0%,rgba(20,184,166,0.1) 50%,transparent 100%);border-bottom:1px solid var(--border-subtle);padding:56px 48px 48px;position:relative;overflow:hidden}
+    .module-hero::before{content:'';position:absolute;bottom:-30%;left:-5%;width:450px;height:450px;background:radial-gradient(circle,rgba(16,185,129,0.15) 0%,transparent 70%);pointer-events:none}
+    .module-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.4);border-radius:99px;font-size:.75rem;font-weight:600;color:var(--accent-green-light);letter-spacing:.05em;margin-bottom:20px}
+    .module-title{font-family:'Outfit',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--accent-green-light) 55%,#10b981 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .module-lead{font-size:1.05rem;color:var(--text-secondary);max-width:680px;line-height:1.8;margin-bottom:32px}
+    .module-meta{display:flex;flex-wrap:wrap;gap:12px}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.78rem;color:var(--text-secondary)}
+
+    /* SECTIONS */
+    .content-section{padding:48px 48px 0}
+    .section-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+    .section-icon{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .icon-green   {background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.3)}
+    .icon-teal    {background:rgba(20,184,166,0.2); border:1px solid rgba(20,184,166,0.3)}
+    .icon-blue    {background:rgba(59,130,246,0.2); border:1px solid rgba(59,130,246,0.3)}
+    .icon-red     {background:rgba(239,68,68,0.2);  border:1px solid rgba(239,68,68,0.3)}
+
+    .section-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text-primary)}
+    .section-title small{display:block;font-size:.8rem;font-weight:500;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px}
+    .divider{height:1px;background:var(--border-subtle);margin:48px 0}
+
+    /* CALLOUTS */
+    .callout{border-radius:var(--radius-md);padding:20px 24px;margin-bottom:24px;display:flex;gap:16px;border-left:4px solid}
+    .callout-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+    .callout-title{font-weight:700;font-size:.9rem;margin-bottom:6px}
+    .callout-body{font-size:.85rem;line-height:1.7}
+    .callout.tip    {background:rgba(16,185,129,0.08);border-color:var(--accent-green);color:var(--text-secondary)}
+    .callout.tip .callout-title{color:var(--accent-green-light)}
+    .callout.info   {background:rgba(20,184,166,0.08);border-color:var(--accent-teal);color:var(--text-secondary)}
+    .callout.info .callout-title{color:var(--accent-teal)}
+    .callout.danger {background:rgba(239,68,68,0.08);border-color:var(--accent-red);color:var(--text-secondary)}
+    .callout.danger .callout-title{color:#fca5a5}
+
+    /* COMPARE CARDS */
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+    .compare-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition-med)}
+    .compare-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-card)}
+    .compare-header{padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px}
+    .compare-icon{width:40px;height:40px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+    .compare-body{padding:20px}
+    .compare-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:.83rem}
+    .compare-row:last-child{border-bottom:none}
+    .compare-label{color:var(--text-muted);font-weight:500}
+    .compare-value{color:var(--text-primary);font-weight:600;text-align:right}
+
+    /* DITHERING VISUALIZER */
+    .dither-viz{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:28px;margin-bottom:32px;display:flex;flex-direction:column;gap:16px;text-align:center}
+    .dv-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--text-primary)}
+    .dv-desc{font-size:.85rem;color:var(--text-secondary)}
+    
+    .dv-stage{position:relative;height:100px;width:100%;max-width:500px;margin:0 auto;background:var(--bg-secondary);border:1px solid var(--border-medium);border-radius:var(--radius-md);overflow:hidden;display:flex;align-items:center;justify-content:center}
+    
+    /* The Audio Wave */
+    .dv-wave{position:absolute;left:0;right:0;height:40px;display:flex;align-items:center;justify-content:space-around;padding:0 20px;opacity:1;transition:all 0.3s}
+    .dv-wave span{display:inline-block;width:8px;background:var(--accent-green);border-radius:99px;transition:all 0.1s}
+    .dv-wave span:nth-child(1){height:10px} .dv-wave span:nth-child(2){height:30px} .dv-wave span:nth-child(3){height:40px}
+    .dv-wave span:nth-child(4){height:20px} .dv-wave span:nth-child(5){height:35px} .dv-wave span:nth-child(6){height:15px}
+    
+    /* The Truncation Error (Harsh Blocks) */
+    .dv-truncation{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:all 0.3s}
+    .dv-truncation span{display:inline-block;width:12px;height:40px;background:#ef4444;margin:0 4px;clip-path:polygon(0 10%, 100% 0, 100% 90%, 0 100%)}
+    
+    /* The Dither Noise (Smooth Static) */
+    .dv-dither{position:absolute;bottom:0;left:0;right:0;height:20px;background:repeating-linear-gradient(45deg,rgba(16,185,129,0.1),rgba(16,185,129,0.1) 2px,transparent 2px,transparent 4px);opacity:0;transition:all 0.3s}
+
+    /* States */
+    .dv-stage.state-32bit .dv-wave{filter:blur(0)}
+    .dv-stage.state-trunc .dv-wave{filter:blur(2px);opacity:0.3}
+    .dv-stage.state-trunc .dv-truncation{opacity:0.7}
+    .dv-stage.state-dither .dv-wave{filter:blur(0.5px)}
+    .dv-stage.state-dither .dv-dither{opacity:1}
+
+    .dv-controls{margin-top:16px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+    .dv-btn{background:var(--bg-secondary);border:1px solid var(--border-medium);color:var(--text-secondary);padding:10px 20px;border-radius:var(--radius-sm);cursor:pointer;font-size:.8rem;font-weight:600;transition:all var(--transition-fast)}
+    .dv-btn.active{background:var(--accent-green);border-color:var(--accent-green);color:#fff;box-shadow:var(--shadow-glow)}
+
+    /* PROBLEM / SOLUTION */
+    .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .ps-panel{padding:24px}
+    .ps-panel.problem{background:rgba(239,68,68,0.06);border-right:1px solid var(--border-subtle)}
+    .ps-panel.solution{background:rgba(16,185,129,0.06)}
+    .ps-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .ps-header.problem-header{color:#fca5a5}
+    .ps-header.solution-header{color:var(--accent-green-light)}
+    .ps-list{list-style:none;padding:0}
+    .ps-list li{font-size:.85rem;color:var(--text-secondary);padding:8px 0;display:flex;gap:10px;border-bottom:1px solid var(--border-subtle);line-height:1.6}
+    .ps-list li:last-child{border-bottom:none}
+    .ps-list li::before{flex-shrink:0;margin-top:2px;font-size:.9rem}
+    .ps-panel.problem .ps-list li::before{content:'✕';color:#f87171}
+    .ps-panel.solution .ps-list li::before{content:'✓';color:var(--accent-green-light)}
+
+    /* SUCCESS FOOTER */
+    .success-footer{margin:64px 48px 48px;background:var(--gradient-success);border-radius:var(--radius-xl);padding:48px;text-align:center;box-shadow:var(--shadow-glow);position:relative;overflow:hidden}
+    .success-footer::after{content:'🎓';position:absolute;top:-20px;right:-10px;font-size:150px;opacity:0.1;transform:rotate(15deg)}
+    .sf-icon{font-size:3rem;margin-bottom:16px;display:block}
+    .sf-title{font-family:'Outfit',sans-serif;font-size:2rem;font-weight:800;color:#fff;margin-bottom:16px}
+    .sf-desc{font-size:1.05rem;color:rgba(255,255,255,0.9);max-width:600px;margin:0 auto;line-height:1.6}
+
+    code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:4px;padding:1px 6px;color:var(--accent-green-light)}
+    strong{color:var(--text-primary);font-weight:700}
+    .section-block{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .section-block.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .animate-in{animation:fadeInUp .6s ease-out forwards}
+    .animate-in-delay-1{animation-delay:.1s;opacity:0}
+    .animate-in-delay-2{animation-delay:.2s;opacity:0}
+    .animate-in-delay-3{animation-delay:.3s;opacity:0}
+
+    /* CHECKLIST */
+    .checklist{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .checklist-header{background:rgba(16,185,129,0.1);border-bottom:1px solid var(--border-subtle);padding:16px 24px;font-size:.85rem;font-weight:700;color:var(--accent-green-light);display:flex;align-items:center;gap:10px}
+    .checklist-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background var(--transition-fast);user-select:none}
+    .checklist-item > div{flex:1;min-width:0}
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-item:hover{background:var(--bg-glass)}
+    .checklist-item input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--border-medium);border-radius:5px;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all var(--transition-fast);position:relative}
+    .checklist-item input[type="checkbox"]:checked{background:var(--accent-green);border-color:var(--accent-green)}
+    .checklist-item input[type="checkbox"]:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:white}
+    .check-title{font-size:.85rem;font-weight:600;color:var(--text-primary);display:block;margin-bottom:2px}
+    .check-desc{font-size:.78rem;color:var(--text-muted)}
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.5)}
+      .sidebar-overlay.open{display:block}
+      .main-content{margin-left:0}
+      .module-hero,.content-section{padding-left:24px;padding-right:24px}
+      .success-footer{margin:32px 24px}
+      .menu-toggle{display:flex;align-items:center;justify-content:center}
+      .header-nav{display:none}
+      .compare-grid, .ps-grid{grid-template-columns:1fr}
+      .ps-panel.problem{border-right:none;border-bottom:1px solid var(--border-subtle)}
+    }
+    @media(max-width:600px){
+      .module-hero,.content-section{padding-left:16px;padding-right:16px}
+      .success-footer{margin:24px 16px;padding:32px 24px}
+    }
+  </style>
+</head>
+<body>
+<div aria-hidden="true" class="bg-ambient"></div>
+<header class="top-header" role="banner">
+<div class="header-brand">
+<div aria-hidden="true" class="header-logo">🏁</div>
+<div><div class="header-title">Apostila de Mixagem</div><div class="header-subtitle">Guia Técnico para Produtores</div></div>
+</div>
+<nav class="header-nav">
+<a class="nav-pill" href="#sample-rate">Sample Rates</a>
+<a class="nav-pill active" href="#dither">O Mistério do Dither</a>
+<a class="nav-pill" href="#stems">Stems &amp; Entregáveis</a>
+</nav>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<div aria-hidden="true" class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app-layout">
+<aside aria-label="Índice" class="sidebar" id="sidebar" role="navigation">
+<div class="sidebar-section-label">Módulo Atual</div>
+<a class="sidebar-item active" href="#sample-rate" id="nav-sr"><span class="item-icon">⏱️</span> Sample Rates Máximos<span class="item-number">01</span></a>
+<a class="sidebar-item" href="#dither" id="nav-dith"><span class="item-icon">🌊</span> O Mistério do Dither<span class="item-number">02</span></a>
+<a class="sidebar-item" href="#stems" id="nav-stem"><span class="item-icon">📂</span> Exportação de Stems<span class="item-number">03</span></a>
+<a class="sidebar-item" href="#checklist" id="nav-mast"><span class="item-icon">📋</span> Checklist Final<span class="item-number">04</span></a>
+<a class="sidebar-item" href="#conclusao" id="nav-conc"><span class="item-icon">🎓</span> Conclusão<span class="item-number">05</span></a>
+<div class="sidebar-section-label">Outros Módulos</div>
+<a class="sidebar-item" href="modulo-01-pre-mixagem.html"><span class="item-icon">🏗️</span> Módulo 01 — Pré-Mix</a>
+<a class="sidebar-item" href="modulo-02-escuta-referencias.html"><span class="item-icon">👂</span> Módulo 02 — Escuta</a>
+<a class="sidebar-item" href="modulo-03-limpeza-edicao.html"><span class="item-icon">✂️</span> Módulo 03 — Edição</a>
+<a class="sidebar-item" href="modulo-04-bateria.html"><span class="item-icon">🥁</span> Módulo 04 — Bateria</a>
+<a class="sidebar-item" href="modulo-05-baixo.html"><span class="item-icon">🎸</span> Módulo 05 — Baixo</a>
+<a class="sidebar-item" href="modulo-06-guitarras.html"><span class="item-icon">🎸</span> Módulo 06 — Guitarra</a>
+<a class="sidebar-item" href="modulo-07-violao.html"><span class="item-icon">🪕</span> Módulo 07 — Violão</a>
+<a class="sidebar-item" href="modulo-08-teclados.html"><span class="item-icon">🎹</span> Módulo 08 — Teclados</a>
+<a class="sidebar-item" href="modulo-09-vocais-masculinos.html"><span class="item-icon">🎤</span> Módulo 09 — Vocal Masc.</a>
+<a class="sidebar-item" href="modulo-10-vocais-femininos.html"><span class="item-icon">👩‍🎤</span> Módulo 10 — Vocal Fem.</a>
+<a class="sidebar-item" href="modulo-11-mix-bus.html"><span class="item-icon">🚌</span> Módulo 11 — Mix Bus</a>
+<a class="sidebar-item" href="modulo-12-entrega-final.html"><span class="item-icon">🏁</span> Módulo 12 — Entrega Final</a>
+<div class="progress-bar-container"><div class="progress-bar-fill"></div></div>
+<div class="progress-label"><span>Módulo 12 de 12</span><span>100% Completo</span></div>
+</aside>
+<main class="main-content" role="main">
+<!-- HERO -->
+<section class="module-hero animate-in">
+<div class="module-badge"><span>🏁</span> MÓDULO 12 (FINALIZAÇÃO)</div>
+<h1 class="module-title animate-in animate-in-delay-1">Entrega e Formatos</h1>
+<p class="module-lead animate-in animate-in-delay-2">
+        A mixagem soa espetacular no seu computador. Mas e agora? O processo de "Bounce" (Exportação) exige decisões cruciais de matemática digital: Sample Rates corretos para as plataformas de streaming (Spotify/Apple Music) e a aplicação do misterioso "Dithering" para não destruir o áudio silencioso (Reverbs fading out).
+      </p>
+<div class="module-meta animate-in animate-in-delay-3">
+<div class="meta-chip"><span>⏱️</span> 40 min de leitura</div>
+<div class="meta-chip"><span>🎯</span> Nível: Técnico Matemático</div>
+<div class="meta-chip"><span>🌊</span> Dithering Explicado</div>
+<div class="meta-chip"><span>📂</span> Preparação de Stems</div>
+</div>
+</section>
+<!-- ═══ 1. SAMPLE RATES E BIT DEPTH ═══ -->
+<section class="content-section section-block" id="sample-rate">
+<div class="section-header">
+<div class="section-icon icon-teal">⏱️</div>
+<div><h2 class="section-title">A Matemática Digital<small>Sample Rate e Bit Depth</small></h2></div>
+</div>
+<div class="compare-grid">
+<div class="compare-card">
+<div class="compare-header">
+<div class="compare-icon" style="background:rgba(20,184,166,0.15);border:1px solid rgba(20,184,166,0.3)">📏</div>
+<div>
+<div style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--text-primary)">Sample Rate (kHz)</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Resolução de Frequência</div>
+</div>
+</div>
+<div class="compare-body">
+<div class="compare-row"><span class="compare-label">O que é?</span><span class="compare-value">Quantas "fotos" do áudio são tiradas por segundo</span></div>
+<div class="compare-row"><span class="compare-label">44.1 kHz</span><span class="compare-value">Padrão CD / Spotify Antigo</span></div>
+<div class="compare-row"><span class="compare-label">48.0 kHz</span><span class="compare-value" style="color:var(--accent-teal)">Padrão atual (Vídeo / Streaming moderno)</span></div>
+</div>
+</div>
+<div class="compare-card">
+<div class="compare-header">
+<div class="compare-icon" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3)">📶</div>
+<div>
+<div style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--text-primary)">Bit Depth (bits)</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Resolução de Dinâmica</div>
+</div>
+</div>
+<div class="compare-body">
+<div class="compare-row"><span class="compare-label">O que é?</span><span class="compare-value">Distância entre o silêncio total e o Clip máximo</span></div>
+<div class="compare-row"><span class="compare-label">16-bit</span><span class="compare-value">Padrão CD (-96dB noise floor)</span></div>
+<div class="compare-row"><span class="compare-label">24-bit / 32-bit Float</span><span class="compare-value" style="color:var(--accent-blue-light)">Trabalho na DAW (Headroom infinito)</span></div>
+</div>
+</div>
+</div>
+<div class="callout tip">
+<div class="callout-icon">💡</div>
+<div class="callout-content">
+<div class="callout-title">A Regra de Ouro da Exportação</div>
+<div class="callout-body">
+            Nunca mude o Sample Rate no Bounce final. Se a sua sessão foi gravada e mixada em 44.1kHz, exporte a mix final em 44.1kHz. Se você forçar a DAW a exportar em 48kHz, ela fará uma conta matemática de conversão ("SRC - Sample Rate Conversion") que pode degradar os transientes da música de forma imperceptível mas danosa. <strong>Exporte no formato nativo da sessão.</strong>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 2. O MISTÉRIO DO DITHER ═══ -->
+<section class="content-section section-block" id="dither">
+<div class="section-header">
+<div class="section-icon icon-green">🌊</div>
+<div><h2 class="section-title">O Mistério do Dithering<small>Por que adicionar "ruído" melhora a música?</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Sua DAW processa tudo em impressionantes <strong>32-bit Float</strong>. Porém, para tocar no rádio ou gravar num CD, o arquivo final precisa cair para <strong>16-bit</strong>. Se você simplesmente corta essa informação matemática (Truncation), as partes muito baixinhas da música (como a cauda de um Reverb sumindo) soam com chiados robóticos bizarros (Quantization Error). O <strong>Dither</strong> resolve isso injetando um ruído analógico inaudível que mascara e previne esse erro.
+      </p>
+<div class="dither-viz">
+<div class="dv-title">Demonstração de Redução de Bits</div>
+<div class="dv-desc">Veja o que acontece com uma onda sonora pura ao ter seus bits reduzidos (Truncation) e como o Dither salva a forma.</div>
+<div class="dv-stage state-32bit" id="dv-stage">
+<div class="dv-wave">
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+<div class="dv-truncation">
+<span></span><span></span><span></span><span></span>
+</div>
+<div class="dv-dither"></div>
+</div>
+<div class="dv-controls">
+<button class="dv-btn active" id="btn-32" onclick="setDither('32bit')">32-bit Float (Alta Resolução)</button>
+<button class="dv-btn" id="btn-trunc" onclick="setDither('trunc')">Truncation (16-bit sem Dither - Erro!)</button>
+<button class="dv-btn" id="btn-dith" onclick="setDither('dither')">16-bit + Dither (Protegido)</button>
+</div>
+</div>
+<div class="callout danger">
+<div class="callout-icon">⚠️</div>
+<div class="callout-content">
+<div class="callout-title">Quando NÃO usar Dither</div>
+<div class="callout-body">
+            Se você estiver enviando a sua mixagem para um <strong>Engenheiro de Masterização</strong>, exporte em 24-bit ou 32-bit Float e <strong>NÃO ative o Dither</strong>. O Dithering é o ÚLTIMO passo absoluto do universo, aplicado somente pelo Masterizador na hora de entregar o MP3/WAV comercial de 16 bits.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 3. EXPORTAÇÃO DE STEMS ═══ -->
+<section class="content-section section-block" id="stems">
+<div class="section-header">
+<div class="section-icon icon-teal">📂</div>
+<div><h2 class="section-title">Entregáveis (Stems)<small>Garantindo pagamentos e usos comerciais</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Nenhum cliente profissional aceita apenas um arquivo WAV final. Você deve entregar "Stems" (grupos estéreo) para que a música possa ser adaptada para videoclipes, TV, comerciais ou remixes futuros.
+      </p>
+<div class="ps-grid">
+<div class="ps-panel solution" style="border-right:1px solid var(--border-subtle); border-radius:var(--radius-lg) 0 0 var(--radius-lg)">
+<div class="ps-header solution-header">Pacote de Stems Padrão</div>
+<ul class="ps-list">
+<li><strong>Instrumental:</strong> A mixagem completa SEM nenhum canal de voz. Muito usada para sync de TV/Youtube.</li>
+<li><strong>Acapella:</strong> Apenas as vozes principais e backing vocals juntas (com todos os delays/reverbs nativos delas). Útil para remixes eletrônicos.</li>
+<li><strong>Mix-Minus (TV Track):</strong> A mixagem inteira, incluindo Backing Vocals, mas SEM o Vocal Principal. Usada quando o artista vai cantar ao vivo num programa de TV.</li>
+<li><strong>Stems por Naipe:</strong> Bateria Estéreo, Baixo Estéreo, Guitarras Estéreo, Teclados Estéreo. (Útil se o masterizador quiser alterar volumes de grupos no futuro - Stem Mastering).</li>
+</ul>
+</div>
+<div class="ps-panel" style="background:rgba(255,255,255,0.02)">
+<div class="ps-header" style="color:var(--text-muted)">Como exportar Stems Corretamente?</div>
+<p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6">
+            O segredo doloroso da exportação de Stems é que <strong>todos os Stems somados precisam soar EXATAMENTE igual a sua mixagem master</strong>.
+          </p>
+<p style="font-size:.85rem;color:var(--text-secondary);line-height:1.6;margin-top:10px">
+            Se você tem uma compressão forte no Master Bus (Mix Bus), mutar a voz e exportar apenas o instrumental fará a bateria soar completamente diferente, porque o compressor reagirá de forma diferente sem a voz. A solução moderna na DAW é exportar através da matriz do Bus para garantir que a redução de ganho mestre seja impressa corretamente em cada grupo separadamente (Stem Printing).
+          </p>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ CHECKLIST ═══ -->
+<section class="content-section section-block" id="checklist">
+<div class="section-header">
+<div class="section-icon icon-green">✅</div>
+<div><h2 class="section-title">Checklist Final<small>O botão de Bounce</small></h2></div>
+</div>
+<div class="checklist">
+<div class="checklist-header"><span>📋</span> Auditoria Pré-Exportação</div>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Formatos Mantidos (Sem SRC)</span>
+<span class="check-desc">Exportando no exato Sample Rate do projeto (ex: 48kHz). Exportando em 24-bit ou 32-bit Float para o masterizador.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Localizadores de Loop (Markers)</span>
+<span class="check-desc">Os delimitadores Esquerdo/Direito incluem o começo silencioso do áudio (pre-roll de 1 compasso) e todo o silêncio no final (para que o decaimento longo do Reverb não seja cortado a seco).</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Dither OFF (Para Master)</span>
+<span class="check-desc">Plugin de Dithering ou opção da DAW foram DESATIVADOS, pois você irá enviar esse projeto em 24-bits para um profissional de Masterização.</span>
+</div>
+</label>
+</div>
+</section>
+<!-- SUCCESS FOOTER (FIM DO CURSO) -->
+<footer class="success-footer section-block" id="conclusao">
+<span class="sf-icon">🎓🏆</span>
+<h2 class="sf-title">Parabéns! Você concluiu a Apostila.</h2>
+<p class="sf-desc">
+        A arte da mixagem é uma jornada que dura a vida toda. O verdadeiro engenheiro confia primeiramente nos seus ouvidos, depois no botão de bypass para conferir o que fez. Salve este documento, revise as referências anatômicas, aplique seus checklists meticulosamente e quebre regras quando a emoção da música pedir.
+      </p>
+<div style="margin-top:32px;display:flex;justify-content:center;gap:12px">
+<a class="dv-btn" href="modulo-01-pre-mixagem.html" style="background:rgba(255,255,255,0.2);color:#fff;border-color:transparent">Voltar ao Módulo 01 (Revisar)</a>
+</div>
+</footer>
+</main>
+</div>
+<script>
+  // Dithering Visualizer Script
+  function setDither(state) {
+    const stage = document.getElementById('dv-stage');
+    const btn32 = document.getElementById('btn-32');
+    const btnTrunc = document.getElementById('btn-trunc');
+    const btnDith = document.getElementById('btn-dith');
+    
+    stage.className = `dv-stage state-${state}`;
+    
+    [btn32, btnTrunc, btnDith].forEach(btn => btn.classList.remove('active'));
+    
+    if(state === '32bit') btn32.classList.add('active');
+    if(state === 'trunc') btnTrunc.classList.add('active');
+    if(state === 'dither') btnDith.classList.add('active');
+  }
+
+  // Intersection Observer for Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.section-block').forEach(s => observer.observe(s));
+
+  // Sidebar Menu Mobile Toggle
+  const menuBtn = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function toggleMenu() {
+    const isOpen = sidebar.classList.contains('open');
+    if(isOpen) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if(window.innerWidth <= 900) toggleMenu();
+    });
+  });
+
+  // Active Link Tracking on Scroll
+  const sections = document.querySelectorAll('.content-section');
+  const navLinks = document.querySelectorAll('.sidebar-item');
+  const topNavLinks = document.querySelectorAll('.nav-pill');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollY = window.pageYOffset;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= (sectionTop - 150)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+    topNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 06 — Guitarras | Apostila de Mixagem</title>
+<meta content="Mixagem avançada de guitarras elétricas: Panning L/R, EQ cirúrgica, controle dinâmico multibanda em palm mutes, saturação e espacialização." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-strong: rgba(255,255,255,0.07);
+
+      --accent-purple: #7c3aed;
+      --accent-purple-light: #a78bfa;
+      --accent-cyan: #06b6d4;
+      --accent-cyan-light: #67e8f9;
+      --accent-amber: #f59e0b;
+      --accent-amber-light: #fcd34d;
+      --accent-green: #10b981;
+      --accent-green-light: #6ee7b7;
+      --accent-red: #ef4444;
+      --accent-red-light: #f87171;
+      --accent-orange: #ea580c;
+      --accent-orange-light: #fb923c;
+
+      /* Módulo 06 — Laranja e Vermelho: Distorção, Válvulas e Agressividade */
+      --gradient-hero: linear-gradient(135deg, #ea580c 0%, #ef4444 100%);
+      --gradient-card: linear-gradient(135deg, rgba(234,88,12,0.15) 0%, rgba(239,68,68,0.08) 100%);
+      --gradient-warm: linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(234,88,12,0.08) 100%);
+
+      --text-primary: #f0f0f8;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-medium: rgba(255,255,255,0.10);
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(234,88,12,0.25);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --sidebar-width: 280px;
+      --header-height: 64px;
+      --transition-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --transition-med:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--accent-orange);border-radius:99px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-orange-light)}
+
+    .bg-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .bg-ambient::before{content:'';position:absolute;bottom:-10%;left:-5%;width:700px;height:700px;background:radial-gradient(circle,rgba(234,88,12,0.1) 0%,transparent 65%);border-radius:50%;animation:f1 24s ease-in-out infinite}
+    .bg-ambient::after{content:'';position:absolute;top:-15%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(239,68,68,0.07) 0%,transparent 70%);border-radius:50%;animation:f2 30s ease-in-out infinite}
+    @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
+    @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-35px,40px) scale(1.1)}}
+
+    /* HEADER */
+    .top-header{position:fixed;top:0;left:0;right:0;height:var(--header-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+    .header-brand{display:flex;align-items:center;gap:12px}
+    .header-logo{width:36px;height:36px;background:var(--gradient-hero);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .header-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700}
+    .header-subtitle{font-size:.7rem;color:var(--text-muted)}
+    .header-nav{display:flex;align-items:center;gap:8px}
+    .nav-pill{padding:6px 14px;border-radius:99px;font-size:.78rem;font-weight:500;border:1px solid var(--border-medium);background:var(--bg-glass);color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);display:inline-flex;align-items:center;gap:6px}
+    .nav-pill:hover{border-color:var(--accent-orange);color:var(--accent-orange-light);background:rgba(234,88,12,0.1)}
+    .nav-pill.active{background:var(--gradient-hero);border-color:transparent;color:white}
+    .menu-toggle{display:none;background:var(--bg-glass);border:1px solid var(--border-medium);color:var(--text-primary);border-radius:var(--radius-sm);padding:8px;cursor:pointer;font-size:1.1rem;transition:all var(--transition-fast)}
+
+    .app-layout{display:flex;padding-top:var(--header-height);min-height:100vh;position:relative;z-index:1}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-width);background:var(--bg-secondary);border-right:1px solid var(--border-subtle);position:fixed;top:var(--header-height);left:0;bottom:0;overflow-y:auto;padding:24px 16px;transition:transform var(--transition-med);z-index:90}
+    .sidebar-section-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:0 8px;margin-bottom:8px;margin-top:20px}
+    .sidebar-section-label:first-child{margin-top:0}
+    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);border:1px solid transparent;margin-bottom:2px}
+    .sidebar-item:hover{background:var(--bg-glass-strong);color:var(--text-primary);border-color:var(--border-subtle)}
+    .sidebar-item.active{background:rgba(234,88,12,0.12);color:var(--accent-orange-light);border-color:rgba(234,88,12,0.3)}
+    .sidebar-item .item-icon{font-size:1rem;flex-shrink:0}
+    .sidebar-item .item-number{font-size:.65rem;font-weight:700;background:var(--bg-glass-strong);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-left:auto;flex-shrink:0}
+    .sidebar-item.active .item-number{background:rgba(234,88,12,0.25);color:var(--accent-orange-light)}
+    .progress-bar-container{margin:20px 8px 0;background:var(--bg-glass);border-radius:99px;height:4px;overflow:hidden}
+    .progress-bar-fill{height:100%;width:50%;background:var(--gradient-hero);border-radius:99px}
+    .progress-label{display:flex;justify-content:space-between;padding:6px 4px 0;font-size:.68rem;color:var(--text-muted)}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:85}
+
+    .main-content{margin-left:var(--sidebar-width);flex:1;padding:0 0 80px}
+
+    /* HERO */
+    .module-hero{background:linear-gradient(135deg,rgba(234,88,12,0.18) 0%,rgba(239,68,68,0.1) 50%,transparent 100%);border-bottom:1px solid var(--border-subtle);padding:56px 48px 48px;position:relative;overflow:hidden}
+    .module-hero::before{content:'';position:absolute;bottom:-30%;left:-5%;width:450px;height:450px;background:radial-gradient(circle,rgba(234,88,12,0.15) 0%,transparent 70%);pointer-events:none}
+    .module-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(234,88,12,0.12);border:1px solid rgba(234,88,12,0.4);border-radius:99px;font-size:.75rem;font-weight:600;color:var(--accent-orange-light);letter-spacing:.05em;margin-bottom:20px}
+    .module-title{font-family:'Outfit',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--accent-orange-light) 55%,#f87171 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .module-lead{font-size:1.05rem;color:var(--text-secondary);max-width:680px;line-height:1.8;margin-bottom:32px}
+    .module-meta{display:flex;flex-wrap:wrap;gap:12px}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.78rem;color:var(--text-secondary)}
+
+    /* SECTIONS */
+    .content-section{padding:48px 48px 0}
+    .section-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+    .section-icon{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .icon-orange{background:rgba(234,88,12,0.2); border:1px solid rgba(234,88,12,0.3)}
+    .icon-red   {background:rgba(239,68,68,0.2);  border:1px solid rgba(239,68,68,0.3)}
+    .icon-cyan  {background:rgba(6,182,212,0.2);  border:1px solid rgba(6,182,212,0.3)}
+    .icon-amber {background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.3)}
+    .icon-purple{background:rgba(124,58,237,0.2); border:1px solid rgba(124,58,237,0.3)}
+
+    .section-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text-primary)}
+    .section-title small{display:block;font-size:.8rem;font-weight:500;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px}
+    .divider{height:1px;background:var(--border-subtle);margin:48px 0}
+
+    /* CALLOUTS */
+    .callout{border-radius:var(--radius-md);padding:20px 24px;margin-bottom:24px;display:flex;gap:16px;border-left:4px solid}
+    .callout-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+    .callout-title{font-weight:700;font-size:.9rem;margin-bottom:6px}
+    .callout-body{font-size:.85rem;line-height:1.7}
+    .callout.tip    {background:rgba(16,185,129,0.08);border-color:var(--accent-green);color:var(--text-secondary)}
+    .callout.tip .callout-title{color:var(--accent-green-light)}
+    .callout.orange {background:rgba(234,88,12,0.08);border-color:var(--accent-orange);color:var(--text-secondary)}
+    .callout.orange .callout-title{color:var(--accent-orange-light)}
+    .callout.danger {background:rgba(239,68,68,0.08);border-color:var(--accent-red);color:var(--text-secondary)}
+    .callout.danger .callout-title{color:#fca5a5}
+    .callout.warning{background:rgba(245,158,11,0.08);border-color:var(--accent-amber);color:var(--text-secondary)}
+    .callout.warning .callout-title{color:var(--accent-amber-light)}
+    .callout.info   {background:rgba(6,182,212,0.08);border-color:var(--accent-cyan);color:var(--text-secondary)}
+    .callout.info .callout-title{color:var(--accent-cyan-light)}
+
+    /* PANNING VIZ */
+    .panning-viz{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:28px;margin-bottom:32px;text-align:center}
+    .pv-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:24px}
+    .pv-stage{position:relative;height:120px;width:100%;max-width:500px;margin:0 auto;border-bottom:2px solid var(--border-medium);display:flex;justify-content:center;align-items:flex-end;padding-bottom:10px}
+    .pv-center{position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);font-size:1.5rem}
+    .pv-speaker{position:absolute;bottom:10px;font-size:2rem;color:var(--text-muted)}
+    .pv-speaker.left{left:0}
+    .pv-speaker.right{right:0}
+    .pv-guitar{position:absolute;bottom:30px;width:40px;height:40px;background:var(--gradient-hero);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:var(--shadow-glow);transition:all var(--transition-med)}
+    .pv-guitar-text{position:absolute;top:-25px;font-size:0.65rem;font-weight:700;color:var(--accent-orange-light);white-space:nowrap;opacity:0;transition:opacity var(--transition-fast)}
+    .pv-controls{display:flex;justify-content:center;gap:10px;margin-top:30px;flex-wrap:wrap}
+    .pv-btn{background:var(--bg-secondary);border:1px solid var(--border-subtle);color:var(--text-secondary);padding:8px 16px;border-radius:var(--radius-sm);cursor:pointer;font-size:.8rem;font-weight:600;transition:all var(--transition-fast)}
+    .pv-btn:hover{background:var(--bg-glass-strong);color:var(--text-primary)}
+    .pv-btn.active{background:rgba(234,88,12,0.15);border-color:var(--accent-orange);color:var(--accent-orange-light)}
+
+    /* COMPARE CARDS */
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+    .compare-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition-med)}
+    .compare-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-card)}
+    .compare-header{padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px}
+    .compare-icon{width:40px;height:40px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+    .compare-body{padding:20px}
+    .compare-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:.83rem}
+    .compare-row:last-child{border-bottom:none}
+    .compare-label{color:var(--text-muted);font-weight:500}
+    .compare-value{color:var(--text-primary);font-weight:600;text-align:right}
+
+    /* SPECTRUM */
+    .guitar-spectrum{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:28px;margin-bottom:32px}
+    .gs-title{font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;color:var(--text-primary);margin-bottom:24px;display:flex;align-items:center;gap:8px}
+    .gs-canvas{position:relative;height:140px;background:linear-gradient(to bottom,rgba(234,88,12,0.04),var(--bg-secondary));border:1px solid var(--border-subtle);border-radius:var(--radius-md);overflow:hidden;margin-bottom:8px}
+    .gs-zone{position:absolute;top:0;bottom:20px;border-radius:3px;transition:background var(--transition-fast)}
+    .gs-zone:hover{filter:brightness(1.4)}
+    .gs-label{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:.6rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,0.9)}
+    .gs-hz{position:absolute;bottom:4px;font-size:.58rem;font-family:'JetBrains Mono',monospace;color:var(--text-muted);transform:translateX(-50%)}
+    .gs-curve{position:absolute;inset:0;pointer-events:none}
+
+    /* EQ STRIP */
+    .eq-strip{margin-bottom:20px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px 24px}
+    .eq-band{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-subtle)}
+    .eq-band:last-child{border-bottom:none}
+    .eq-band-freq{font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;width:95px;flex-shrink:0;color:var(--text-primary)}
+    .eq-band-type{font-size:.68rem;font-weight:700;padding:4px 8px;border-radius:4px;flex-shrink:0;min-width:65px;text-align:center;letter-spacing:.05em}
+    .eq-band-action{flex:1;font-size:.85rem;color:var(--text-secondary);line-height:1.5}
+    .eq-band-value{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;flex-shrink:0;white-space:nowrap}
+    .band-cut  {background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3)}
+    .band-boost{background:rgba(16,185,129,0.15);color:var(--accent-green-light);border:1px solid rgba(16,185,129,0.3)}
+    .band-hpf  {background:rgba(124,58,237,0.15);color:var(--accent-purple-light);border:1px solid rgba(124,58,237,0.3)}
+    .band-notch{background:rgba(245,158,11,0.15);color:var(--accent-amber-light);border:1px solid rgba(245,158,11,0.3)}
+
+    /* PROBLEM / SOLUTION */
+    .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .ps-panel{padding:24px}
+    .ps-panel.problem{background:rgba(239,68,68,0.06);border-right:1px solid var(--border-subtle)}
+    .ps-panel.solution{background:rgba(234,88,12,0.06)}
+    .ps-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .ps-header.problem-header{color:#fca5a5}
+    .ps-header.solution-header{color:var(--accent-orange-light)}
+    .ps-list{list-style:none;padding:0}
+    .ps-list li{font-size:.85rem;color:var(--text-secondary);padding:8px 0;display:flex;gap:10px;border-bottom:1px solid var(--border-subtle);line-height:1.6}
+    .ps-list li:last-child{border-bottom:none}
+    .ps-list li::before{flex-shrink:0;margin-top:2px;font-size:.9rem}
+    .ps-panel.problem .ps-list li::before{content:'✕';color:#f87171}
+    .ps-panel.solution .ps-list li::before{content:'✓';color:var(--accent-orange-light)}
+
+    /* MULTIBAND SECTION */
+    .multiband-viz{display:flex;gap:20px;align-items:center;background:var(--bg-secondary);padding:20px;border-radius:var(--radius-lg);border:1px solid var(--border-subtle);margin-top:20px}
+    .mb-meter{width:60px;height:120px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);position:relative;overflow:hidden}
+    .mb-fill{position:absolute;bottom:0;left:0;right:0;background:var(--gradient-hero);height:80%;transition:height .1s}
+    .mb-gr{position:absolute;top:0;left:0;right:0;background:rgba(239,68,68,0.8);height:20%;transition:height .1s}
+    .mb-info{flex:1}
+    .mb-title{font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .mb-desc{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
+
+    /* CHECKLIST */
+    .checklist{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .checklist-header{background:rgba(234,88,12,0.1);border-bottom:1px solid var(--border-subtle);padding:16px 24px;font-size:.85rem;font-weight:700;color:var(--accent-orange-light);display:flex;align-items:center;gap:10px}
+    .checklist-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background var(--transition-fast);user-select:none}
+    .checklist-item > div{flex:1;min-width:0}
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-item:hover{background:var(--bg-glass)}
+    .checklist-item input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--border-medium);border-radius:5px;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all var(--transition-fast);position:relative}
+    .checklist-item input[type="checkbox"]:checked{background:var(--accent-orange);border-color:var(--accent-orange)}
+    .checklist-item input[type="checkbox"]:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:white}
+    .check-title{font-size:.85rem;font-weight:600;color:var(--text-primary);display:block;margin-bottom:2px}
+    .check-desc{font-size:.78rem;color:var(--text-muted)}
+
+    /* NEXT/PREV */
+    .next-module{margin:48px 48px 0;background:var(--gradient-card);border:1px solid rgba(234,88,12,0.3);border-radius:var(--radius-xl);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+    .next-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+    .next-title{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .next-desc{font-size:.85rem;color:var(--text-secondary)}
+    .btn-next{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gradient-hero);border:none;border-radius:99px;font-size:.9rem;font-weight:700;color:white;cursor:pointer;text-decoration:none;transition:all var(--transition-fast);white-space:nowrap;font-family:'Inter',sans-serif}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+    .btn-prev{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);font-family:'Inter',sans-serif}
+    .btn-prev:hover{background:var(--bg-glass-strong);color:var(--text-primary)}
+    .nav-buttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+    code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(234,88,12,0.1);border:1px solid rgba(234,88,12,0.2);border-radius:4px;padding:1px 6px;color:var(--accent-orange-light)}
+    strong{color:var(--text-primary);font-weight:700}
+    .section-block{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .section-block.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .animate-in{animation:fadeInUp .6s ease-out forwards}
+    .animate-in-delay-1{animation-delay:.1s;opacity:0}
+    .animate-in-delay-2{animation-delay:.2s;opacity:0}
+    .animate-in-delay-3{animation-delay:.3s;opacity:0}
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.5)}
+      .sidebar-overlay.open{display:block}
+      .main-content{margin-left:0}
+      .module-hero,.content-section{padding-left:24px;padding-right:24px}
+      .next-module{margin:32px 24px 0;flex-direction:column}
+      .btn-next{width:100%;justify-content:center}
+      .menu-toggle{display:flex;align-items:center;justify-content:center}
+      .header-nav{display:none}
+      .compare-grid, .ps-grid{grid-template-columns:1fr}
+      .ps-panel.problem{border-right:none;border-bottom:1px solid var(--border-subtle)}
+      .multiband-viz{flex-direction:column;text-align:center}
+    }
+    @media(max-width:600px){
+      .module-hero,.content-section{padding-left:16px;padding-right:16px}
+      .next-module{margin:24px 16px 0;padding:24px}
+    }
+  </style>
+</head>
+<body>
+<div aria-hidden="true" class="bg-ambient"></div>
+<header class="top-header" role="banner">
+<div class="header-brand">
+<div aria-hidden="true" class="header-logo">🎸</div>
+<div><div class="header-title">Apostila de Mixagem</div><div class="header-subtitle">Guia Técnico para Produtores</div></div>
+</div>
+<nav class="header-nav">
+<a class="nav-pill" href="#panning">Palco &amp; Panning</a>
+<a class="nav-pill" href="#espectro">Espectro EQ</a>
+<a class="nav-pill" href="#dinamica">Palm Mutes (Dinâmica)</a>
+<a class="nav-pill active" href="#re-amp">Re-Amping</a>
+</nav>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<div aria-hidden="true" class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app-layout">
+<aside aria-label="Índice" class="sidebar" id="sidebar" role="navigation">
+<div class="sidebar-section-label">Módulo Atual</div>
+<a class="sidebar-item active" href="#captadores" id="nav-cap"><span class="item-icon">🧲</span> Single vs Humbucker<span class="item-number">01</span></a>
+<a class="sidebar-item" href="#panning" id="nav-pan"><span class="item-icon">↔️</span> Palco Estéreo<span class="item-number">02</span></a>
+<a class="sidebar-item" href="#espectro" id="nav-eq"><span class="item-icon">🎚️</span> Espectro &amp; EQ<span class="item-number">03</span></a>
+<a class="sidebar-item" href="#dinamica" id="nav-dyn"><span class="item-icon">⚙️</span> Dinâmica Multibanda<span class="item-number">04</span></a>
+<a class="sidebar-item" href="#re-amp" id="nav-reamp"><span class="item-icon">🔌</span> IRs e Re-Amping<span class="item-number">05</span></a>
+<a class="sidebar-item" href="#problemas" id="nav-prob"><span class="item-icon">🔧</span> Problemas Comuns<span class="item-number">06</span></a>
+<a class="sidebar-item" href="#checklist" id="nav-chk"><span class="item-icon">✅</span> Checklist<span class="item-number">07</span></a>
+<div class="sidebar-section-label">Outros Módulos</div>
+<a class="sidebar-item" href="modulo-01-pre-mixagem.html"><span class="item-icon">🏗️</span> Módulo 01 — Pré-Mix</a>
+<a class="sidebar-item" href="modulo-02-escuta-referencias.html"><span class="item-icon">👂</span> Módulo 02 — Escuta</a>
+<a class="sidebar-item" href="modulo-03-limpeza-edicao.html"><span class="item-icon">✂️</span> Módulo 03 — Edição</a>
+<a class="sidebar-item" href="modulo-04-bateria.html"><span class="item-icon">🥁</span> Módulo 04 — Bateria</a>
+<a class="sidebar-item" href="modulo-05-baixo.html"><span class="item-icon">🎸</span> Módulo 05 — Baixo</a>
+<a class="sidebar-item" href="modulo-06-guitarras.html"><span class="item-icon">🎸</span> Módulo 06 — Guitarra</a>
+<a class="sidebar-item" href="modulo-07-violao.html"><span class="item-icon">🪕</span> Módulo 07 — Violão</a>
+<a class="sidebar-item" href="modulo-08-teclados.html"><span class="item-icon">🎹</span> Módulo 08 — Teclados</a>
+<a class="sidebar-item" href="modulo-09-vocais-masculinos.html"><span class="item-icon">🎤</span> Módulo 09 — Vocal Masc.</a>
+<a class="sidebar-item" href="modulo-10-vocais-femininos.html"><span class="item-icon">👩‍🎤</span> Módulo 10 — Vocal Fem.</a>
+<a class="sidebar-item" href="modulo-11-mix-bus.html"><span class="item-icon">🚌</span> Módulo 11 — Mix Bus</a>
+<a class="sidebar-item" href="modulo-12-entrega-final.html"><span class="item-icon">🏁</span> Módulo 12 — Entrega Final</a>
+<div class="progress-bar-container"><div class="progress-bar-fill"></div></div>
+<div class="progress-label"><span>Módulo 6 de 12</span><span>50%</span></div>
+</aside>
+<main class="main-content" role="main">
+<!-- HERO -->
+<section class="module-hero animate-in">
+<div class="module-badge"><span>🎸</span> MÓDULO 06 (AVANÇADO)</div>
+<h1 class="module-title animate-in animate-in-delay-1">Guitarras: Do Clean ao High Gain</h1>
+<p class="module-lead animate-in animate-in-delay-2">
+        A guitarra elétrica é uma fera midrange. O desafio é posicioná-la no palco sonoro para dar um "Wall of Sound" massivo, sem mascarar a voz principal, o bumbo e a caixa. Neste módulo profundo, exploraremos desde a física dos captadores até a compressão multibanda de chugs.
+      </p>
+<div class="module-meta animate-in animate-in-delay-3">
+<div class="meta-chip"><span>⏱️</span> 80 min de leitura</div>
+<div class="meta-chip"><span>🎯</span> Nível: Avançado</div>
+<div class="meta-chip"><span>↔️</span> Imagem Estéreo Massiva</div>
+<div class="meta-chip"><span>🔪</span> EQ Cirúrgica (Notch)</div>
+</div>
+</section>
+<!-- ═══ 1. FONTE DO SOM ═══ -->
+<section class="content-section section-block" id="captadores">
+<div class="section-header">
+<div class="section-icon icon-orange">🧲</div>
+<div><h2 class="section-title">A Fonte: Captadores<small>O que você grava dita como você mixa</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Mixar guitarras começa entendendo o que foi gravado. A diferença fundamental entre captadores altera radicalmente onde você fará cortes ou reforços na EQ.
+      </p>
+<div class="compare-grid">
+<div class="compare-card">
+<div class="compare-header">
+<div class="compare-icon" style="background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.3)">🎸</div>
+<div>
+<div style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--text-primary)">Single Coil (Ex: Stratocaster/Telecaster)</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Som brilhante, cortante, menor saída de ganho</div>
+</div>
+</div>
+<div class="compare-body">
+<div class="compare-row"><span class="compare-label">Região de Pico</span><span class="compare-value" style="color:var(--accent-cyan-light)">2kHz - 4kHz (Twang)</span></div>
+<div class="compare-row"><span class="compare-label">Grave (Low End)</span><span class="compare-value">Fino e definido</span></div>
+<div class="compare-row"><span class="compare-label">Problema Comum</span><span class="compare-value" style="color:#fca5a5">Ruído (Hum de 60Hz) e "Ice Pick" nos agudos</span></div>
+<div class="compare-row"><span class="compare-label">Ação de Mixagem</span><span class="compare-value">Atenuar agudos agressivos, adicionar corpo em 250Hz</span></div>
+</div>
+</div>
+<div class="compare-card">
+<div class="compare-header">
+<div class="compare-icon" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3)">🔥</div>
+<div>
+<div style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--text-primary)">Humbucker (Ex: Les Paul/PRS)</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Som encorpado, quente, alta saída de ganho</div>
+</div>
+</div>
+<div class="compare-body">
+<div class="compare-row"><span class="compare-label">Região de Pico</span><span class="compare-value" style="color:var(--accent-amber-light)">400Hz - 800Hz (Mid-range)</span></div>
+<div class="compare-row"><span class="compare-label">Grave (Low End)</span><span class="compare-value">Gordo e espesso</span></div>
+<div class="compare-row"><span class="compare-label">Problema Comum</span><span class="compare-value" style="color:#fca5a5">Embolamento (Mud) e choque com o baixo</span></div>
+<div class="compare-row"><span class="compare-label">Ação de Mixagem</span><span class="compare-value">Corte agressivo de graves, boost de brilho em 5kHz</span></div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 2. L/R PANNING ═══ -->
+<section class="content-section section-block" id="panning">
+<div class="section-header">
+<div class="section-icon icon-red">↔️</div>
+<div><h2 class="section-title">Palco Estéreo e Panning<small>O segredo do "Wall of Sound"</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Guitarras base não pertencem ao centro (Center). O centro da mixagem é o domínio inviolável do Bumbo, da Caixa, do Baixo e da Voz Principal. A técnica padrão da indústria é a <strong>Dobra Real ("True Double Tracking") panada 100% L e 100% R</strong>.
+      </p>
+<div class="panning-viz">
+<div class="pv-title">Visualizador de Amplo Espectro L/R</div>
+<div class="pv-stage">
+<div class="pv-speaker left">🔈</div>
+<div class="pv-speaker right">🔉</div>
+<div class="pv-center">🎤</div>
+<!-- Guitarra Esquerda -->
+<div class="pv-guitar" id="g-left" style="left:45%;opacity:1">🎸<span class="pv-guitar-text" id="gt-left">Take 1</span></div>
+<!-- Guitarra Direita -->
+<div class="pv-guitar" id="g-right" style="right:45%;opacity:0">🎸<span class="pv-guitar-text" id="gt-right">Take 2</span></div>
+<!-- Guitarra Fake (Haas) -->
+<div class="pv-guitar" id="g-fake" style="right:45%;opacity:0;filter:hue-rotate(90deg)">🎸<span class="pv-guitar-text" id="gt-fake">Clone (Delay)</span></div>
+</div>
+<div class="pv-controls">
+<button class="pv-btn active" onclick="setPan('mono')">1. Mono (Conflito de Centro)</button>
+<button class="pv-btn" onclick="setPan('haas')">2. Haas Effect (Clone Fake)</button>
+<button class="pv-btn" onclick="setPan('dual')">3. True Double Tracking (L/R)</button>
+</div>
+</div>
+<div class="callout warning">
+<div class="callout-icon">⚠️</div>
+<div class="callout-content">
+<div class="callout-title">Clone Digital vs Gravação Real</div>
+<div class="callout-body">
+            Nunca duplique a mesma trilha, coloque uma de cada lado e ache que criou estéreo. Isso gera áudio Mono 3dB mais alto no centro. O <strong>Efeito Haas</strong> (atrasar a cópia de 10 a 30ms no lado oposto) cria falsa largura, mas gera cancelamento de fase terrível (Comb Filtering) quando a música é ouvida em mono (celulares). Sempre faça o guitarrista gravar a parte <strong>duas vezes</strong>.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 3. EQ E ESPECTRO ═══ -->
+<section class="content-section section-block" id="espectro">
+<div class="section-header">
+<div class="section-icon icon-cyan">🎚️</div>
+<div><h2 class="section-title">Espectro e EQ Cirúrgica<small>Limpando subgraves e apagando frequências "fizz"</small></h2></div>
+</div>
+<div class="guitar-spectrum">
+<div class="gs-title">🌊 Mapa Espectral — Guitarra Elétrica Distorcida</div>
+<div class="gs-canvas" id="guitarSpectrumCanvas">
+<!-- Zonas -->
+<div class="gs-zone" style="left:0;width:15%;background:rgba(239,68,68,0.2);border-right:1px solid rgba(239,68,68,0.4)">
+<div class="gs-label" style="color:#fca5a5">RUMBLE (Lixo)</div>
+</div>
+<div class="gs-zone" style="left:15%;width:15%;background:rgba(245,158,11,0.22);border-right:1px solid rgba(245,158,11,0.35)">
+<div class="gs-label" style="color:#fcd34d">MUD / BEEF</div>
+</div>
+<div class="gs-zone" style="left:30%;width:25%;background:rgba(16,185,129,0.22);border-right:1px solid rgba(16,185,129,0.35)">
+<div class="gs-label" style="color:#6ee7b7">CORPO (MEAT)</div>
+</div>
+<div class="gs-zone" style="left:55%;width:20%;background:rgba(234,88,12,0.22);border-right:1px solid rgba(234,88,12,0.35)">
+<div class="gs-label" style="color:#fb923c">MUD/BITE</div>
+</div>
+<div class="gs-zone" style="left:75%;width:10%;background:rgba(124,58,237,0.2);border-right:1px solid rgba(124,58,237,0.3)">
+<div class="gs-label" style="color:#c4b5fd">HARSHNESS</div>
+</div>
+<div class="gs-zone" style="left:85%;width:15%;background:rgba(6,182,212,0.18)">
+<div class="gs-label" style="color:#67e8f9">FIZZ (Hiss)</div>
+</div>
+<!-- Hz labels -->
+<span class="gs-hz" style="left:8%">60Hz</span>
+<span class="gs-hz" style="left:15%">100Hz</span>
+<span class="gs-hz" style="left:30%">250Hz</span>
+<span class="gs-hz" style="left:55%">800Hz</span>
+<span class="gs-hz" style="left:75%">2.5kHz</span>
+<span class="gs-hz" style="left:85%">5kHz</span>
+<span class="gs-hz" style="left:96%">10kHz</span>
+<!-- Curva EQ simulada para guitarra -->
+<svg class="gs-curve" preserveaspectratio="none" viewbox="0 0 600 140">
+<defs>
+<lineargradient id="curveGradG" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="rgba(234,88,12,0)"></stop>
+<stop offset="20%" stop-color="rgba(234,88,12,0.8)"></stop>
+<stop offset="60%" stop-color="rgba(234,88,12,0.6)"></stop>
+<stop offset="90%" stop-color="rgba(234,88,12,0.2)"></stop>
+</lineargradient>
+</defs>
+<polyline fill="none" points="0,130 60,120 100,50 180,60 250,80 350,40 450,55 500,80 550,110 600,125" stroke="url(#curveGradG)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+</svg>
+</div>
+<p style="font-size:.72rem;color:var(--text-muted);text-align:center">Visualização do espectro de guitarra. Note a ausência total no Sub e o declive no Agudo Extremo.</p>
+</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">Abaixo 100 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">Limpeza absoluta de Sub — Deixe esse espaço para o Baixo e o Bumbo. Guitarras de 7/8 cordas requerem mais cuidado, não corte a nota fundamental (Ex: 50Hz para F#).</span>
+<span class="eq-band-value" style="color:#fca5a5">HPF 80-120 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">200–350 Hz</span>
+<span class="eq-band-type band-cut">CORTE</span>
+<span class="eq-band-action">Lama do gabinete — o som encaixotado (boxy). Corte sutilmente com Sino Largo.</span>
+<span class="eq-band-value" style="color:#fca5a5">−2 a −3 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">2kHz - 4kHz</span>
+<span class="eq-band-type band-notch">NOTCH</span>
+<span class="eq-band-action">Ressonâncias do amp/IR (apitos agudos/ice-pick). Use EQ cirúrgica (Q extremamente estreito) e corte os picos de dor no ouvido.</span>
+<span class="eq-band-value" style="color:var(--accent-orange-light)">−4 a −8 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">Acima de 8kHz</span>
+<span class="eq-band-type band-hpf">LPF</span>
+<span class="eq-band-action">Filtro Passa-Baixa para cortar o ruído branco/fizz da distorção que apenas polui a mix.</span>
+<span class="eq-band-value" style="color:#fca5a5">LPF 8k-10kHz</span>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 4. DINÂMICA E MULTIBANDA ═══ -->
+<section class="content-section section-block" id="dinamica">
+<div class="section-header">
+<div class="section-icon icon-purple">⚙️</div>
+<div><h2 class="section-title">Controle de Dinâmica<small>Domando os "Palm Mutes" descontrolados</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Um erro fatal em guitarras de rock/metal é comprimir o canal inteiro. <strong>A distorção de amps já é uma compressão severa.</strong> No entanto, quando o guitarrista faz <em>Palm Mutes</em> (abafamento nas cordas grossas), ocorre um pico monstruoso de frequências graves (100Hz - 250Hz) que destrói a mix. A solução não é EQ (o que deixaria a guitarra fina no resto da música), mas sim <strong>Compressão Multibanda</strong>.
+      </p>
+<div class="multiband-viz">
+<div class="mb-meter" id="mb-meter">
+<div class="mb-fill" id="mb-fill"></div>
+<div class="mb-gr" id="mb-gr" style="height:0%"></div>
+</div>
+<div class="mb-info">
+<h3 class="mb-title">Técnica: "Domador de Palm Mutes" (C4 / FabFilter MB)</h3>
+<p class="mb-desc">Crie uma faixa no compressor multibanda <strong>apenas de 100Hz a 250Hz</strong>. Configure um Threshold baixo, ataque rápido (2ms) e release rápido (50ms). Desta forma, a faixa grave é comprimida e atenuada (Gain Reduction) <strong>somente</strong> quando o guitarrista faz o som de "Chug", mantendo os acordes abertos gordos e livres.</p>
+<button class="pv-btn" onmousedown="simulatePalm()" onmouseleave="stopPalm()" onmouseup="stopPalm()" style="margin-top:10px">Tocar "Palm Mute" (Segure)</button>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 5. RE-AMP E IRs ═══ -->
+<section class="content-section section-block" id="re-amp">
+<div class="section-header">
+<div class="section-icon icon-orange">🔌</div>
+<div><h2 class="section-title">Re-Amping &amp; Impulse Responses<small>A revolução da modelagem digital de guitarras</small></h2></div>
+</div>
+<div class="callout tip">
+<div class="callout-icon">💡</div>
+<div class="callout-content">
+<div class="callout-title">O Segredo do IR Blend (Soma de Microfones)</div>
+<div class="callout-body">
+            Na vida real, engenheiros raramente usam apenas 1 microfone na caixa. No mundo digital de Amp Sims (Neural DSP, Amplitube, Helix), use a aba de IRs e carregue:
+            <br/><br/>
+<strong>Mic Dinâmico (Ex: Shure SM57) apontado pro centro do cone:</strong> Fornece o ataque, corte agressivo, estalo e a presença que rasga a mix. Pode ser "harsh" sozinho.<br/>
+<strong>Mic de Fita (Ex: Royer 121) apontado pra borda do cone:</strong> Fornece graves imensos, corpo rico, médio gordo e zero agressividade.
+            <br/><br/>
+            Faça o blend (ex: 60% SM57 / 40% Royer) e você terá o melhor de dois mundos antes mesmo de equalizar.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 6. PROBLEMAS E SOLUÇÕES ═══ -->
+<section class="content-section section-block" id="problemas">
+<div class="section-header">
+<div class="section-icon icon-red">🔧</div>
+<div><h2 class="section-title">Problemas &amp; Soluções<small>Troubleshooting avançado para guitarras</small></h2></div>
+</div>
+<div class="ps-grid">
+<div class="ps-panel problem">
+<div class="ps-header problem-header">❌ O que evitar</div>
+<ul class="ps-list">
+<li><strong>Falta de definição:</strong> Ganho de distorção no máximo. A distorção esmaga as transientes. "Menos ganho" sempre soa "mais pesado" numa mixagem dupla.</li>
+<li><strong>Embolamento de graves:</strong> Deixar a guitarra lutar com o baixo de 60Hz a 100Hz.</li>
+<li><strong>Falso Estéreo:</strong> Usar plugins de Stereo Imager em guitarras base (causam anulação de fase e desaparecem em celular).</li>
+<li><strong>Reverb nas bases Rítmicas:</strong> Colocar reverb grande na base mata o peso e recua a guitarra. Use reverbs na guitarra solo, deixe a base seca ("in your face").</li>
+</ul>
+</div>
+<div class="ps-panel solution">
+<div class="ps-header solution-header">✅ Soluções Diretas</div>
+<ul class="ps-list">
+<li><strong>Aumente a clareza:</strong> Diga ao guitarrista para abaixar o Knob de ganho do Amp em 20% do que ele costuma usar.</li>
+<li><strong>Limpe o low-end:</strong> HPF generoso em ~100Hz. Deixe o baixo ser o grave da guitarra.</li>
+<li><strong>Wall of Sound real:</strong> True Double Tracking. Grave duas vezes, pan 100% L e 100% R.</li>
+<li><strong>Espaço sem lama:</strong> Se precisar de ambiência na base rítmica, use um delay curto (Slapback) ou Room IR ao invés de Reverbs Hall gigantes.</li>
+</ul>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ CHECKLIST ═══ -->
+<section class="content-section section-block" id="checklist">
+<div class="section-header">
+<div class="section-icon icon-cyan">✅</div>
+<div><h2 class="section-title">Checklist de Mixagem<small>Validação final da sub-mix de guitarras</small></h2></div>
+</div>
+<div class="checklist">
+<div class="checklist-header"><span>📋</span> Auditoria Final das Guitarras</div>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Gravações Duplas Autênticas para Panning (Não Clones)</span>
+<span class="check-desc">Guitarras base em 100% L e R foram tocadas em takes independentes. Compatibilidade mono está checada.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">HPF de Segurança (Sem Conflito com Baixo)</span>
+<span class="check-desc">Subgraves limpos (abaixo de 80-100Hz) para deixar espaço vital para o contra-baixo e o bumbo da bateria brilharem.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Supressão de Frequências Irritantes (Ice-pick)</span>
+<span class="check-desc">Picos de ressonância desagradáveis gerados pelos simuladores de caixa entre 2kHz e 4kHz foram atenuados com EQs tipo Notch cirúrgicos.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Compressão Multibanda de Palm Mutes Ativada</span>
+<span class="check-desc">O aumento brusco de 150-250Hz durante chugs pesados foi domado com C4/Multibanda, evitando embolamento momentâneo na mix.</span>
+</div>
+</label>
+</div>
+</section>
+<div class="next-module">
+<div>
+<div class="next-label">Próximo Passo</div>
+<div class="next-title">Módulo 07: Violão Acústico</div>
+<div class="next-desc">Como tratar instrumentos acústicos, controlando as ressonâncias "boomy" da caixa de ressonância e trazendo o brilho e articulação cristalina das palhetadas.</div>
+</div>
+<div class="nav-buttons">
+<a class="btn-prev" href="modulo-05-baixo.html">⬅ Anterior</a>
+<a class="btn-next" href="modulo-07-violao.html">Ir para Módulo 07 ➡</a>
+</div>
+</div>
+</main>
+</div>
+<script>
+  // Panning Visualizer Script
+  function setPan(mode) {
+    const btns = document.querySelectorAll('.pv-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    const gL = document.getElementById('g-left');
+    const gR = document.getElementById('g-right');
+    const gF = document.getElementById('g-fake');
+    
+    const txtL = document.getElementById('gt-left');
+    const txtR = document.getElementById('gt-right');
+    const txtF = document.getElementById('gt-fake');
+    
+    if (mode === 'mono') {
+      gL.style.left = '45%';
+      gR.style.right = '45%';
+      gF.style.opacity = '0';
+      gL.style.opacity = '1';
+      gR.style.opacity = '0';
+      txtL.style.opacity = '1'; txtR.style.opacity = '0'; txtF.style.opacity = '0';
+    } else if (mode === 'haas') {
+      gL.style.left = '5%';
+      gR.style.right = '5%';
+      gF.style.right = '5%';
+      
+      gL.style.opacity = '1';
+      gR.style.opacity = '0';
+      gF.style.opacity = '1';
+      txtL.style.opacity = '1'; txtR.style.opacity = '0'; txtF.style.opacity = '1';
+    } else {
+      gL.style.left = '5%';
+      gR.style.right = '5%';
+      gF.style.opacity = '0';
+      
+      gL.style.opacity = '1';
+      gR.style.opacity = '1';
+      txtL.style.opacity = '1'; txtR.style.opacity = '1'; txtF.style.opacity = '0';
+    }
+  }
+
+  // Multiband Visualizer Simulation
+  let mbInterval;
+  function simulatePalm() {
+    const fill = document.getElementById('mb-fill');
+    const gr = document.getElementById('mb-gr');
+    // Bump fill to 100% and GR to 40% to show compression acting heavily on low mids
+    fill.style.height = '100%';
+    gr.style.height = '40%';
+  }
+  function stopPalm() {
+    const fill = document.getElementById('mb-fill');
+    const gr = document.getElementById('mb-gr');
+    // Back to normal open chords
+    fill.style.height = '70%';
+    gr.style.height = '5%';
+  }
+
+  // Set default view on load
+  document.addEventListener('DOMContentLoaded', () => {
+    setPan('dual');
+  });
+
+  // Intersection Observer for Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.section-block').forEach(s => observer.observe(s));
+
+  // Sidebar Menu Mobile Toggle
+  const menuBtn = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function toggleMenu() {
+    const isOpen = sidebar.classList.contains('open');
+    if(isOpen) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if(window.innerWidth <= 900) toggleMenu();
+    });
+  });
+
+  // Active Link Tracking on Scroll
+  const sections = document.querySelectorAll('.content-section');
+  const navLinks = document.querySelectorAll('.sidebar-item');
+  const topNavLinks = document.querySelectorAll('.nav-pill');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollY = window.pageYOffset;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= (sectionTop - 150)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+    topNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>

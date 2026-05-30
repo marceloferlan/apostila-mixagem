@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 11 — Mix Bus | Apostila de Mixagem</title>
+<meta content="Técnicas de Mix Bus (Master Bus): Bus compression para 'Glue', EQ global, saturação harmônica analógica e preparação para masterização." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-strong: rgba(255,255,255,0.07);
+
+      --accent-purple: #7c3aed;
+      --accent-cyan: #06b6d4;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+      
+      /* Módulo 11 — Gold, Amber e Platinum: O polimento final, masterização, equipamentos premium (SSL/Pultec) */
+      --accent-gold: #f59e0b;
+      --accent-gold-light: #fbbf24;
+      --accent-platinum: #94a3b8;
+      --accent-platinum-light: #cbd5e1;
+      --accent-yellow: #eab308;
+
+      --gradient-hero: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+      --gradient-card: linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(234,179,8,0.08) 100%);
+      --gradient-warm: linear-gradient(135deg, rgba(251,191,36,0.15) 0%, rgba(245,158,11,0.08) 100%);
+
+      --text-primary: #f0f0f8;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-medium: rgba(255,255,255,0.10);
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(245,158,11,0.25);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --sidebar-width: 280px;
+      --header-height: 64px;
+      --transition-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --transition-med:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--accent-gold);border-radius:99px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-gold-light)}
+
+    .bg-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .bg-ambient::before{content:'';position:absolute;bottom:-10%;left:-5%;width:700px;height:700px;background:radial-gradient(circle,rgba(245,158,11,0.08) 0%,transparent 65%);border-radius:50%;animation:f1 24s ease-in-out infinite}
+    .bg-ambient::after{content:'';position:absolute;top:-15%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(251,191,36,0.05) 0%,transparent 70%);border-radius:50%;animation:f2 30s ease-in-out infinite}
+    @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
+    @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-35px,40px) scale(1.1)}}
+
+    /* HEADER */
+    .top-header{position:fixed;top:0;left:0;right:0;height:var(--header-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+    .header-brand{display:flex;align-items:center;gap:12px}
+    .header-logo{width:36px;height:36px;background:var(--gradient-hero);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .header-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700}
+    .header-subtitle{font-size:.7rem;color:var(--text-muted)}
+    .header-nav{display:flex;align-items:center;gap:8px}
+    .nav-pill{padding:6px 14px;border-radius:99px;font-size:.78rem;font-weight:500;border:1px solid var(--border-medium);background:var(--bg-glass);color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);display:inline-flex;align-items:center;gap:6px}
+    .nav-pill:hover{border-color:var(--accent-gold);color:var(--accent-gold-light);background:rgba(245,158,11,0.1)}
+    .nav-pill.active{background:var(--gradient-hero);border-color:transparent;color:white}
+    .menu-toggle{display:none;background:var(--bg-glass);border:1px solid var(--border-medium);color:var(--text-primary);border-radius:var(--radius-sm);padding:8px;cursor:pointer;font-size:1.1rem;transition:all var(--transition-fast)}
+
+    .app-layout{display:flex;padding-top:var(--header-height);min-height:100vh;position:relative;z-index:1}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-width);background:var(--bg-secondary);border-right:1px solid var(--border-subtle);position:fixed;top:var(--header-height);left:0;bottom:0;overflow-y:auto;padding:24px 16px;transition:transform var(--transition-med);z-index:90}
+    .sidebar-section-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:0 8px;margin-bottom:8px;margin-top:20px}
+    .sidebar-section-label:first-child{margin-top:0}
+    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);border:1px solid transparent;margin-bottom:2px}
+    .sidebar-item:hover{background:var(--bg-glass-strong);color:var(--text-primary);border-color:var(--border-subtle)}
+    .sidebar-item.active{background:rgba(245,158,11,0.12);color:var(--accent-gold-light);border-color:rgba(245,158,11,0.3)}
+    .sidebar-item .item-icon{font-size:1rem;flex-shrink:0}
+    .sidebar-item .item-number{font-size:.65rem;font-weight:700;background:var(--bg-glass-strong);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-left:auto;flex-shrink:0}
+    .sidebar-item.active .item-number{background:rgba(245,158,11,0.25);color:var(--accent-gold-light)}
+    .progress-bar-container{margin:20px 8px 0;background:var(--bg-glass);border-radius:99px;height:4px;overflow:hidden}
+    .progress-bar-fill{height:100%;width:91%;background:var(--gradient-hero);border-radius:99px}
+    .progress-label{display:flex;justify-content:space-between;padding:6px 4px 0;font-size:.68rem;color:var(--text-muted)}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:85}
+
+    .main-content{margin-left:var(--sidebar-width);flex:1;padding:0 0 80px}
+
+    /* HERO */
+    .module-hero{background:linear-gradient(135deg,rgba(245,158,11,0.18) 0%,rgba(234,179,8,0.1) 50%,transparent 100%);border-bottom:1px solid var(--border-subtle);padding:56px 48px 48px;position:relative;overflow:hidden}
+    .module-hero::before{content:'';position:absolute;bottom:-30%;left:-5%;width:450px;height:450px;background:radial-gradient(circle,rgba(245,158,11,0.15) 0%,transparent 70%);pointer-events:none}
+    .module-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.4);border-radius:99px;font-size:.75rem;font-weight:600;color:var(--accent-gold-light);letter-spacing:.05em;margin-bottom:20px}
+    .module-title{font-family:'Outfit',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--accent-gold-light) 55%,#f59e0b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .module-lead{font-size:1.05rem;color:var(--text-secondary);max-width:680px;line-height:1.8;margin-bottom:32px}
+    .module-meta{display:flex;flex-wrap:wrap;gap:12px}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.78rem;color:var(--text-secondary)}
+
+    /* SECTIONS */
+    .content-section{padding:48px 48px 0}
+    .section-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+    .section-icon{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .icon-gold    {background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.3)}
+    .icon-platinum{background:rgba(148,163,184,0.2); border:1px solid rgba(148,163,184,0.3)}
+    .icon-cyan    {background:rgba(6,182,212,0.2);  border:1px solid rgba(6,182,212,0.3)}
+    .icon-green   {background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.3)}
+    .icon-red     {background:rgba(239,68,68,0.2);  border:1px solid rgba(239,68,68,0.3)}
+
+    .section-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text-primary)}
+    .section-title small{display:block;font-size:.8rem;font-weight:500;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px}
+    .divider{height:1px;background:var(--border-subtle);margin:48px 0}
+
+    /* CALLOUTS */
+    .callout{border-radius:var(--radius-md);padding:20px 24px;margin-bottom:24px;display:flex;gap:16px;border-left:4px solid}
+    .callout-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+    .callout-title{font-weight:700;font-size:.9rem;margin-bottom:6px}
+    .callout-body{font-size:.85rem;line-height:1.7}
+    .callout.tip      {background:rgba(16,185,129,0.08);border-color:var(--accent-green);color:var(--text-secondary)}
+    .callout.tip .callout-title{color:var(--accent-green-light)}
+    .callout.gold     {background:rgba(245,158,11,0.08);border-color:var(--accent-gold);color:var(--text-secondary)}
+    .callout.gold .callout-title{color:var(--accent-gold-light)}
+    .callout.danger   {background:rgba(239,68,68,0.08);border-color:var(--accent-red);color:var(--text-secondary)}
+    .callout.danger .callout-title{color:#fca5a5}
+    .callout.platinum {background:rgba(148,163,184,0.08);border-color:var(--accent-platinum);color:var(--text-secondary)}
+    .callout.platinum .callout-title{color:var(--accent-platinum-light)}
+
+    /* GLUE COMPRESSOR VISUALIZER */
+    .glue-viz{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:32px;margin-bottom:32px;text-align:center}
+    .gv-title{font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .gv-desc{font-size:.85rem;color:var(--text-secondary);margin-bottom:24px}
+    .gv-stage{position:relative;height:120px;width:100%;max-width:500px;margin:0 auto;background:rgba(0,0,0,0.3);border:1px solid var(--border-medium);border-radius:var(--radius-md);overflow:hidden;display:flex;align-items:center;justify-content:space-around;padding:0 20px}
+    
+    .gv-item{width:60px;height:60px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 15px rgba(0,0,0,0.5);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);position:relative}
+    .gv-item::after{content:attr(data-label);position:absolute;bottom:-20px;font-size:.6rem;font-weight:700;color:var(--text-muted);white-space:nowrap}
+    .gv-item.drum{background:rgba(6,182,212,0.2); border:1px solid rgba(6,182,212,0.4)}
+    .gv-item.bass{background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.4)}
+    .gv-item.vox {background:rgba(236,72,153,0.2); border:1px solid rgba(236,72,153,0.4)}
+    .gv-item.gtr {background:rgba(245,158,11,0.2); border:1px solid rgba(245,158,11,0.4)}
+    
+    /* VCA compression wrapper simulating "hug" */
+    .gv-hug{position:absolute;inset:10px;border:2px dashed var(--accent-gold);border-radius:var(--radius-lg);opacity:0;transform:scale(1.1);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .gv-hug span{font-family:'Outfit',sans-serif;font-weight:800;color:var(--accent-gold-light);text-transform:uppercase;letter-spacing:.2em;background:rgba(0,0,0,0.8);padding:4px 12px;border-radius:99px;font-size:.7rem}
+
+    /* Modifiers when activated */
+    .gv-stage.is-glued .gv-item{transform:scale(0.9);margin:0 -10px;box-shadow:var(--shadow-glow)}
+    .gv-stage.is-glued .gv-hug{opacity:1;transform:scale(1)}
+    
+    .gv-controls{margin-top:24px;display:flex;justify-content:center;gap:16px}
+    .gv-btn{background:var(--bg-secondary);border:1px solid var(--border-medium);color:var(--text-secondary);padding:10px 24px;border-radius:99px;cursor:pointer;font-size:.85rem;font-weight:700;transition:all var(--transition-fast)}
+    .gv-btn.active{background:var(--gradient-hero);border-color:transparent;color:#fff;box-shadow:var(--shadow-glow)}
+
+    /* EQ STRIP */
+    .eq-strip{margin-bottom:20px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px 24px}
+    .eq-band{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-subtle)}
+    .eq-band:last-child{border-bottom:none}
+    .eq-band-freq{font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;width:95px;flex-shrink:0;color:var(--text-primary)}
+    .eq-band-type{font-size:.68rem;font-weight:700;padding:4px 8px;border-radius:4px;flex-shrink:0;min-width:65px;text-align:center;letter-spacing:.05em}
+    .eq-band-action{flex:1;font-size:.85rem;color:var(--text-secondary);line-height:1.5}
+    .eq-band-value{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;flex-shrink:0;white-space:nowrap}
+    .band-cut  {background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3)}
+    .band-boost{background:rgba(16,185,129,0.15);color:var(--accent-green-light);border:1px solid rgba(16,185,129,0.3)}
+    .band-gold {background:rgba(245,158,11,0.15);color:var(--accent-gold-light);border:1px solid rgba(245,158,11,0.3)}
+    .band-plat {background:rgba(148,163,184,0.15);color:var(--accent-platinum-light);border:1px solid rgba(148,163,184,0.3)}
+
+    /* PROBLEM / SOLUTION */
+    .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .ps-panel{padding:24px}
+    .ps-panel.problem{background:rgba(239,68,68,0.06);border-right:1px solid var(--border-subtle)}
+    .ps-panel.solution{background:rgba(245,158,11,0.06)}
+    .ps-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .ps-header.problem-header{color:#fca5a5}
+    .ps-header.solution-header{color:var(--accent-gold-light)}
+    .ps-list{list-style:none;padding:0}
+    .ps-list li{font-size:.85rem;color:var(--text-secondary);padding:8px 0;display:flex;gap:10px;border-bottom:1px solid var(--border-subtle);line-height:1.6}
+    .ps-list li:last-child{border-bottom:none}
+    .ps-list li::before{flex-shrink:0;margin-top:2px;font-size:.9rem}
+    .ps-panel.problem .ps-list li::before{content:'✕';color:#f87171}
+    .ps-panel.solution .ps-list li::before{content:'✓';color:var(--accent-gold-light)}
+
+    /* CHECKLIST */
+    .checklist{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .checklist-header{background:rgba(245,158,11,0.1);border-bottom:1px solid var(--border-subtle);padding:16px 24px;font-size:.85rem;font-weight:700;color:var(--accent-gold-light);display:flex;align-items:center;gap:10px}
+    .checklist-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background var(--transition-fast);user-select:none}
+    .checklist-item > div{flex:1;min-width:0}
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-item:hover{background:var(--bg-glass)}
+    .checklist-item input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--border-medium);border-radius:5px;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all var(--transition-fast);position:relative}
+    .checklist-item input[type="checkbox"]:checked{background:var(--accent-gold);border-color:var(--accent-gold)}
+    .checklist-item input[type="checkbox"]:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:white}
+    .check-title{font-size:.85rem;font-weight:600;color:var(--text-primary);display:block;margin-bottom:2px}
+    .check-desc{font-size:.78rem;color:var(--text-muted)}
+
+    /* NEXT/PREV */
+    .next-module{margin:48px 48px 0;background:var(--gradient-card);border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius-xl);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+    .next-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+    .next-title{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .next-desc{font-size:.85rem;color:var(--text-secondary)}
+    .btn-next{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gradient-hero);border:none;border-radius:99px;font-size:.9rem;font-weight:700;color:white;cursor:pointer;text-decoration:none;transition:all var(--transition-fast);white-space:nowrap;font-family:'Inter',sans-serif}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+    .btn-prev{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);font-family:'Inter',sans-serif}
+    .btn-prev:hover{background:var(--bg-glass-strong);color:var(--text-primary)}
+    .nav-buttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+    code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:4px;padding:1px 6px;color:var(--accent-gold-light)}
+    strong{color:var(--text-primary);font-weight:700}
+    .section-block{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .section-block.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .animate-in{animation:fadeInUp .6s ease-out forwards}
+    .animate-in-delay-1{animation-delay:.1s;opacity:0}
+    .animate-in-delay-2{animation-delay:.2s;opacity:0}
+    .animate-in-delay-3{animation-delay:.3s;opacity:0}
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.5)}
+      .sidebar-overlay.open{display:block}
+      .main-content{margin-left:0}
+      .module-hero,.content-section{padding-left:24px;padding-right:24px}
+      .next-module{margin:32px 24px 0;flex-direction:column}
+      .btn-next{width:100%;justify-content:center}
+      .menu-toggle{display:flex;align-items:center;justify-content:center}
+      .header-nav{display:none}
+      .ps-grid{grid-template-columns:1fr}
+      .ps-panel.problem{border-right:none;border-bottom:1px solid var(--border-subtle)}
+      .gv-stage{flex-wrap:wrap;height:auto;padding:20px}
+    }
+    @media(max-width:600px){
+      .module-hero,.content-section{padding-left:16px;padding-right:16px}
+      .next-module{margin:24px 16px 0;padding:24px}
+    }
+  </style>
+</head>
+<body>
+<div aria-hidden="true" class="bg-ambient"></div>
+<header class="top-header" role="banner">
+<div class="header-brand">
+<div aria-hidden="true" class="header-logo">🚌</div>
+<div><div class="header-title">Apostila de Mixagem</div><div class="header-subtitle">Guia Técnico para Produtores</div></div>
+</div>
+<nav class="header-nav">
+<a class="nav-pill" href="#mixbus">O Funil</a>
+<a class="nav-pill active" href="#glue">Bus Compression</a>
+<a class="nav-pill" href="#eq-master">EQ de Buss</a>
+<a class="nav-pill" href="#saturacao">Saturação Harmônica</a>
+</nav>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<div aria-hidden="true" class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app-layout">
+<aside aria-label="Índice" class="sidebar" id="sidebar" role="navigation">
+<div class="sidebar-section-label">Módulo Atual</div>
+<a class="sidebar-item active" href="#mixbus" id="nav-mix"><span class="item-icon">🎛️</span> O que é o Mix Bus?<span class="item-number">01</span></a>
+<a class="sidebar-item" href="#glue" id="nav-glu"><span class="item-icon">🗜️</span> The Glue Compressor<span class="item-number">02</span></a>
+<a class="sidebar-item" href="#eq-master" id="nav-eq"><span class="item-icon">🎚️</span> Master EQ (Smile)<span class="item-number">03</span></a>
+<a class="sidebar-item" href="#saturacao" id="nav-sat"><span class="item-icon">📼</span> Tape &amp; Saturação<span class="item-number">04</span></a>
+<a class="sidebar-item" href="#headroom" id="nav-hdr"><span class="item-icon">📏</span> Headroom Final<span class="item-number">05</span></a>
+<a class="sidebar-item" href="#problemas" id="nav-prob"><span class="item-icon">🔧</span> Problemas Comuns<span class="item-number">06</span></a>
+<a class="sidebar-item" href="#checklist" id="nav-chk"><span class="item-icon">✅</span> Checklist<span class="item-number">07</span></a>
+<div class="sidebar-section-label">Outros Módulos</div>
+<a class="sidebar-item" href="modulo-01-pre-mixagem.html"><span class="item-icon">🏗️</span> Módulo 01 — Pré-Mix</a>
+<a class="sidebar-item" href="modulo-02-escuta-referencias.html"><span class="item-icon">👂</span> Módulo 02 — Escuta</a>
+<a class="sidebar-item" href="modulo-03-limpeza-edicao.html"><span class="item-icon">✂️</span> Módulo 03 — Edição</a>
+<a class="sidebar-item" href="modulo-04-bateria.html"><span class="item-icon">🥁</span> Módulo 04 — Bateria</a>
+<a class="sidebar-item" href="modulo-05-baixo.html"><span class="item-icon">🎸</span> Módulo 05 — Baixo</a>
+<a class="sidebar-item" href="modulo-06-guitarras.html"><span class="item-icon">🎸</span> Módulo 06 — Guitarra</a>
+<a class="sidebar-item" href="modulo-07-violao.html"><span class="item-icon">🪕</span> Módulo 07 — Violão</a>
+<a class="sidebar-item" href="modulo-08-teclados.html"><span class="item-icon">🎹</span> Módulo 08 — Teclados</a>
+<a class="sidebar-item" href="modulo-09-vocais-masculinos.html"><span class="item-icon">🎤</span> Módulo 09 — Vocal Masc.</a>
+<a class="sidebar-item" href="modulo-10-vocais-femininos.html"><span class="item-icon">👩‍🎤</span> Módulo 10 — Vocal Fem.</a>
+<a class="sidebar-item" href="modulo-11-mix-bus.html"><span class="item-icon">🚌</span> Módulo 11 — Mix Bus</a>
+<a class="sidebar-item" href="modulo-12-entrega-final.html"><span class="item-icon">🏁</span> Módulo 12 — Entrega Final</a>
+<div class="progress-bar-container"><div class="progress-bar-fill"></div></div>
+<div class="progress-label"><span>Módulo 11 de 12</span><span>91%</span></div>
+</aside>
+<main class="main-content" role="main">
+<!-- HERO -->
+<section class="module-hero animate-in" id="mixbus">
+<div class="module-badge"><span>🚌</span> MÓDULO 11 (FINALIZAÇÃO)</div>
+<h1 class="module-title animate-in animate-in-delay-1">O Mix Bus (Master)</h1>
+<p class="module-lead animate-in animate-in-delay-2">
+        A mixagem está feita, os volumes estão equilibrados. Mas ainda soa como "várias trilhas separadas tocando ao mesmo tempo" ao invés de um disco comercial coeso. O "Mix Bus" (ou Stereo Out) é o local onde aplicamos a cola invisível: compressores VCA, EQs gentis e saturação harmônica para solidificar a obra.
+      </p>
+<div class="module-meta animate-in animate-in-delay-3">
+<div class="meta-chip"><span>⏱️</span> 50 min de leitura</div>
+<div class="meta-chip"><span>🎯</span> Nível: Master/Avançado</div>
+<div class="meta-chip"><span>🗜️</span> The SSL Glue</div>
+<div class="meta-chip"><span>📼</span> Analog Summing</div>
+</div>
+</section>
+<!-- ═══ 1. COMPRESSOR BUS ═══ -->
+<section class="content-section section-block" id="glue">
+<div class="section-header">
+<div class="section-icon icon-gold">🗜️</div>
+<div><h2 class="section-title">Bus Compression: "The Glue"<small>Unindo os instrumentos em uma massa sonora</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Colocar um compressor gentil na saída Master (Mix Bus) altera como os instrumentos respondem uns aos outros. Se o bumbo bater muito alto, o compressor reduzirá 1dB ou 2dB da música <em>inteira</em> de forma quase imperceptível, fazendo a mixagem "pulsar" junta. O plugin mais famoso do mundo para isso é a emulação do <strong>SSL G-Master Buss Compressor</strong>.
+      </p>
+<div class="glue-viz">
+<div class="gv-title">Visualizador de "Mix Glue"</div>
+<div class="gv-desc">Clique no botão abaixo para ligar o Bus Compressor na Master e veja como os elementos se unem.</div>
+<div class="gv-stage" id="glue-stage">
+<div class="gv-hug"><span>VCA Compression</span></div>
+<div class="gv-item drum" data-label="Bateria">🥁</div>
+<div class="gv-item bass" data-label="Baixo">🎸</div>
+<div class="gv-item vox" data-label="Vocal">🎤</div>
+<div class="gv-item gtr" data-label="Guitarras">🎸</div>
+</div>
+<div class="gv-controls">
+<button class="gv-btn" id="btn-raw" onclick="setGlue(false)" style="background:var(--bg-card);color:var(--text-primary);border-color:var(--border-medium)">1. Compressor Bypass (Desconectado)</button>
+<button class="gv-btn" id="btn-glue" onclick="setGlue(true)">2. Ligar VCA Bus Compressor</button>
+</div>
+</div>
+<div class="callout gold">
+<div class="callout-icon">🎛️</div>
+<div class="callout-content">
+<div class="callout-title">A Configuração Clássica de SSL Bus</div>
+<div class="callout-body">
+            Nunca esmague o Mix Bus. Use <strong>Ratio 2:1 ou 4:1</strong>. O <strong>Attack deve ser Lento (30ms)</strong> para deixar as transientes do bumbo e da caixa "escaparem" antes de comprimir (isso preserva o punch). O <strong>Release deve ser Auto ou Rápido (100ms)</strong> para que a compressão relaxe rápido e acompanhe o tempo da música. Redução de Ganho (GR) máxima: <strong>-2dB a -3dB</strong>.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 2. EQ GLOBAL ═══ -->
+<section class="content-section section-block" id="eq-master">
+<div class="section-header">
+<div class="section-icon icon-cyan">🎚️</div>
+<div><h2 class="section-title">Master EQ: O "Smile Curve"<small>Polimento sem destruir o mix original</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        O EQ do Mix Bus não serve para consertar erros. Se um vocal está ardido, volte no canal do vocal e corrija. O EQ no Mix Bus serve apenas para dar um brilho extra de "disco finalizado" (Top-end) e um pouco mais de peso (Bottom-end).
+      </p>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">30Hz - 60Hz</span>
+<span class="eq-band-type band-boost">LOW SHELF</span>
+<span class="eq-band-action">Acrescente +1dB com um EQ tipo Pultec. Isso engrossa o Sub do bumbo e o corpo do baixo harmonicamente, sem embolar.</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+1 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">200Hz - 400Hz</span>
+<span class="eq-band-type band-cut">SINO LARGO</span>
+<span class="eq-band-action">A infame zona da "Lama". Se toda a mix estiver meio congestionada, cortar meio decibel aqui no Master pode abrir o som magicamente.</span>
+<span class="eq-band-value" style="color:#fca5a5">−0.5 a −1 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">10kHz+</span>
+<span class="eq-band-type band-gold">HIGH SHELF</span>
+<span class="eq-band-action">O brilho de "rádio" (Air). Levante 1dB ou 1.5dB nos agudos globais com um EQ Analógico. Traz os vocais e pratos à vida instantaneamente.</span>
+<span class="eq-band-value" style="color:var(--accent-gold-light)">+1 a +1.5 dB</span>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 3. SATURAÇÃO ANALÓGICA ═══ -->
+<section class="content-section section-block" id="saturacao">
+<div class="section-header">
+<div class="section-icon icon-platinum">📼</div>
+<div><h2 class="section-title">Saturação Harmônica<small>Removendo a "frieza" do mundo digital</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Mixar 100% no computador (In-the-box) produz resultados muito limpos. A música antiga soa "quente" porque passava por mesas de som, fitas magnéticas (Tape) e compressores a válvula, todos adicionando micro-distorções harmônicas agradáveis.
+      </p>
+<div class="callout platinum">
+<div class="callout-icon">🎛️</div>
+<div class="callout-content">
+<div class="callout-title">Uso de "Tape Emulators" no Mix Bus</div>
+<div class="callout-body">
+            Coloque um simulador de máquina de fita (Tape Machine) como último ou penúltimo plugin da sua Master. Coloque o nível de saturação (Drive) no mínimo possível. Você notará que as transientes "picudas" da bateria serão suavemente esmagadas e os graves ganharão um corpo denso ("bump"). É o som de discos de platina clássicos.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 4. PROBLEMAS E SOLUÇÕES ═══ -->
+<section class="content-section section-block" id="problemas">
+<div class="section-header">
+<div class="section-icon icon-red">🔧</div>
+<div><h2 class="section-title">Problemas &amp; Soluções<small>Destruindo a mixagem na linha de chegada</small></h2></div>
+</div>
+<div class="ps-grid">
+<div class="ps-panel problem">
+<div class="ps-header problem-header">❌ O que evitar</div>
+<ul class="ps-list">
+<li><strong>Clipping Digital (Vermelho no Master):</strong> O canal Master NUNCA, em hipótese alguma, deve bater no 0.0dB e acender a luz vermelha. Se isso ocorrer, você arruinou o áudio matematicamente (Distorção Digital Quadrada).</li>
+<li><strong>Compressor de Master com Ataque Rápido:</strong> Se você colocar o Attack em 1ms no Master Bus, o bumbo e a caixa desaparecerão, e a mix vai soar plana, morta e encolhida.</li>
+<li><strong>Limiters Esmagadores:</strong> Colocar um Limiter na Mix Bus reduzindo 8dB só para fazer a música soar alta (Loudness War) vai matar toda a dinâmica emocional que você criou nos módulos anteriores.</li>
+</ul>
+</div>
+<div class="ps-panel solution" id="headroom">
+<div class="ps-header solution-header">✅ Soluções Diretas</div>
+<ul class="ps-list">
+<li><strong>Gain Staging Adequado:</strong> Se o Master está clipando, não abaixe o fader do master. Selecione <em>todas</em> as trilhas individuais e abaixe todas em -5dB simultaneamente. Mantenha o fader do Master sempre em 0 e deixe a soma chegar em torno de -6dB Peak.</li>
+<li><strong>Deixe o Loudness para a Masterização:</strong> A sua mixagem deve ter entre -6dB e -3dB de sobra de espaço (Headroom) no pico mais alto da música. Envie assim para o Engenheiro de Masterização.</li>
+</ul>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ CHECKLIST ═══ -->
+<section class="content-section section-block" id="checklist">
+<div class="section-header">
+<div class="section-icon icon-gold">✅</div>
+<div><h2 class="section-title">Checklist de Mixagem<small>Auditoria da Master de Mixagem</small></h2></div>
+</div>
+<div class="checklist">
+<div class="checklist-header"><span>📋</span> Auditoria Final - Mix Bus</div>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Headroom Saudável (-6dB a -3dB)</span>
+<span class="check-desc">O volume máximo no momento mais barulhento da música não acende o indicador vermelho (Clip). O fader master está travado em zero.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Glue Compressor Respirando (Attack Lento)</span>
+<span class="check-desc">O compressor do master está apenas tocando no ponteiro (-2dB max de redução), com ataque de 30ms deixando os transientes intactos.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">EQ Global Sutil (Smile EQ)</span>
+<span class="check-desc">Nenhum corte extremo na Master. Apenas adições menores de "Air" (+1dB em 10k) ou peso (+1dB em 60Hz) com plugins analógicos.</span>
+</div>
+</label>
+</div>
+</section>
+<div class="next-module">
+<div>
+<div class="next-label">Próximo Passo</div>
+<div class="next-title">Módulo 12: Entrega e Formatos (O Final)</div>
+<div class="next-desc">Como exportar corretamente (Bounce). Dithering, Sample Rates 48kHz/24bit, Stems, e a relação com o Engenheiro de Masterização.</div>
+</div>
+<div class="nav-buttons">
+<a class="btn-prev" href="modulo-10-vocais-femininos.html">⬅ Anterior</a>
+<a class="btn-next" href="modulo-12-entrega-final.html">Ir para Módulo 12 ➡</a>
+</div>
+</div>
+</main>
+</div>
+<script>
+  // Glue Visualizer Script
+  function setGlue(isActive) {
+    const stage = document.getElementById('glue-stage');
+    const btnRaw = document.getElementById('btn-raw');
+    const btnGlue = document.getElementById('btn-glue');
+    
+    if(isActive) {
+      stage.classList.add('is-glued');
+      btnGlue.classList.add('active');
+      btnRaw.classList.remove('active');
+      btnRaw.style.background = 'var(--bg-secondary)';
+      btnRaw.style.color = 'var(--text-secondary)';
+    } else {
+      stage.classList.remove('is-glued');
+      btnGlue.classList.remove('active');
+      btnRaw.classList.add('active');
+      btnRaw.style.background = 'var(--bg-card)';
+      btnRaw.style.color = 'var(--text-primary)';
+    }
+  }
+
+  // Define Initial State for comp
+  document.addEventListener('DOMContentLoaded', () => {
+    setGlue(false);
+  });
+
+  // Intersection Observer for Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.section-block').forEach(s => observer.observe(s));
+
+  // Sidebar Menu Mobile Toggle
+  const menuBtn = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function toggleMenu() {
+    const isOpen = sidebar.classList.contains('open');
+    if(isOpen) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if(window.innerWidth <= 900) toggleMenu();
+    });
+  });
+
+  // Active Link Tracking on Scroll
+  const sections = document.querySelectorAll('.content-section');
+  const navLinks = document.querySelectorAll('.sidebar-item');
+  const topNavLinks = document.querySelectorAll('.nav-pill');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollY = window.pageYOffset;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= (sectionTop - 150)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+    topNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 07 — Violão | Apostila de Mixagem</title>
+<meta content="Mixagem avançada de violões acústicos: Controle de ressonâncias de corpo (boomy), brilho e articulação, compressão transparente e espacialização." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-strong: rgba(255,255,255,0.07);
+
+      --accent-purple: #7c3aed;
+      --accent-cyan: #06b6d4;
+      --accent-cyan-light: #67e8f9;
+      --accent-amber: #f59e0b;
+      --accent-amber-light: #fcd34d;
+      --accent-green: #10b981;
+      --accent-green-light: #6ee7b7;
+      --accent-red: #ef4444;
+      
+      /* Módulo 07 — Tons Terra, Âmbar e Ouro: Remetendo à madeira do violão acústico */
+      --accent-wood: #d97706;
+      --accent-wood-light: #fbbf24;
+      --accent-earth: #a16207;
+
+      --gradient-hero: linear-gradient(135deg, #d97706 0%, #a16207 100%);
+      --gradient-card: linear-gradient(135deg, rgba(217,119,6,0.15) 0%, rgba(161,98,7,0.08) 100%);
+      --gradient-warm: linear-gradient(135deg, rgba(251,191,36,0.15) 0%, rgba(217,119,6,0.08) 100%);
+
+      --text-primary: #f0f0f8;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-medium: rgba(255,255,255,0.10);
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(217,119,6,0.25);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --sidebar-width: 280px;
+      --header-height: 64px;
+      --transition-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --transition-med:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--accent-wood);border-radius:99px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-wood-light)}
+
+    .bg-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .bg-ambient::before{content:'';position:absolute;bottom:-10%;left:-5%;width:700px;height:700px;background:radial-gradient(circle,rgba(217,119,6,0.1) 0%,transparent 65%);border-radius:50%;animation:f1 24s ease-in-out infinite}
+    .bg-ambient::after{content:'';position:absolute;top:-15%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(161,98,7,0.07) 0%,transparent 70%);border-radius:50%;animation:f2 30s ease-in-out infinite}
+    @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
+    @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-35px,40px) scale(1.1)}}
+
+    /* HEADER */
+    .top-header{position:fixed;top:0;left:0;right:0;height:var(--header-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+    .header-brand{display:flex;align-items:center;gap:12px}
+    .header-logo{width:36px;height:36px;background:var(--gradient-hero);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .header-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700}
+    .header-subtitle{font-size:.7rem;color:var(--text-muted)}
+    .header-nav{display:flex;align-items:center;gap:8px}
+    .nav-pill{padding:6px 14px;border-radius:99px;font-size:.78rem;font-weight:500;border:1px solid var(--border-medium);background:var(--bg-glass);color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);display:inline-flex;align-items:center;gap:6px}
+    .nav-pill:hover{border-color:var(--accent-wood);color:var(--accent-wood-light);background:rgba(217,119,6,0.1)}
+    .nav-pill.active{background:var(--gradient-hero);border-color:transparent;color:white}
+    .menu-toggle{display:none;background:var(--bg-glass);border:1px solid var(--border-medium);color:var(--text-primary);border-radius:var(--radius-sm);padding:8px;cursor:pointer;font-size:1.1rem;transition:all var(--transition-fast)}
+
+    .app-layout{display:flex;padding-top:var(--header-height);min-height:100vh;position:relative;z-index:1}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-width);background:var(--bg-secondary);border-right:1px solid var(--border-subtle);position:fixed;top:var(--header-height);left:0;bottom:0;overflow-y:auto;padding:24px 16px;transition:transform var(--transition-med);z-index:90}
+    .sidebar-section-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:0 8px;margin-bottom:8px;margin-top:20px}
+    .sidebar-section-label:first-child{margin-top:0}
+    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);border:1px solid transparent;margin-bottom:2px}
+    .sidebar-item:hover{background:var(--bg-glass-strong);color:var(--text-primary);border-color:var(--border-subtle)}
+    .sidebar-item.active{background:rgba(217,119,6,0.12);color:var(--accent-wood-light);border-color:rgba(217,119,6,0.3)}
+    .sidebar-item .item-icon{font-size:1rem;flex-shrink:0}
+    .sidebar-item .item-number{font-size:.65rem;font-weight:700;background:var(--bg-glass-strong);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-left:auto;flex-shrink:0}
+    .sidebar-item.active .item-number{background:rgba(217,119,6,0.25);color:var(--accent-wood-light)}
+    .progress-bar-container{margin:20px 8px 0;background:var(--bg-glass);border-radius:99px;height:4px;overflow:hidden}
+    .progress-bar-fill{height:100%;width:58%;background:var(--gradient-hero);border-radius:99px}
+    .progress-label{display:flex;justify-content:space-between;padding:6px 4px 0;font-size:.68rem;color:var(--text-muted)}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:85}
+
+    .main-content{margin-left:var(--sidebar-width);flex:1;padding:0 0 80px}
+
+    /* HERO */
+    .module-hero{background:linear-gradient(135deg,rgba(217,119,6,0.18) 0%,rgba(161,98,7,0.1) 50%,transparent 100%);border-bottom:1px solid var(--border-subtle);padding:56px 48px 48px;position:relative;overflow:hidden}
+    .module-hero::before{content:'';position:absolute;bottom:-30%;left:-5%;width:450px;height:450px;background:radial-gradient(circle,rgba(217,119,6,0.15) 0%,transparent 70%);pointer-events:none}
+    .module-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(217,119,6,0.12);border:1px solid rgba(217,119,6,0.4);border-radius:99px;font-size:.75rem;font-weight:600;color:var(--accent-wood-light);letter-spacing:.05em;margin-bottom:20px}
+    .module-title{font-family:'Outfit',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--accent-wood-light) 55%,#a16207 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .module-lead{font-size:1.05rem;color:var(--text-secondary);max-width:680px;line-height:1.8;margin-bottom:32px}
+    .module-meta{display:flex;flex-wrap:wrap;gap:12px}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.78rem;color:var(--text-secondary)}
+
+    /* SECTIONS */
+    .content-section{padding:48px 48px 0}
+    .section-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+    .section-icon{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .icon-wood  {background:rgba(217,119,6,0.2);  border:1px solid rgba(217,119,6,0.3)}
+    .icon-cyan  {background:rgba(6,182,212,0.2);  border:1px solid rgba(6,182,212,0.3)}
+    .icon-green {background:rgba(16,185,129,0.2); border:1px solid rgba(16,185,129,0.3)}
+    .icon-purple{background:rgba(124,58,237,0.2); border:1px solid rgba(124,58,237,0.3)}
+    .icon-red   {background:rgba(239,68,68,0.2);  border:1px solid rgba(239,68,68,0.3)}
+
+    .section-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text-primary)}
+    .section-title small{display:block;font-size:.8rem;font-weight:500;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px}
+    .divider{height:1px;background:var(--border-subtle);margin:48px 0}
+
+    /* CALLOUTS */
+    .callout{border-radius:var(--radius-md);padding:20px 24px;margin-bottom:24px;display:flex;gap:16px;border-left:4px solid}
+    .callout-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+    .callout-title{font-weight:700;font-size:.9rem;margin-bottom:6px}
+    .callout-body{font-size:.85rem;line-height:1.7}
+    .callout.tip    {background:rgba(16,185,129,0.08);border-color:var(--accent-green);color:var(--text-secondary)}
+    .callout.tip .callout-title{color:var(--accent-green-light)}
+    .callout.wood   {background:rgba(217,119,6,0.08);border-color:var(--accent-wood);color:var(--text-secondary)}
+    .callout.wood .callout-title{color:var(--accent-wood-light)}
+    .callout.danger {background:rgba(239,68,68,0.08);border-color:var(--accent-red);color:var(--text-secondary)}
+    .callout.danger .callout-title{color:#fca5a5}
+    .callout.info   {background:rgba(6,182,212,0.08);border-color:var(--accent-cyan);color:var(--text-secondary)}
+    .callout.info .callout-title{color:var(--accent-cyan-light)}
+
+    /* COMPARE CARDS */
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+    .compare-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition-med)}
+    .compare-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-card)}
+    .compare-header{padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px}
+    .compare-icon{width:40px;height:40px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+    .compare-body{padding:20px}
+    .compare-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:.83rem}
+    .compare-row:last-child{border-bottom:none}
+    .compare-label{color:var(--text-muted);font-weight:500}
+    .compare-value{color:var(--text-primary);font-weight:600;text-align:right}
+
+    /* SPECTRUM */
+    .ac-spectrum{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:28px;margin-bottom:32px}
+    .as-title{font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;color:var(--text-primary);margin-bottom:24px;display:flex;align-items:center;gap:8px}
+    .as-canvas{position:relative;height:140px;background:linear-gradient(to bottom,rgba(217,119,6,0.04),var(--bg-secondary));border:1px solid var(--border-subtle);border-radius:var(--radius-md);overflow:hidden;margin-bottom:8px}
+    .as-zone{position:absolute;top:0;bottom:20px;border-radius:3px;transition:background var(--transition-fast)}
+    .as-zone:hover{filter:brightness(1.4)}
+    .as-label{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:.6rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,0.9)}
+    .as-hz{position:absolute;bottom:4px;font-size:.58rem;font-family:'JetBrains Mono',monospace;color:var(--text-muted);transform:translateX(-50%)}
+    .as-curve{position:absolute;inset:0;pointer-events:none}
+
+    /* EQ STRIP */
+    .eq-strip{margin-bottom:20px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px 24px}
+    .eq-band{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-subtle)}
+    .eq-band:last-child{border-bottom:none}
+    .eq-band-freq{font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;width:95px;flex-shrink:0;color:var(--text-primary)}
+    .eq-band-type{font-size:.68rem;font-weight:700;padding:4px 8px;border-radius:4px;flex-shrink:0;min-width:65px;text-align:center;letter-spacing:.05em}
+    .eq-band-action{flex:1;font-size:.85rem;color:var(--text-secondary);line-height:1.5}
+    .eq-band-value{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;flex-shrink:0;white-space:nowrap}
+    .band-cut  {background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3)}
+    .band-boost{background:rgba(16,185,129,0.15);color:var(--accent-green-light);border:1px solid rgba(16,185,129,0.3)}
+    .band-hpf  {background:rgba(124,58,237,0.15);color:var(--accent-purple-light);border:1px solid rgba(124,58,237,0.3)}
+    .band-wood {background:rgba(217,119,6,0.15);color:var(--accent-wood-light);border:1px solid rgba(217,119,6,0.3)}
+
+    /* PROBLEM / SOLUTION */
+    .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .ps-panel{padding:24px}
+    .ps-panel.problem{background:rgba(239,68,68,0.06);border-right:1px solid var(--border-subtle)}
+    .ps-panel.solution{background:rgba(217,119,6,0.06)}
+    .ps-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .ps-header.problem-header{color:#fca5a5}
+    .ps-header.solution-header{color:var(--accent-wood-light)}
+    .ps-list{list-style:none;padding:0}
+    .ps-list li{font-size:.85rem;color:var(--text-secondary);padding:8px 0;display:flex;gap:10px;border-bottom:1px solid var(--border-subtle);line-height:1.6}
+    .ps-list li:last-child{border-bottom:none}
+    .ps-list li::before{flex-shrink:0;margin-top:2px;font-size:.9rem}
+    .ps-panel.problem .ps-list li::before{content:'✕';color:#f87171}
+    .ps-panel.solution .ps-list li::before{content:'✓';color:var(--accent-wood-light)}
+
+    /* COMPRESSOR VIZ */
+    .comp-viz{display:flex;gap:20px;align-items:center;background:var(--bg-secondary);padding:24px;border-radius:var(--radius-lg);border:1px solid var(--border-subtle);margin-top:20px}
+    .cv-meter-container{display:flex;flex-direction:column;gap:5px;align-items:center}
+    .cv-meter{width:160px;height:12px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:99px;position:relative;overflow:hidden}
+    .cv-fill{position:absolute;top:0;bottom:0;left:0;width:80%;background:linear-gradient(90deg, #10b981, #d97706);transition:width 0.1s}
+    .cv-gr{position:absolute;top:0;bottom:0;right:0;width:20%;background:rgba(239,68,68,0.8);transition:width 0.2s}
+    .cv-label{font-size:.65rem;font-family:'JetBrains Mono';color:var(--text-muted);display:flex;justify-content:space-between;width:100%}
+    .cv-info{flex:1}
+    .cv-title{font-size:1rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .cv-desc{font-size:.85rem;color:var(--text-secondary);line-height:1.6}
+
+    /* CHECKLIST */
+    .checklist{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .checklist-header{background:rgba(217,119,6,0.1);border-bottom:1px solid var(--border-subtle);padding:16px 24px;font-size:.85rem;font-weight:700;color:var(--accent-wood-light);display:flex;align-items:center;gap:10px}
+    .checklist-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background var(--transition-fast);user-select:none}
+    .checklist-item > div{flex:1;min-width:0}
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-item:hover{background:var(--bg-glass)}
+    .checklist-item input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--border-medium);border-radius:5px;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all var(--transition-fast);position:relative}
+    .checklist-item input[type="checkbox"]:checked{background:var(--accent-wood);border-color:var(--accent-wood)}
+    .checklist-item input[type="checkbox"]:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:white}
+    .check-title{font-size:.85rem;font-weight:600;color:var(--text-primary);display:block;margin-bottom:2px}
+    .check-desc{font-size:.78rem;color:var(--text-muted)}
+
+    /* NEXT/PREV */
+    .next-module{margin:48px 48px 0;background:var(--gradient-card);border:1px solid rgba(217,119,6,0.3);border-radius:var(--radius-xl);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+    .next-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+    .next-title{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .next-desc{font-size:.85rem;color:var(--text-secondary)}
+    .btn-next{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gradient-hero);border:none;border-radius:99px;font-size:.9rem;font-weight:700;color:white;cursor:pointer;text-decoration:none;transition:all var(--transition-fast);white-space:nowrap;font-family:'Inter',sans-serif}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+    .btn-prev{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);font-family:'Inter',sans-serif}
+    .btn-prev:hover{background:var(--bg-glass-strong);color:var(--text-primary)}
+    .nav-buttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+    code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(217,119,6,0.1);border:1px solid rgba(217,119,6,0.2);border-radius:4px;padding:1px 6px;color:var(--accent-wood-light)}
+    strong{color:var(--text-primary);font-weight:700}
+    .section-block{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .section-block.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .animate-in{animation:fadeInUp .6s ease-out forwards}
+    .animate-in-delay-1{animation-delay:.1s;opacity:0}
+    .animate-in-delay-2{animation-delay:.2s;opacity:0}
+    .animate-in-delay-3{animation-delay:.3s;opacity:0}
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.5)}
+      .sidebar-overlay.open{display:block}
+      .main-content{margin-left:0}
+      .module-hero,.content-section{padding-left:24px;padding-right:24px}
+      .next-module{margin:32px 24px 0;flex-direction:column}
+      .btn-next{width:100%;justify-content:center}
+      .menu-toggle{display:flex;align-items:center;justify-content:center}
+      .header-nav{display:none}
+      .compare-grid, .ps-grid{grid-template-columns:1fr}
+      .ps-panel.problem{border-right:none;border-bottom:1px solid var(--border-subtle)}
+      .comp-viz{flex-direction:column;text-align:center}
+    }
+    @media(max-width:600px){
+      .module-hero,.content-section{padding-left:16px;padding-right:16px}
+      .next-module{margin:24px 16px 0;padding:24px}
+    }
+  </style>
+</head>
+<body>
+<div aria-hidden="true" class="bg-ambient"></div>
+<header class="top-header" role="banner">
+<div class="header-brand">
+<div aria-hidden="true" class="header-logo">🪕</div>
+<div><div class="header-title">Apostila de Mixagem</div><div class="header-subtitle">Guia Técnico para Produtores</div></div>
+</div>
+<nav class="header-nav">
+<a class="nav-pill" href="#captacao">Mic vs DI</a>
+<a class="nav-pill" href="#espectro">Espectro EQ</a>
+<a class="nav-pill" href="#dinamica">Compressão</a>
+<a class="nav-pill active" href="#espaco">Espacialização</a>
+</nav>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<div aria-hidden="true" class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app-layout">
+<aside aria-label="Índice" class="sidebar" id="sidebar" role="navigation">
+<div class="sidebar-section-label">Módulo Atual</div>
+<a class="sidebar-item active" href="#captacao" id="nav-cap"><span class="item-icon">🎤</span> Microfonação vs DI<span class="item-number">01</span></a>
+<a class="sidebar-item" href="#espectro" id="nav-eq"><span class="item-icon">🎚️</span> Espectro &amp; EQ<span class="item-number">02</span></a>
+<a class="sidebar-item" href="#dinamica" id="nav-dyn"><span class="item-icon">⚙️</span> Dinâmica &amp; Ataque<span class="item-number">03</span></a>
+<a class="sidebar-item" href="#espaco" id="nav-spc"><span class="item-icon">🌌</span> Espacialização (Reverb)<span class="item-number">04</span></a>
+<a class="sidebar-item" href="#problemas" id="nav-prob"><span class="item-icon">🔧</span> Problemas Comuns<span class="item-number">05</span></a>
+<a class="sidebar-item" href="#checklist" id="nav-chk"><span class="item-icon">✅</span> Checklist<span class="item-number">06</span></a>
+<div class="sidebar-section-label">Outros Módulos</div>
+<a class="sidebar-item" href="modulo-01-pre-mixagem.html"><span class="item-icon">🏗️</span> Módulo 01 — Pré-Mix</a>
+<a class="sidebar-item" href="modulo-02-escuta-referencias.html"><span class="item-icon">👂</span> Módulo 02 — Escuta</a>
+<a class="sidebar-item" href="modulo-03-limpeza-edicao.html"><span class="item-icon">✂️</span> Módulo 03 — Edição</a>
+<a class="sidebar-item" href="modulo-04-bateria.html"><span class="item-icon">🥁</span> Módulo 04 — Bateria</a>
+<a class="sidebar-item" href="modulo-05-baixo.html"><span class="item-icon">🎸</span> Módulo 05 — Baixo</a>
+<a class="sidebar-item" href="modulo-06-guitarras.html"><span class="item-icon">🎸</span> Módulo 06 — Guitarra</a>
+<a class="sidebar-item" href="modulo-07-violao.html"><span class="item-icon">🪕</span> Módulo 07 — Violão</a>
+<a class="sidebar-item" href="modulo-08-teclados.html"><span class="item-icon">🎹</span> Módulo 08 — Teclados</a>
+<a class="sidebar-item" href="modulo-09-vocais-masculinos.html"><span class="item-icon">🎤</span> Módulo 09 — Vocal Masc.</a>
+<a class="sidebar-item" href="modulo-10-vocais-femininos.html"><span class="item-icon">👩‍🎤</span> Módulo 10 — Vocal Fem.</a>
+<a class="sidebar-item" href="modulo-11-mix-bus.html"><span class="item-icon">🚌</span> Módulo 11 — Mix Bus</a>
+<a class="sidebar-item" href="modulo-12-entrega-final.html"><span class="item-icon">🏁</span> Módulo 12 — Entrega Final</a>
+<div class="progress-bar-container"><div class="progress-bar-fill"></div></div>
+<div class="progress-label"><span>Módulo 7 de 12</span><span>58%</span></div>
+</aside>
+<main class="main-content" role="main">
+<!-- HERO -->
+<section class="module-hero animate-in">
+<div class="module-badge"><span>🪕</span> MÓDULO 07 (INTERMEDIÁRIO)</div>
+<h1 class="module-title animate-in animate-in-delay-1">Violão Acústico</h1>
+<p class="module-lead animate-in animate-in-delay-2">
+        A natureza do violão acústico é selvagem: cordas metálicas brilhantes e uma caixa de ressonância profunda. O desafio da mixagem é capturar o "ar" e a rítmica da palhetada sem que a ressonância da madeira (o famoso "boomy") embaralhe o baixo e a voz.
+      </p>
+<div class="module-meta animate-in animate-in-delay-3">
+<div class="meta-chip"><span>⏱️</span> 50 min de leitura</div>
+<div class="meta-chip"><span>🎯</span> Nível: Intermediário</div>
+<div class="meta-chip"><span>🪵</span> Foco em Ressonância</div>
+<div class="meta-chip"><span>✨</span> Compressão Transparente</div>
+</div>
+</section>
+<!-- ═══ 1. FONTE DO SOM ═══ -->
+<section class="content-section section-block" id="captacao">
+<div class="section-header">
+<div class="section-icon icon-wood">🎤</div>
+<div><h2 class="section-title">A Fonte: Microfone vs DI<small>Entendendo a matéria-prima do áudio</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Violões geralmente são captados de duas maneiras. A captação de estúdio (via microfone condensador) é orgânica e realista. Já a captação DI (Cabo direto do violão eletroacústico) é prática para shows, mas soa artificial e elástica. Muitas vezes, recebemos os dois na mixagem.
+      </p>
+<div class="compare-grid">
+<div class="compare-card">
+<div class="compare-header">
+<div class="compare-icon" style="background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.3)">🎙️</div>
+<div>
+<div style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--text-primary)">Microfone Condensador (Estúdio)</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Som orgânico, capta o "ar" do ambiente</div>
+</div>
+</div>
+<div class="compare-body">
+<div class="compare-row"><span class="compare-label">Foco Tonar</span><span class="compare-value" style="color:var(--accent-cyan-light)">Corpo e Cordas Equilibrados</span></div>
+<div class="compare-row"><span class="compare-label">Problema Comum</span><span class="compare-value" style="color:#fca5a5">Ressonância "Boomy" e vazamentos</span></div>
+<div class="compare-row"><span class="compare-label">Tratamento EQ</span><span class="compare-value">Corte preciso de ressonâncias em 100-200Hz</span></div>
+</div>
+</div>
+<div class="compare-card">
+<div class="compare-header">
+<div class="compare-icon" style="background:rgba(234,88,12,0.15);border:1px solid rgba(234,88,12,0.3)">🔌</div>
+<div>
+<div style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--text-primary)">Captação DI (Piezo Elétrico)</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Som direto do rastilho do violão</div>
+</div>
+</div>
+<div class="compare-body">
+<div class="compare-row"><span class="compare-label">Foco Tonar</span><span class="compare-value" style="color:var(--accent-wood-light)">Plástico, agressivo, muito ataque</span></div>
+<div class="compare-row"><span class="compare-label">Problema Comum</span><span class="compare-value" style="color:#fca5a5">Médios-agudos irritantes (Piezo "Quack")</span></div>
+<div class="compare-row"><span class="compare-label">Tratamento EQ</span><span class="compare-value">Corte em 2-3kHz, adicionar graves e Reverb de Sala</span></div>
+</div>
+</div>
+</div>
+<div class="callout wood">
+<div class="callout-icon">🎛️</div>
+<div class="callout-content">
+<div class="callout-title">Dica de Blend (Soma)</div>
+<div class="callout-body">
+            Se você tiver os dois sinais, use o microfone como "base da pirâmide" (80% do volume) e misture o DI (20%) suavemente apenas para trazer um pouco mais da definição da palhetada caso o microfone tenha ficado abafado.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 2. EQ E ESPECTRO ═══ -->
+<section class="content-section section-block" id="espectro">
+<div class="section-header">
+<div class="section-icon icon-cyan">🎚️</div>
+<div><h2 class="section-title">Espectro e EQ Cirúrgica<small>Removendo a lama sem perder o calor da madeira</small></h2></div>
+</div>
+<div class="ac-spectrum">
+<div class="as-title">🌊 Mapa Espectral — Violão Acústico</div>
+<div class="as-canvas" id="acSpectrumCanvas">
+<!-- Zonas -->
+<div class="as-zone" style="left:0;width:15%;background:rgba(239,68,68,0.2);border-right:1px solid rgba(239,68,68,0.4)">
+<div class="as-label" style="color:#fca5a5">RUMBLE (Corte)</div>
+</div>
+<div class="as-zone" style="left:15%;width:20%;background:rgba(217,119,6,0.22);border-right:1px solid rgba(217,119,6,0.35)">
+<div class="as-label" style="color:#fbbf24">BOOMY (Ressonância)</div>
+</div>
+<div class="as-zone" style="left:35%;width:25%;background:rgba(16,185,129,0.22);border-right:1px solid rgba(16,185,129,0.35)">
+<div class="as-label" style="color:#6ee7b7">CORPO / QUENTE</div>
+</div>
+<div class="as-zone" style="left:60%;width:20%;background:rgba(6,182,212,0.22);border-right:1px solid rgba(6,182,212,0.35)">
+<div class="as-label" style="color:#67e8f9">PRESENÇA (Cordas)</div>
+</div>
+<div class="as-zone" style="left:80%;width:20%;background:rgba(124,58,237,0.18)">
+<div class="as-label" style="color:#c4b5fd">AR / BRILHO</div>
+</div>
+<!-- Hz labels -->
+<span class="as-hz" style="left:8%">60Hz</span>
+<span class="as-hz" style="left:15%">100Hz</span>
+<span class="as-hz" style="left:35%">300Hz</span>
+<span class="as-hz" style="left:60%">2.5kHz</span>
+<span class="as-hz" style="left:80%">7kHz</span>
+<span class="as-hz" style="left:96%">12kHz</span>
+<!-- Curva EQ simulada -->
+<svg class="as-curve" preserveaspectratio="none" viewbox="0 0 600 140">
+<defs>
+<lineargradient id="curveGradAc" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="rgba(217,119,6,0)"></stop>
+<stop offset="20%" stop-color="rgba(217,119,6,0.8)"></stop>
+<stop offset="50%" stop-color="rgba(217,119,6,0.5)"></stop>
+<stop offset="80%" stop-color="rgba(217,119,6,0.7)"></stop>
+</lineargradient>
+</defs>
+<polyline fill="none" points="0,130 80,100 130,40 200,90 350,85 450,60 550,50 600,65" stroke="url(#curveGradAc)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+</svg>
+</div>
+<p style="font-size:.72rem;color:var(--text-muted);text-align:center">Curva ideal: Corte do "Boom" ressonante no grave, manutenção dos médios e boost sutil de "Air" nos agudos.</p>
+</div>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">Abaixo 80 Hz</span>
+<span class="eq-band-type band-hpf">HPF</span>
+<span class="eq-band-action">Filtro Passa-Altas. O violão precisa de graves (diferente da guitarra), mas não de sub-graves.</span>
+<span class="eq-band-value" style="color:var(--accent-wood-light)">HPF 70-90 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">100–250 Hz</span>
+<span class="eq-band-type band-cut">CORTE ALTO Q</span>
+<span class="eq-band-action">Ressonância "Boomy" (O som assoprado do buraco do violão). Varra o EQ, encontre a frequência que ressoa fortemente e corte.</span>
+<span class="eq-band-value" style="color:#fca5a5">−3 a −6 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">300–500 Hz</span>
+<span class="eq-band-type band-cut">SINO LARGO</span>
+<span class="eq-band-action">Atenuação sutil se o violão estiver soando encachotado e conflitando com a voz.</span>
+<span class="eq-band-value" style="color:#fca5a5">−1 a −2 dB</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">Acima de 8kHz</span>
+<span class="eq-band-type band-boost">SHELF BOOST</span>
+<span class="eq-band-action">Adicionar "Air" e som das palhetadas no aço para dar sensação pop e contemporânea.</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+2 a +4 dB</span>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 3. DINÂMICA ═══ -->
+<section class="content-section section-block" id="dinamica">
+<div class="section-header">
+<div class="section-icon icon-purple">⚙️</div>
+<div><h2 class="section-title">Controle de Dinâmica<small>A arte da compressão transparente</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Ao contrário das guitarras distorcidas, violões acústicos têm transientes (picos) extremos devido à palhetada. Se você esmagar esses picos com ataques rápidos, o violão vai soar morto e perderá o ritmo. Use a <strong>Compressão Óptica Lenta</strong> (Estilo LA-2A).
+      </p>
+<div class="comp-viz">
+<div class="cv-meter-container">
+<div class="cv-label"><span>Ataque Lento</span><span>Deixa passar</span></div>
+<div class="cv-meter">
+<div class="cv-fill" style="width:100%"></div>
+<div class="cv-gr" style="width:15%"></div>
+</div>
+</div>
+<div class="cv-info">
+<h3 class="cv-title">Configuração: Attack Slow / Release Fast</h3>
+<p class="cv-desc">Configure um ataque de 15ms a 30ms. Isso permite que a "porrada" inicial da palheta nas cordas de aço passe sem ser comprimida (garantindo rítmica e clareza). O compressor só agirá no corpo do acorde, mantendo a dinâmica equilibrada.</p>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 4. ESPACIALIZAÇÃO ═══ -->
+<section class="content-section section-block" id="espaco">
+<div class="section-header">
+<div class="section-icon icon-green">🌌</div>
+<div><h2 class="section-title">Espacialização (Reverb)<small>Dando dimensão sem borrar as notas</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Um violão gravado de perto (close-mic) em uma sala pequena soa artificial e bidimensional. Adicionar a ambiência certa o transforma em um instrumento tridimensional.
+      </p>
+<ul style="color:var(--text-secondary);font-size:.85rem;line-height:1.8;padding-left:20px;margin-bottom:24px;">
+<li><strong style="color:var(--text-primary)">Violão Solo/Voz:</strong> Se a música tem poucos instrumentos, use Reverbs maiores (Hall ou Plate) com tempos em torno de 2.0s a 3.0s.</li>
+<li><strong style="color:var(--text-primary)">Violão em Banda Completa:</strong> Se há bateria, baixo e guitarras, não use Hall longo (vai borrar a mix). Use um <strong>Room Reverb curto</strong> (0.5s a 1.0s) ou um Micro-Delay (Stereo Slapback 30ms a 60ms) para alargar o violão sem afastar.</li>
+</ul>
+</section>
+<div class="divider"></div>
+<!-- ═══ 5. PROBLEMAS E SOLUÇÕES ═══ -->
+<section class="content-section section-block" id="problemas">
+<div class="section-header">
+<div class="section-icon icon-red">🔧</div>
+<div><h2 class="section-title">Problemas &amp; Soluções<small>Troubleshooting avançado para acústicos</small></h2></div>
+</div>
+<div class="ps-grid">
+<div class="ps-panel problem">
+<div class="ps-header problem-header">❌ O que evitar</div>
+<ul class="ps-list">
+<li><strong>Embolamento de Voz:</strong> O violão e a voz disputam ferozmente a região de 300Hz a 1kHz. Se os dois ocupam o centro sem EQ, haverá conflito.</li>
+<li><strong>Ataque Rápido no Comp:</strong> Usar attack em 1ms no violão vai sugar todo o brilho e ritmo das palhetadas de aço.</li>
+<li><strong>Vazamento de Fone (Bleed):</strong> Gravar o violão com o metronômo (click) muito alto no fone faz o mic vazar o click, arruinando a gravação.</li>
+</ul>
+</div>
+<div class="ps-panel solution">
+<div class="ps-header solution-header">✅ Soluções Diretas</div>
+<ul class="ps-list">
+<li><strong>Pan Dinâmico (L/R):</strong> Se for apenas 1 violão, faça Pan sutil (20 a 30% para o lado) para tirar do caminho do vocal central.</li>
+<li><strong>De-Esser em Violões:</strong> Sim! Violões gravados com captador DI ou cordas muito novas podem ter "Harshness" extremo. Um De-Esser domina o atrito do dedo na corda sem matar a equalização global de agudos.</li>
+</ul>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ CHECKLIST ═══ -->
+<section class="content-section section-block" id="checklist">
+<div class="section-header">
+<div class="section-icon icon-cyan">✅</div>
+<div><h2 class="section-title">Checklist de Mixagem<small>Validação final da sub-mix de violões</small></h2></div>
+</div>
+<div class="checklist">
+<div class="checklist-header"><span>📋</span> Auditoria Final dos Violões</div>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Ressonância Boomy Limpa</span>
+<span class="check-desc">Corte Notch estreito aplicado na região crítica (100-250Hz) para evitar vibrações exageradas do corpo do instrumento.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Integridade de Transientes (Compressão)</span>
+<span class="check-desc">O compressor foi ajustado com Ataque Lento, garantindo que o brilho rítmico das cordas de aço "estale" e impulsione o groove da música.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Fricção de Dedos (Squeaks) Controlados</span>
+<span class="check-desc">O som irritante do deslizar de dedos nas cordas foi automatizado no volume ou tratado com De-Esser, evitando picos agudos repentinos.</span>
+</div>
+</label>
+</div>
+</section>
+<div class="next-module">
+<div>
+<div class="next-label">Próximo Passo</div>
+<div class="next-title">Módulo 08: Teclados &amp; Pianos</div>
+<div class="next-desc">Aprenda a mixar elementos harmônicos de espectro total. Controle de graves de pianos de cauda e inserção de pads na mix.</div>
+</div>
+<div class="nav-buttons">
+<a class="btn-prev" href="modulo-06-guitarras.html">⬅ Anterior</a>
+<a class="btn-next" href="modulo-08-teclados.html">Ir para Módulo 08 ➡</a>
+</div>
+</div>
+</main>
+</div>
+<script>
+  // Intersection Observer for Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.section-block').forEach(s => observer.observe(s));
+
+  // Sidebar Menu Mobile Toggle
+  const menuBtn = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function toggleMenu() {
+    const isOpen = sidebar.classList.contains('open');
+    if(isOpen) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if(window.innerWidth <= 900) toggleMenu();
+    });
+  });
+
+  // Active Link Tracking on Scroll
+  const sections = document.querySelectorAll('.content-section');
+  const navLinks = document.querySelectorAll('.sidebar-item');
+  const topNavLinks = document.querySelectorAll('.nav-pill');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollY = window.pageYOffset;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= (sectionTop - 150)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+    topNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>

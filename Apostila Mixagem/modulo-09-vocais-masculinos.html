@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 09 — Vocais Masculinos | Apostila de Mixagem</title>
+<meta content="Mixagem profissional de vocais masculinos: Compressão em série (1176 + LA-2A), controle de proximidade, de-esser e delays estéreo." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111118;
+      --bg-card: #16161f;
+      --bg-glass: rgba(255,255,255,0.04);
+      --bg-glass-strong: rgba(255,255,255,0.07);
+
+      --accent-purple: #7c3aed;
+      --accent-amber: #f59e0b;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-red-light: #f87171;
+      
+      /* Módulo 09 — Tons de Azul, Cyan e Teal: Ar, Clareza e Presença Vocal */
+      --accent-blue: #3b82f6;
+      --accent-blue-light: #60a5fa;
+      --accent-cyan: #06b6d4;
+      --accent-cyan-light: #22d3ee;
+      --accent-teal: #14b8a6;
+
+      --gradient-hero: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+      --gradient-card: linear-gradient(135deg, rgba(14,165,233,0.15) 0%, rgba(59,130,246,0.08) 100%);
+      --gradient-warm: linear-gradient(135deg, rgba(34,211,238,0.15) 0%, rgba(14,165,233,0.08) 100%);
+
+      --text-primary: #f0f0f8;
+      --text-secondary: #9898b0;
+      --text-muted: #5a5a72;
+
+      --border-subtle: rgba(255,255,255,0.06);
+      --border-medium: rgba(255,255,255,0.10);
+
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(14,165,233,0.25);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --sidebar-width: 280px;
+      --header-height: 64px;
+      --transition-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --transition-med:  300ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;min-height:100vh;overflow-x:hidden}
+
+    ::-webkit-scrollbar{width:6px;height:6px}
+    ::-webkit-scrollbar-track{background:var(--bg-primary)}
+    ::-webkit-scrollbar-thumb{background:var(--accent-blue);border-radius:99px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--accent-blue-light)}
+
+    .bg-ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+    .bg-ambient::before{content:'';position:absolute;bottom:-10%;left:-5%;width:700px;height:700px;background:radial-gradient(circle,rgba(14,165,233,0.1) 0%,transparent 65%);border-radius:50%;animation:f1 24s ease-in-out infinite}
+    .bg-ambient::after{content:'';position:absolute;top:-15%;right:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,0.07) 0%,transparent 70%);border-radius:50%;animation:f2 30s ease-in-out infinite}
+    @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.08)}}
+    @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-35px,40px) scale(1.1)}}
+
+    /* HEADER */
+    .top-header{position:fixed;top:0;left:0;right:0;height:var(--header-height);background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+    .header-brand{display:flex;align-items:center;gap:12px}
+    .header-logo{width:36px;height:36px;background:var(--gradient-hero);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+    .header-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700}
+    .header-subtitle{font-size:.7rem;color:var(--text-muted)}
+    .header-nav{display:flex;align-items:center;gap:8px}
+    .nav-pill{padding:6px 14px;border-radius:99px;font-size:.78rem;font-weight:500;border:1px solid var(--border-medium);background:var(--bg-glass);color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);display:inline-flex;align-items:center;gap:6px}
+    .nav-pill:hover{border-color:var(--accent-blue);color:var(--accent-blue-light);background:rgba(14,165,233,0.1)}
+    .nav-pill.active{background:var(--gradient-hero);border-color:transparent;color:white}
+    .menu-toggle{display:none;background:var(--bg-glass);border:1px solid var(--border-medium);color:var(--text-primary);border-radius:var(--radius-sm);padding:8px;cursor:pointer;font-size:1.1rem;transition:all var(--transition-fast)}
+
+    .app-layout{display:flex;padding-top:var(--header-height);min-height:100vh;position:relative;z-index:1}
+
+    /* SIDEBAR */
+    .sidebar{width:var(--sidebar-width);background:var(--bg-secondary);border-right:1px solid var(--border-subtle);position:fixed;top:var(--header-height);left:0;bottom:0;overflow-y:auto;padding:24px 16px;transition:transform var(--transition-med);z-index:90}
+    .sidebar-section-label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:0 8px;margin-bottom:8px;margin-top:20px}
+    .sidebar-section-label:first-child{margin-top:0}
+    .sidebar-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);border:1px solid transparent;margin-bottom:2px}
+    .sidebar-item:hover{background:var(--bg-glass-strong);color:var(--text-primary);border-color:var(--border-subtle)}
+    .sidebar-item.active{background:rgba(59,130,246,0.12);color:var(--accent-blue-light);border-color:rgba(59,130,246,0.3)}
+    .sidebar-item .item-icon{font-size:1rem;flex-shrink:0}
+    .sidebar-item .item-number{font-size:.65rem;font-weight:700;background:var(--bg-glass-strong);border-radius:4px;padding:1px 5px;color:var(--text-muted);margin-left:auto;flex-shrink:0}
+    .sidebar-item.active .item-number{background:rgba(59,130,246,0.25);color:var(--accent-blue-light)}
+    .progress-bar-container{margin:20px 8px 0;background:var(--bg-glass);border-radius:99px;height:4px;overflow:hidden}
+    .progress-bar-fill{height:100%;width:75%;background:var(--gradient-hero);border-radius:99px}
+    .progress-label{display:flex;justify-content:space-between;padding:6px 4px 0;font-size:.68rem;color:var(--text-muted)}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:85}
+
+    .main-content{margin-left:var(--sidebar-width);flex:1;padding:0 0 80px}
+
+    /* HERO */
+    .module-hero{background:linear-gradient(135deg,rgba(14,165,233,0.18) 0%,rgba(59,130,246,0.1) 50%,transparent 100%);border-bottom:1px solid var(--border-subtle);padding:56px 48px 48px;position:relative;overflow:hidden}
+    .module-hero::before{content:'';position:absolute;bottom:-30%;left:-5%;width:450px;height:450px;background:radial-gradient(circle,rgba(14,165,233,0.15) 0%,transparent 70%);pointer-events:none}
+    .module-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(14,165,233,0.12);border:1px solid rgba(14,165,233,0.4);border-radius:99px;font-size:.75rem;font-weight:600;color:var(--accent-cyan-light);letter-spacing:.05em;margin-bottom:20px}
+    .module-title{font-family:'Outfit',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:16px;background:linear-gradient(135deg,#fff 0%,var(--accent-cyan-light) 55%,#3b82f6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .module-lead{font-size:1.05rem;color:var(--text-secondary);max-width:680px;line-height:1.8;margin-bottom:32px}
+    .module-meta{display:flex;flex-wrap:wrap;gap:12px}
+    .meta-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.78rem;color:var(--text-secondary)}
+
+    /* SECTIONS */
+    .content-section{padding:48px 48px 0}
+    .section-header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+    .section-icon{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .icon-blue  {background:rgba(59,130,246,0.2); border:1px solid rgba(59,130,246,0.3)}
+    .icon-cyan  {background:rgba(6,182,212,0.2);  border:1px solid rgba(6,182,212,0.3)}
+    .icon-purple{background:rgba(139,92,246,0.2); border:1px solid rgba(139,92,246,0.3)}
+    .icon-teal  {background:rgba(20,184,166,0.2); border:1px solid rgba(20,184,166,0.3)}
+    .icon-red   {background:rgba(239,68,68,0.2);  border:1px solid rgba(239,68,68,0.3)}
+
+    .section-title{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text-primary)}
+    .section-title small{display:block;font-size:.8rem;font-weight:500;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px}
+    .divider{height:1px;background:var(--border-subtle);margin:48px 0}
+
+    /* CALLOUTS */
+    .callout{border-radius:var(--radius-md);padding:20px 24px;margin-bottom:24px;display:flex;gap:16px;border-left:4px solid}
+    .callout-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+    .callout-title{font-weight:700;font-size:.9rem;margin-bottom:6px}
+    .callout-body{font-size:.85rem;line-height:1.7}
+    .callout.tip    {background:rgba(20,184,166,0.08);border-color:var(--accent-teal);color:var(--text-secondary)}
+    .callout.tip .callout-title{color:var(--accent-teal)}
+    .callout.blue   {background:rgba(59,130,246,0.08);border-color:var(--accent-blue);color:var(--text-secondary)}
+    .callout.blue .callout-title{color:var(--accent-blue-light)}
+    .callout.danger {background:rgba(239,68,68,0.08);border-color:var(--accent-red);color:var(--text-secondary)}
+    .callout.danger .callout-title{color:#fca5a5}
+    .callout.info   {background:rgba(6,182,212,0.08);border-color:var(--accent-cyan);color:var(--text-secondary)}
+    .callout.info .callout-title{color:var(--accent-cyan-light)}
+
+    /* COMPARE CARDS */
+    .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+    .compare-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition-med)}
+    .compare-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-card)}
+    .compare-header{padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px}
+    .compare-icon{width:40px;height:40px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+    .compare-body{padding:20px}
+    .compare-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:.83rem}
+    .compare-row:last-child{border-bottom:none}
+    .compare-label{color:var(--text-muted);font-weight:500}
+    .compare-value{color:var(--text-primary);font-weight:600;text-align:right}
+
+    /* SERIAL COMPRESSION VISUALIZER */
+    .serial-viz{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:28px;margin-bottom:32px;display:flex;flex-direction:column;gap:24px}
+    .sv-title{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;color:var(--text-primary);text-align:center}
+    .sv-flow{display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative}
+    .sv-flow::before{content:'';position:absolute;top:50%;left:0;right:0;height:2px;background:var(--border-subtle);z-index:0;transform:translateY(-50%)}
+    .sv-block{background:var(--bg-secondary);border:1px solid var(--border-medium);border-radius:var(--radius-md);padding:20px;width:30%;z-index:1;position:relative;text-align:center;transition:all var(--transition-med)}
+    .sv-block.active{border-color:var(--accent-blue);box-shadow:0 0 20px rgba(59,130,246,0.2)}
+    .sv-b-title{font-weight:800;font-size:.85rem;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+    .sv-b-desc{font-size:.7rem;color:var(--text-secondary);line-height:1.4}
+    .sv-meter{width:100%;height:10px;background:#000;border-radius:99px;margin-top:12px;overflow:hidden;position:relative}
+    .sv-gr{position:absolute;top:0;bottom:0;right:0;background:#ef4444;transition:width .1s;width:0%}
+    .sv-controls{text-align:center}
+    .pv-btn{background:var(--bg-secondary);border:1px solid var(--border-subtle);color:var(--text-secondary);padding:10px 20px;border-radius:var(--radius-sm);cursor:pointer;font-size:.8rem;font-weight:600;transition:all var(--transition-fast)}
+    .pv-btn:hover{background:var(--bg-glass-strong);color:var(--text-primary)}
+    .pv-btn:active{transform:scale(0.97)}
+
+    /* EQ STRIP */
+    .eq-strip{margin-bottom:20px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px 24px}
+    .eq-band{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-subtle)}
+    .eq-band:last-child{border-bottom:none}
+    .eq-band-freq{font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:700;width:95px;flex-shrink:0;color:var(--text-primary)}
+    .eq-band-type{font-size:.68rem;font-weight:700;padding:4px 8px;border-radius:4px;flex-shrink:0;min-width:65px;text-align:center;letter-spacing:.05em}
+    .eq-band-action{flex:1;font-size:.85rem;color:var(--text-secondary);line-height:1.5}
+    .eq-band-value{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;flex-shrink:0;white-space:nowrap}
+    .band-cut  {background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.3)}
+    .band-boost{background:rgba(16,185,129,0.15);color:var(--accent-green-light);border:1px solid rgba(16,185,129,0.3)}
+    .band-hpf  {background:rgba(59,130,246,0.15);color:var(--accent-blue-light);border:1px solid rgba(59,130,246,0.3)}
+    .band-dyn  {background:rgba(236,72,153,0.15);color:var(--accent-pink-light);border:1px solid rgba(236,72,153,0.3)}
+
+    /* PROBLEM / SOLUTION */
+    .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .ps-panel{padding:24px}
+    .ps-panel.problem{background:rgba(239,68,68,0.06);border-right:1px solid var(--border-subtle)}
+    .ps-panel.solution{background:rgba(14,165,233,0.06)}
+    .ps-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .ps-header.problem-header{color:#fca5a5}
+    .ps-header.solution-header{color:var(--accent-cyan-light)}
+    .ps-list{list-style:none;padding:0}
+    .ps-list li{font-size:.85rem;color:var(--text-secondary);padding:8px 0;display:flex;gap:10px;border-bottom:1px solid var(--border-subtle);line-height:1.6}
+    .ps-list li:last-child{border-bottom:none}
+    .ps-list li::before{flex-shrink:0;margin-top:2px;font-size:.9rem}
+    .ps-panel.problem .ps-list li::before{content:'✕';color:#f87171}
+    .ps-panel.solution .ps-list li::before{content:'✓';color:var(--accent-cyan-light)}
+
+    /* CHECKLIST */
+    .checklist{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:32px}
+    .checklist-header{background:rgba(14,165,233,0.1);border-bottom:1px solid var(--border-subtle);padding:16px 24px;font-size:.85rem;font-weight:700;color:var(--accent-cyan-light);display:flex;align-items:center;gap:10px}
+    .checklist-item{display:flex;align-items:flex-start;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background var(--transition-fast);user-select:none}
+    .checklist-item > div{flex:1;min-width:0}
+    .checklist-item:last-child{border-bottom:none}
+    .checklist-item:hover{background:var(--bg-glass)}
+    .checklist-item input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid var(--border-medium);border-radius:5px;cursor:pointer;flex-shrink:0;margin-top:2px;transition:all var(--transition-fast);position:relative}
+    .checklist-item input[type="checkbox"]:checked{background:var(--accent-blue);border-color:var(--accent-blue)}
+    .checklist-item input[type="checkbox"]:checked::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:white}
+    .check-title{font-size:.85rem;font-weight:600;color:var(--text-primary);display:block;margin-bottom:2px}
+    .check-desc{font-size:.78rem;color:var(--text-muted)}
+
+    /* NEXT/PREV */
+    .next-module{margin:48px 48px 0;background:var(--gradient-card);border:1px solid rgba(14,165,233,0.3);border-radius:var(--radius-xl);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+    .next-label{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+    .next-title{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+    .next-desc{font-size:.85rem;color:var(--text-secondary)}
+    .btn-next{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--gradient-hero);border:none;border-radius:99px;font-size:.9rem;font-weight:700;color:white;cursor:pointer;text-decoration:none;transition:all var(--transition-fast);white-space:nowrap;font-family:'Inter',sans-serif}
+    .btn-next:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+    .btn-prev{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--bg-glass);border:1px solid var(--border-medium);border-radius:99px;font-size:.82rem;font-weight:600;color:var(--text-secondary);cursor:pointer;text-decoration:none;transition:all var(--transition-fast);font-family:'Inter',sans-serif}
+    .btn-prev:hover{background:var(--bg-glass-strong);color:var(--text-primary)}
+    .nav-buttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+    code{font-family:'JetBrains Mono',monospace;font-size:.82em;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:4px;padding:1px 6px;color:var(--accent-blue-light)}
+    strong{color:var(--text-primary);font-weight:700}
+    .section-block{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+    .section-block.visible{opacity:1;transform:translateY(0)}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .animate-in{animation:fadeInUp .6s ease-out forwards}
+    .animate-in-delay-1{animation-delay:.1s;opacity:0}
+    .animate-in-delay-2{animation-delay:.2s;opacity:0}
+    .animate-in-delay-3{animation-delay:.3s;opacity:0}
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.5)}
+      .sidebar-overlay.open{display:block}
+      .main-content{margin-left:0}
+      .module-hero,.content-section{padding-left:24px;padding-right:24px}
+      .next-module{margin:32px 24px 0;flex-direction:column}
+      .btn-next{width:100%;justify-content:center}
+      .menu-toggle{display:flex;align-items:center;justify-content:center}
+      .header-nav{display:none}
+      .compare-grid, .ps-grid{grid-template-columns:1fr}
+      .ps-panel.problem{border-right:none;border-bottom:1px solid var(--border-subtle)}
+      .sv-flow{flex-direction:column}
+      .sv-block{width:100%}
+      .sv-flow::before{top:0;bottom:0;left:50%;width:2px;height:auto;transform:translateX(-50%)}
+    }
+    @media(max-width:600px){
+      .module-hero,.content-section{padding-left:16px;padding-right:16px}
+      .next-module{margin:24px 16px 0;padding:24px}
+    }
+  </style>
+</head>
+<body>
+<div aria-hidden="true" class="bg-ambient"></div>
+<header class="top-header" role="banner">
+<div class="header-brand">
+<div aria-hidden="true" class="header-logo">🎤</div>
+<div><div class="header-title">Apostila de Mixagem</div><div class="header-subtitle">Guia Técnico para Produtores</div></div>
+</div>
+<nav class="header-nav">
+<a class="nav-pill" href="#prioridade">A Regra de Ouro</a>
+<a class="nav-pill" href="#eq-vocal">EQ Vocal</a>
+<a class="nav-pill active" href="#compressao">Serial Compression</a>
+<a class="nav-pill" href="#espaco">Efeitos &amp; Delays</a>
+</nav>
+<button aria-expanded="false" aria-label="Abrir menu" class="menu-toggle" id="menuToggle">☰</button>
+</header>
+<div aria-hidden="true" class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app-layout">
+<aside aria-label="Índice" class="sidebar" id="sidebar" role="navigation">
+<div class="sidebar-section-label">Módulo Atual</div>
+<a class="sidebar-item active" href="#prioridade" id="nav-prio"><span class="item-icon">👑</span> O Centro do Universo<span class="item-number">01</span></a>
+<a class="sidebar-item" href="#eq-vocal" id="nav-eq"><span class="item-icon">🎚️</span> EQ de Peito e Ar<span class="item-number">02</span></a>
+<a class="sidebar-item" href="#compressao" id="nav-comp"><span class="item-icon">🗜️</span> Serial Compression<span class="item-number">03</span></a>
+<a class="sidebar-item" href="#de-esser" id="nav-dess"><span class="item-icon">🐍</span> Controle de Sibilância<span class="item-number">04</span></a>
+<a class="sidebar-item" href="#espaco" id="nav-spc"><span class="item-icon">🌌</span> Espacialização Vocal<span class="item-number">05</span></a>
+<a class="sidebar-item" href="#problemas" id="nav-prob"><span class="item-icon">🔧</span> Problemas Comuns<span class="item-number">06</span></a>
+<a class="sidebar-item" href="#checklist" id="nav-chk"><span class="item-icon">✅</span> Checklist<span class="item-number">07</span></a>
+<div class="sidebar-section-label">Outros Módulos</div>
+<a class="sidebar-item" href="modulo-01-pre-mixagem.html"><span class="item-icon">🏗️</span> Módulo 01 — Pré-Mix</a>
+<a class="sidebar-item" href="modulo-02-escuta-referencias.html"><span class="item-icon">👂</span> Módulo 02 — Escuta</a>
+<a class="sidebar-item" href="modulo-03-limpeza-edicao.html"><span class="item-icon">✂️</span> Módulo 03 — Edição</a>
+<a class="sidebar-item" href="modulo-04-bateria.html"><span class="item-icon">🥁</span> Módulo 04 — Bateria</a>
+<a class="sidebar-item" href="modulo-05-baixo.html"><span class="item-icon">🎸</span> Módulo 05 — Baixo</a>
+<a class="sidebar-item" href="modulo-06-guitarras.html"><span class="item-icon">🎸</span> Módulo 06 — Guitarra</a>
+<a class="sidebar-item" href="modulo-07-violao.html"><span class="item-icon">🪕</span> Módulo 07 — Violão</a>
+<a class="sidebar-item" href="modulo-08-teclados.html"><span class="item-icon">🎹</span> Módulo 08 — Teclados</a>
+<a class="sidebar-item" href="modulo-09-vocais-masculinos.html"><span class="item-icon">🎤</span> Módulo 09 — Vocal Masc.</a>
+<a class="sidebar-item" href="modulo-10-vocais-femininos.html"><span class="item-icon">👩‍🎤</span> Módulo 10 — Vocal Fem.</a>
+<a class="sidebar-item" href="modulo-11-mix-bus.html"><span class="item-icon">🚌</span> Módulo 11 — Mix Bus</a>
+<a class="sidebar-item" href="modulo-12-entrega-final.html"><span class="item-icon">🏁</span> Módulo 12 — Entrega Final</a>
+<div class="progress-bar-container"><div class="progress-bar-fill"></div></div>
+<div class="progress-label"><span>Módulo 9 de 12</span><span>75%</span></div>
+</aside>
+<main class="main-content" role="main">
+<!-- HERO -->
+<section class="module-hero animate-in">
+<div class="module-badge"><span>🎤</span> MÓDULO 09 (AVANÇADO)</div>
+<h1 class="module-title animate-in animate-in-delay-1">Vocais Masculinos</h1>
+<p class="module-lead animate-in animate-in-delay-2">
+        A voz é o elemento humano. Se o ouvinte comum não entende a letra, a mixagem falhou, não importa quão boa seja a bateria. Em vocais masculinos (barítonos e tenores), a luta diária é esculpir a "ressonância de peito" em 200Hz sem deixar a voz fina, e domar a dinâmica extrema inerente à fala humana.
+      </p>
+<div class="module-meta animate-in animate-in-delay-3">
+<div class="meta-chip"><span>⏱️</span> 75 min de leitura</div>
+<div class="meta-chip"><span>🎯</span> Nível: Avançado</div>
+<div class="meta-chip"><span>👑</span> Prioridade Absoluta (Centro)</div>
+<div class="meta-chip"><span>🗜️</span> Serial Compression</div>
+</div>
+</section>
+<!-- ═══ 1. A REGRA DE OURO ═══ -->
+<section class="content-section section-block" id="prioridade">
+<div class="section-header">
+<div class="section-icon icon-blue">👑</div>
+<div><h2 class="section-title">O Centro do Universo<small>A voz dita o nível de tudo ao redor</small></h2></div>
+</div>
+<div class="callout blue">
+<div class="callout-icon">💡</div>
+<div class="callout-content">
+<div class="callout-title">Start with the Lead Vocal (Top-Down Mixing)</div>
+<div class="callout-body">
+            Muitos engenheiros gastam 4 horas na bateria, e quando ligam a voz percebem que não há mais espaço. <strong>A voz dita a música.</strong> Uma técnica moderna é erguer os faders da bateria crua, o baixo, e <em>imediatamente</em> colocar a voz principal. Ajuste a voz para ser o elemento mais claro. Todos os outros instrumentos devem se moldar <em>ao redor</em> do vocal, não o contrário.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 2. EQ VOCAL MASCULINO ═══ -->
+<section class="content-section section-block" id="eq-vocal">
+<div class="section-header">
+<div class="section-icon icon-cyan">🎚️</div>
+<div><h2 class="section-title">EQ: Ressonância de Peito vs Inteligibilidade<small>A anatomia de um barítono/tenor</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        A voz humana gravada de perto sofre do <strong>Efeito de Proximidade</strong> (um acúmulo gigante de graves). Em homens, isso causa uma ressonância de peito ("Chestiness") em torno de 150-250Hz. Se não cortada, a voz soa "gripada"; se cortada demais, soa magra e artificial.
+      </p>
+<div class="eq-strip">
+<div class="eq-band">
+<span class="eq-band-freq">Abaixo 80 Hz</span>
+<span class="eq-band-type band-hpf">HPF Rígido</span>
+<span class="eq-band-action">Rumores mecânicos da sala, pedestais batendo, vento de ar-condicionado. Nenhuma voz humana possui informação útil aqui. Cortar sempre.</span>
+<span class="eq-band-value" style="color:var(--accent-blue-light)">HPF 80-100 Hz</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">150–250 Hz</span>
+<span class="eq-band-type band-dyn">EQ DINÂMICA</span>
+<span class="eq-band-action">O Efeito de Proximidade e a ressonância do peito. É melhor usar um EQ Dinâmico (ou Multibanda) que comprime essa região <em>apenas</em> quando o cantor chega muito perto do microfone.</span>
+<span class="eq-band-value" style="color:var(--accent-pink-light)">−2 a −4 dB (Dyn)</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">3kHz - 5kHz</span>
+<span class="eq-band-type band-boost">PRESENÇA</span>
+<span class="eq-band-action">É aqui que reside a consoante, o "corte" na mix. Se a voz estiver enterrada pelos pratos ou guitarras, dar um boost de sino largo aqui ajuda a voz a "saltar" dos alto-falantes.</span>
+<span class="eq-band-value" style="color:var(--accent-green-light)">+2 dB (Sino Largo)</span>
+</div>
+<div class="eq-band">
+<span class="eq-band-freq">10kHz+</span>
+<span class="eq-band-type band-boost">AIR SHELF</span>
+<span class="eq-band-action">O brilho de rádio comercial. Adiciona sensação de respiração ("Breathiness") e modernidade.</span>
+<span class="eq-band-value" style="color:var(--accent-cyan-light)">+3 dB (High Shelf)</span>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 3. COMPRESSÃO EM SÉRIE ═══ -->
+<section class="content-section section-block" id="compressao">
+<div class="section-header">
+<div class="section-icon icon-purple">🗜️</div>
+<div><h2 class="section-title">Serial Compression<small>O segredo da voz inabalável (A Técnica 1176 ➔ LA-2A)</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        A voz cantada tem uma faixa dinâmica (diferença do som mais baixo para o mais alto) monstruosa. Um sussurro tem 40dB, um grito pode chegar a 110dB. Nenhum compressor solitário no mundo lida com isso de forma transparente. A indústria padrão resolve isso usando <strong>Compressão em Série</strong>: dois ou mais compressores, cada um fazendo uma pequena parte do trabalho.
+      </p>
+<div class="serial-viz">
+<div class="sv-title">Pressione para Simular a Cadeia de Gravação</div>
+<div class="sv-flow">
+<!-- Raw Vocal -->
+<div class="sv-block" id="sv-raw">
+<div class="sv-b-title">1. Vocal Cru (Picos Grandes)</div>
+<div class="sv-b-desc">Voz oscilando loucamente entre sussurros e gritos.</div>
+<div class="sv-meter"><div class="sv-gr" id="gr-raw" style="background:#10b981"></div></div>
+</div>
+<!-- 1176 -->
+<div class="sv-block" id="sv-1176">
+<div class="sv-b-title" style="color:var(--accent-cyan-light)">2. Compressor Rápido (Ex: 1176)</div>
+<div class="sv-b-desc">Ratio alto (4:1 ou 8:1), Ataque e Release ultra-rápidos. Ele atua APENAS cortando os picos selvagens (gritos bruscos).</div>
+<div class="sv-meter"><div class="sv-gr" id="gr-1176"></div></div>
+</div>
+<!-- LA-2A -->
+<div class="sv-block" id="sv-la2a">
+<div class="sv-b-title" style="color:var(--accent-pink-light)">3. Compressor Lento (Ex: LA-2A)</div>
+<div class="sv-b-desc">Ratio baixo (Optical), Ataque/Release lentos. Agora que os picos não existem, ele abraça a voz e esmaga suavemente, mantendo-a na cara.</div>
+<div class="sv-meter"><div class="sv-gr" id="gr-la2a"></div></div>
+</div>
+</div>
+<div class="sv-controls">
+<button class="pv-btn" onmousedown="simularComp(true)" onmouseleave="simularComp(false)" onmouseup="simularComp(false)">Tocar Trecho Dinâmico (Grito)</button>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 4. DE-ESSER ═══ -->
+<section class="content-section section-block" id="de-esser">
+<div class="section-header">
+<div class="section-icon icon-teal">🐍</div>
+<div><h2 class="section-title">Controle de Sibilância (De-Esser)<small>Removendo as lâminas das sílabas "S" e "T"</small></h2></div>
+</div>
+<p style="color:var(--text-secondary);font-size:.9rem;line-height:1.8;margin-bottom:28px;">
+        Quando aplicamos compressão severa e boost de agudos (Air Shelf) para clarear a voz, os fonemas sibilantes ("SSS", "CH", "T") se tornam ensurdecedores e rasgam os ouvidos no fone. O De-Esser é obrigatório.
+      </p>
+<div class="callout tip">
+<div class="callout-icon">🎯</div>
+<div class="callout-content">
+<div class="callout-title">Onde posicionar o De-Esser?</div>
+<div class="callout-body">
+            Geralmente, o De-Esser deve vir <strong>antes do Delay e do Reverb</strong> na cadeia. Se a sibilância bater no reverb, ela se multiplicará e fará uma "nuvem de chuva de SSS". Encontre a frequência da sibilância vocal masculina (geralmente entre <strong>4kHz e 7kHz</strong>) e configure o Threshold apenas para atenuar o momento exato em que a consoante é cantada.
+          </div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 5. EFEITOS E ESPAÇO ═══ -->
+<section class="content-section section-block" id="espaco">
+<div class="section-header">
+<div class="section-icon icon-cyan">🌌</div>
+<div><h2 class="section-title">Espacialização Vocal<small>O poder do Slapback Delay vs Reverb</small></h2></div>
+</div>
+<div class="compare-grid">
+<div class="compare-card">
+<div class="compare-header">
+<div class="compare-icon" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3)">☁️</div>
+<div>
+<div style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--text-primary)">Reverb (Plate ou Hall)</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Afastamento 3D tradicional</div>
+</div>
+</div>
+<div class="compare-body">
+<div class="compare-row"><span class="compare-label">Efeito Psicoacústico</span><span class="compare-value" style="color:var(--accent-blue-light)">Afasta o cantor para o fundo da sala</span></div>
+<div class="compare-row"><span class="compare-label">Pró/Contra</span><span class="compare-value">Soa natural / Pode borrar as consoantes</span></div>
+<div class="compare-row"><span class="compare-label">Regra de Ouro</span><span class="compare-value" style="color:#fca5a5">MUITO cuidado em músicas Pop/Rock rápidas</span></div>
+</div>
+</div>
+<div class="compare-card">
+<div class="compare-header">
+<div class="compare-icon" style="background:rgba(20,184,166,0.15);border:1px solid rgba(20,184,166,0.3)">🗣️</div>
+<div>
+<div style="font-family:'Outfit',sans-serif;font-weight:700;color:var(--text-primary)">Slapback Delay (Estéreo)</div>
+<div style="font-size:.75rem;color:var(--text-muted)">Modern In-Your-Face Vocal</div>
+</div>
+</div>
+<div class="compare-body">
+<div class="compare-row"><span class="compare-label">Efeito Psicoacústico</span><span class="compare-value" style="color:var(--accent-teal)">Alarga a voz SEM afastar o cantor de você</span></div>
+<div class="compare-row"><span class="compare-label">Configuração</span><span class="compare-value">Delay Esquerdo(80ms) / Direito(100ms)</span></div>
+<div class="compare-row"><span class="compare-label">Regra de Ouro</span><span class="compare-value" style="color:var(--accent-cyan-light)">Corte os agudos do delay para não embolar sibilância</span></div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ 6. PROBLEMAS E SOLUÇÕES ═══ -->
+<section class="content-section section-block" id="problemas">
+<div class="section-header">
+<div class="section-icon icon-red">🔧</div>
+<div><h2 class="section-title">Problemas &amp; Soluções<small>Troubleshooting vocal de emergência</small></h2></div>
+</div>
+<div class="ps-grid">
+<div class="ps-panel problem">
+<div class="ps-header problem-header">❌ O que evitar</div>
+<ul class="ps-list">
+<li><strong>Ataque muito rápido (1176 mal configurado):</strong> Se o attack do compressor estiver no zero, você esmagará todas as consoantes, deixando o cantor soando com "língua presa" e matando o groove vocal.</li>
+<li><strong>Reverb nas Frequências Graves:</strong> Mandar o Sub/Grave da voz (abaixo de 200Hz) para o Reverb criará uma nuvem de lama no fundo da música.</li>
+</ul>
+</div>
+<div class="ps-panel solution">
+<div class="ps-header solution-header">✅ Soluções Diretas</div>
+<ul class="ps-list">
+<li><strong>EQ no Send do Reverb:</strong> Sempre coloque um EQ no canal Auxiliar/Send antes do plugin de Reverb. Corte severo HPF em 300Hz e LPF em 6kHz. O Reverb só será acionado pelos médios da voz (Técnica Abbey Road).</li>
+<li><strong>Automação Fader Riding:</strong> Antes mesmo de compilar, desenhe automações de volume para abaixar os gritos e subir os sussurros do cantor. O compressor não faz milagre e agradece o sinal mais estável na entrada.</li>
+</ul>
+</div>
+</div>
+</section>
+<div class="divider"></div>
+<!-- ═══ CHECKLIST ═══ -->
+<section class="content-section section-block" id="checklist">
+<div class="section-header">
+<div class="section-icon icon-cyan">✅</div>
+<div><h2 class="section-title">Checklist de Mixagem<small>Validação final do Canal Vocal</small></h2></div>
+</div>
+<div class="checklist">
+<div class="checklist-header"><span>📋</span> Auditoria Final - Vocal Masculino</div>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Rumor removido (HPF)</span>
+<span class="check-desc">Filtro Passa-altas estrito aplicado em ~90Hz eliminando ruídos da sala de gravação e vento do microfone.</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Ressonância "Boxy" Controlada</span>
+<span class="check-desc">Efeito de proximidade e ressonância de peito em 150-250Hz controlados (preferencialmente com EQ Dinâmico).</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">Compressão em Série Funcional</span>
+<span class="check-desc">Primeiro compressor rápido atenuando apenas os picos (-4 a -6dB). Segundo compressor óptico/lento atenuando de forma macia o nível geral (-2 a -3dB).</span>
+</div>
+</label>
+<label class="checklist-item">
+<input type="checkbox"/>
+<div>
+<span class="check-title">De-Esser Calibrado</span>
+<span class="check-desc">Sibilâncias (S, T, CH) entre 4kHz-7kHz estão atenuadas antes de qualquer saturação adicional ou efeitos de ambiência (delay/reverb).</span>
+</div>
+</label>
+</div>
+</section>
+<div class="next-module">
+<div>
+<div class="next-label">Próximo Passo</div>
+<div class="next-title">Módulo 10: Vocais Femininos</div>
+<div class="next-desc">Ajustes cruciais para a anatomia do vocal feminino. Lidar com frequências fundamentais mais altas, harshness e a sensibilidade do "Air" e "Breath".</div>
+</div>
+<div class="nav-buttons">
+<a class="btn-prev" href="modulo-08-teclados.html">⬅ Anterior</a>
+<a class="btn-next" href="modulo-10-vocais-femininos.html">Ir para Módulo 10 ➡</a>
+</div>
+</div>
+</main>
+</div>
+<script>
+  // Serial Compression Visualizer
+  function simularComp(isActive) {
+    const rawMeter = document.getElementById('gr-raw');
+    const c1176 = document.getElementById('gr-1176');
+    const cLa2a = document.getElementById('gr-la2a');
+    
+    if(isActive) {
+      // Grito: Pico máximo
+      rawMeter.style.width = '100%';
+      rawMeter.style.background = '#ef4444'; // vermelho de clip
+      
+      // 1176 age muito agressivamente cortando 40%
+      c1176.style.width = '50%';
+      c1176.style.background = '#0ea5e9';
+      
+      // LA2A age macio
+      cLa2a.style.width = '15%';
+      cLa2a.style.background = '#ec4899';
+    } else {
+      // Sussurro normal
+      rawMeter.style.width = '30%';
+      rawMeter.style.background = '#10b981'; // verde
+      
+      // 1176 não reage em sussurros normais
+      c1176.style.width = '0%';
+      
+      // LA2A continua macio equalizando
+      cLa2a.style.width = '5%';
+      cLa2a.style.background = '#ec4899';
+    }
+  }
+
+  // Define Initial State for comp
+  document.addEventListener('DOMContentLoaded', () => {
+    simularComp(false);
+  });
+
+  // Intersection Observer for Scroll Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.section-block').forEach(s => observer.observe(s));
+
+  // Sidebar Menu Mobile Toggle
+  const menuBtn = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function toggleMenu() {
+    const isOpen = sidebar.classList.contains('open');
+    if(isOpen) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+    }
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', () => {
+      if(window.innerWidth <= 900) toggleMenu();
+    });
+  });
+
+  // Active Link Tracking on Scroll
+  const sections = document.querySelectorAll('.content-section');
+  const navLinks = document.querySelectorAll('.sidebar-item');
+  const topNavLinks = document.querySelectorAll('.nav-pill');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollY = window.pageYOffset;
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= (sectionTop - 150)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+    topNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href').includes(current) && current !== '') {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+</body>
+</html>
